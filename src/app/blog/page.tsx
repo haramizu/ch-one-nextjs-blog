@@ -1,10 +1,11 @@
-import { getTopStory } from "@/utils/getBlog";
+import { getAllBlog } from "@/utils/getBlog";
 
-export default async function Home() {
-  const posts = await getTopStory();
+export default async function Blog() {
+  const posts = await getAllBlog();
+
   return (
     <main>
-      <h1>Content Hub ONE Top Story</h1>
+      <h1>Content Hub ONE - Blog Title list</h1>
       <ul>
         {posts.map((post) => (
           <>
