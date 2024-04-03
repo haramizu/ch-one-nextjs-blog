@@ -1,4 +1,5 @@
 import { getAllBlog } from "@/utils/getBlog";
+import Link from "next/link";
 
 export default async function Blog() {
   const posts = await getAllBlog();
@@ -7,9 +8,11 @@ export default async function Blog() {
     <main>
       <h1>Content Hub ONE - Blog Title list</h1>
       <ul>
-        {posts.map((post) => (
+        {posts.map((post, index) => (
           <>
-            <li key={post.id}>{post.title}</li>
+            <li key={index}>
+              <Link href={"/blog/" + post.id}>{post.title}</Link>
+            </li>
           </>
         ))}
       </ul>

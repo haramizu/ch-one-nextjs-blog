@@ -1,4 +1,5 @@
 import { getAllCategory } from "@/utils/getCategory";
+import Link from "next/link";
 
 export default async function Tags() {
   const tags = await getAllCategory();
@@ -7,9 +8,11 @@ export default async function Tags() {
     <main>
       <h1>Content Hub ONE - Tag list</h1>
       <ul>
-        {tags.map((tag) => (
+        {tags.map((tag, index) => (
           <>
-            <li key={tag.id}>{tag.categoryName}</li>
+            <li key={index}>
+              <Link href={"/tags/" + tag.id}>{tag.categoryName}</Link>
+            </li>
           </>
         ))}
       </ul>

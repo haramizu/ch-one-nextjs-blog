@@ -2,6 +2,8 @@ import {
   AllCategoryQuery,
   AllCategoryResponse,
   Category,
+  CategoryFromIDQuery,
+  CategoryResponse,
 } from "@/interfaces/Category";
 import { fetchGraphQL } from "@/utils";
 
@@ -24,4 +26,12 @@ export async function getAllCategory() {
   });
 
   return results;
+}
+
+export async function getCategoryFromID(id: string) {
+  const tag: CategoryResponse = (await fetchGraphQL(
+    CategoryFromIDQuery(id)
+  )) as CategoryResponse;
+
+  return tag.data.category;
 }

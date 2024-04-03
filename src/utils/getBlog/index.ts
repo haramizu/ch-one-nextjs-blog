@@ -3,6 +3,8 @@ import {
   AllBlogResponse,
   AllTopStoryQuery,
   Blog,
+  BlogFromIDQuery,
+  BlogResponse,
 } from "@/interfaces/Blog";
 import { fetchGraphQL } from "@/utils";
 
@@ -52,4 +54,12 @@ export async function getTopStory() {
   });
 
   return contents;
+}
+
+export async function getBlogFromID(id: string) {
+  const post: BlogResponse = (await fetchGraphQL(
+    BlogFromIDQuery(id)
+  )) as BlogResponse;
+
+  return post.data.blog;
 }
