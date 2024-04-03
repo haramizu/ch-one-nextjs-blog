@@ -1,21 +1,18 @@
+import TagCard from "@/components/TagCard";
 import { getAllCategory } from "@/utils/getCategory";
-import Link from "next/link";
+import { Fragment } from "react";
 
 export default async function Tags() {
   const tags = await getAllCategory();
 
   return (
     <main>
-      <h1>Content Hub ONE - Tag list</h1>
-      <ul>
+      <h1 className="text-3xl bold p-6">Blog Tags</h1>
+      <div className="flex flex-wrap">
         {tags.map((tag, index) => (
-          <>
-            <li key={index}>
-              <Link href={"/tags/" + tag.id}>{tag.categoryName}</Link>
-            </li>
-          </>
+          <div key={index}>{TagCard(tag)}</div>
         ))}
-      </ul>
+      </div>
     </main>
   );
 }
