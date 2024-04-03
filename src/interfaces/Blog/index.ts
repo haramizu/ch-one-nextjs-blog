@@ -103,3 +103,23 @@ export const AllTopStoryQuery =
     }
 }
 `;
+
+export const AllBlogFromTagQuery = (categoryid: string) => {
+  return (
+    `
+    query AllBlog {
+      allBlog(
+          orderBy: PUBLISHDATE_DESC
+          where: { tag: { category_ids: "${categoryid}" } }
+      ) {
+          total
+          results {
+              ` +
+    BlogQuery +
+    `
+          }
+      }
+  }
+    `
+  );
+};

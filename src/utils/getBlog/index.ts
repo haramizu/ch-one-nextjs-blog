@@ -1,4 +1,5 @@
 import {
+  AllBlogFromTagQuery,
   AllBlogQuery,
   AllBlogResponse,
   AllTopStoryQuery,
@@ -62,4 +63,28 @@ export async function getBlogFromID(id: string) {
   )) as BlogResponse;
 
   return post.data.blog;
+}
+
+export async function getAllBlogFromTag(id: string) {
+  const results: AllBlogResponse = (await fetchGraphQL(
+    AllBlogFromTagQuery(id)
+  )) as AllBlogResponse;
+
+  const contents: Partial<Blog>[] = [];
+
+  results.data.allBlog.results.forEach((post: Partial<Blog>) => {
+    contents.push({
+      id: post.id,
+      name: post.name,
+      title: post.title,
+      description: post.description,
+      publishDate: post.publishDate,
+      slug: post.slug,
+      hero: post.hero,
+      tag: post.tag,
+      content: post.content,
+    });
+  });
+
+  return contents;
 }
