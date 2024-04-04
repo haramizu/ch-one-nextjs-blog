@@ -1,3 +1,4 @@
+import RichText from "@/components/RichText";
 import { getBlogFromSlug } from "@/utils/getBlog";
 import moment from "moment";
 import Link from "next/link";
@@ -26,7 +27,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <article>
         <div className="mx-10 mb-2">
           <p className="mb-2">{post.description}</p>
-          <p className="mb-2">Rich Text Area</p>
+          <RichText key={post.id} richText={post.content} />
         </div>
       </article>
     </main>

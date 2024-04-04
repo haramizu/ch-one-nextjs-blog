@@ -1,5 +1,6 @@
 import { Category, CategoryQuery } from "@/interfaces/Category";
 import { Media, MediaQuery } from "@/interfaces/Media";
+import { RichTextResponse } from "@/interfaces/RichText";
 
 export interface Blog {
   id: string;
@@ -16,7 +17,7 @@ export interface Blog {
     total: number;
     results: Category[];
   };
-  content: any;
+  content: RichTextResponse;
 }
 
 export interface BlogResponse {
