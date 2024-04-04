@@ -45,7 +45,7 @@ hero {
 export const AllCategoryQuery =
   `
   query AllCategory {
-    allCategory {
+    allCategory(orderBy: CATEGORYNAME_ASC) {
       total
       results {` +
   CategoryQuery +
@@ -65,6 +65,23 @@ export const CategoryFromIDQuery = (categoryId: string) => {
     `
     }
   }
+  `
+  );
+};
+
+export const CategoryFromSlugQuery = (slug: string) => {
+  return (
+    `
+    query AllCategory {
+      allCategory(where: { slug_eq: "${slug}" }) {
+          total
+          results {
+        ` +
+    CategoryQuery +
+    `
+          }
+      }
+    }
   `
   );
 };

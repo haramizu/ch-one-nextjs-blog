@@ -1,9 +1,11 @@
 import {
+  AllBlogFromTagQuery,
   AllBlogQuery,
   AllBlogResponse,
   AllTopStoryQuery,
   Blog,
   BlogFromIDQuery,
+  BlogFromSlugQuery,
   BlogResponse,
 } from "@/interfaces/Blog";
 import { fetchGraphQL } from "@/utils";
@@ -62,4 +64,36 @@ export async function getBlogFromID(id: string) {
   )) as BlogResponse;
 
   return post.data.blog;
+}
+
+export async function getAllBlogFromTag(id: string) {
+  const results: AllBlogResponse = (await fetchGraphQL(
+    AllBlogFromTagQuery(id)
+  )) as AllBlogResponse;
+
+  const contents: Partial<Blog>[] = [];
+
+  results.data.allBlog.results.forEach((post: Partial<Blog>) => {
+    contents.push({
+      id: post.id,
+      name: post.name,
+      title: post.title,
+      description: post.description,
+      publishDate: post.publishDate,
+      slug: post.slug,
+      hero: post.hero,
+      tag: post.tag,
+      content: post.content,
+    });
+  });
+
+  return contents;
+}
+
+export async function getBlogFromSlug(slug: string) {
+  const post: AllBlogResponse = (await fetchGraphQL(
+    BlogFromSlugQuery(slug)
+  )) as AllBlogResponse;
+
+  return post.data.allBlog.results[0];
 }

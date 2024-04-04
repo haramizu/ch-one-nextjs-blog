@@ -65,8 +65,8 @@ const BlogQuery =
 export const AllBlogQuery =
   `
   query AllBlog {
-    allBlog {
-        total
+    allBlog(orderBy: PUBLISHDATE_DESC) {
+      total
         results {
             ` +
   BlogQuery +
@@ -103,3 +103,38 @@ export const AllTopStoryQuery =
     }
 }
 `;
+
+export const AllBlogFromTagQuery = (categoryid: string) => {
+  return (
+    `
+    query AllBlog {
+      allBlog(
+          orderBy: PUBLISHDATE_DESC
+          where: { tag: { category_ids: "${categoryid}" } }
+      ) {
+          total
+          results {
+              ` +
+    BlogQuery +
+    `
+          }
+      }
+  }
+    `
+  );
+};
+
+export const BlogFromSlugQuery = (slug: string) => {
+  return (
+    `
+  query AllBlog {
+    allBlog( where: { slug_eq: "${slug}" }) {
+      total
+        results {` +
+    BlogQuery +
+    `}
+    }
+  } 
+  `
+  );
+};
