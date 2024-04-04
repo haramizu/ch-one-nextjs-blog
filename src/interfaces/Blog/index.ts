@@ -65,8 +65,8 @@ const BlogQuery =
 export const AllBlogQuery =
   `
   query AllBlog {
-    allBlog {
-        total
+    allBlog(orderBy: PUBLISHDATE_DESC) {
+      total
         results {
             ` +
   BlogQuery +
