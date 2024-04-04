@@ -123,3 +123,18 @@ export const AllBlogFromTagQuery = (categoryid: string) => {
     `
   );
 };
+
+export const BlogFromSlugQuery = (slug: string) => {
+  return (
+    `
+  query AllBlog {
+    allBlog( where: { slug_eq: "${slug}" }) {
+      total
+        results {` +
+    BlogQuery +
+    `}
+    }
+  } 
+  `
+  );
+};

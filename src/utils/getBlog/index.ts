@@ -5,6 +5,7 @@ import {
   AllTopStoryQuery,
   Blog,
   BlogFromIDQuery,
+  BlogFromSlugQuery,
   BlogResponse,
 } from "@/interfaces/Blog";
 import { fetchGraphQL } from "@/utils";
@@ -87,4 +88,12 @@ export async function getAllBlogFromTag(id: string) {
   });
 
   return contents;
+}
+
+export async function getBlogFromSlug(slug: string) {
+  const post: AllBlogResponse = (await fetchGraphQL(
+    BlogFromSlugQuery(slug)
+  )) as AllBlogResponse;
+
+  return post.data.allBlog.results[0];
 }

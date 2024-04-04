@@ -1,4 +1,6 @@
 import { Blog } from "@/interfaces/Blog";
+import { getBlogUrl } from "@/utils/getBlog/url";
+import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,7 +12,7 @@ export default function TagCard(post: Partial<Blog>) {
         className="flex flex-col items-start justify-between "
       >
         <div className="relative w-full ">
-          <Link href={"/blog/" + post.id}>
+          <Link href={getBlogUrl(post)}>
             <Image
               className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
               src={
@@ -29,18 +31,21 @@ export default function TagCard(post: Partial<Blog>) {
               dateTime={post.publishDate}
               className="text-gray-500 dark:text-gray-400"
             >
-              {post.publishDate}
+              {showDate(post.publishDate)}
             </time>
-            <Link
-              href="/tags/"
-              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-            >
-              Tags
-            </Link>
+            {post.tag?.results.map((tag, index) => (
+              <Link
+                href={"/tags/" + tag.slug}
+                className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+                key={index}
+              >
+                {tag.categoryName}
+              </Link>
+            ))}
           </div>
           <div className="group relative">
             <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-gray-300 group-hover:text-gray-600">
-              <Link href={"/blog/" + post.id}>
+              <Link href={getBlogUrl(post)}>
                 <span className="absolute inset-0" />
                 {post.title}
               </Link>
@@ -52,5 +57,18 @@ export default function TagCard(post: Partial<Blog>) {
         </div>
       </article>
     </>
+  );
+}
+
+function showDate(publishedDate: string | undefined) {
+  const yearmonthdate = publishedDate?.slice(0, 10);
+  const showDate = moment(yearmonthdate);
+
+  return (
+    showDate.format("YYYY") +
+    "/" +
+    showDate.format("MM") +
+    "/" +
+    showDate.format("DD")
   );
 }
