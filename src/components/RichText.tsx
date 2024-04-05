@@ -258,7 +258,7 @@ function showTable(element: Content, index: number) {
 
   return (
     <div key={index}>
-      <table className="my-4 table-auto border border-gray-300">
+      <table className="my-4 table-auto border border-gray-300 ">
         <tbody>{tableElements}</tbody>
       </table>
     </div>
@@ -272,7 +272,10 @@ function showTableRaw(element: Content) {
     element.content.forEach((content, key) => {
       if (content.type === "tableHeader") {
         tableRawElements.push(
-          <th key={key} className="bg-gray-200 border border-gray-300 p-2">
+          <th
+            key={key}
+            className="bg-gray-200 border border-gray-300 p-2 dark:bg-gray-700"
+          >
             {showTableCell(content)}
           </th>
         );

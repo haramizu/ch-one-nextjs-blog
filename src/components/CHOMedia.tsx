@@ -11,7 +11,7 @@ export default async function CHOMedia(porps: CHOMediaProps) {
 
   return (
     <div className="flex justify-center my-4" key={porps.index}>
-      <div className="w-4/5 shadow-xl border">
+      <div className="w-4/5 shadow-2xl border border-black">
         <Image
           src={
             media.data.media.fileUrl ||
