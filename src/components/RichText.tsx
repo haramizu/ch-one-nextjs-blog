@@ -3,6 +3,7 @@ import { Content, Marks, RichTextResponse } from "@/interfaces/RichText";
 import Link from "next/link";
 import { Fragment } from "react";
 import CodeBlock from "@/components/CodeBlock";
+import Image from "next/image";
 
 type RichTextProps = {
   richText: RichTextResponse | undefined;
@@ -111,6 +112,14 @@ function sectionFunction(element: Content[]) {
 
 function showParagraph(element: Content, index: number) {
   const paragraphText = textFunction(element.content);
+  if (element.content !== undefined) {
+    const contentText = element.content[0].text;
+    if (contentText.startsWith("https://www.youtube.com/")) {
+      return youtubeFunction(contentText, index);
+    } else if (contentText.startsWith("CHOMEDIA=")) {
+      return mediaFunction(contentText, index);
+    }
+  }
 
   return (
     <Fragment key={index}>
@@ -349,4 +358,34 @@ function itemListFunction(element: Content[]) {
 
 function showHorizontalRule() {
   return <hr />;
+}
+
+function youtubeFunction(youtubeLink: string, index: number) {
+  const videoId = youtubeLink.replace("https://www.youtube.com/watch?v=", "");
+
+  return (
+    <div>
+      <iframe
+        width="560"
+        height="315"
+        src={"https://www.youtube.com/embed/" + videoId}
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      ></iframe>
+    </div>
+  );
+}
+
+function mediaFunction(mediaInfo: string, index: number) {
+  const mediaId = mediaInfo.replace("CHOMEDIA=", "");
+  const mediaUrl = "/api/media/" + mediaId;
+
+  return (
+    <div className="flex justify-center my-4" key={index}>
+      <div className="w-4/5 shadow-xl border">
+        <Image src={mediaUrl} alt="Image" width="1024" height="800" />
+      </div>{" "}
+    </div>
+  );
 }
