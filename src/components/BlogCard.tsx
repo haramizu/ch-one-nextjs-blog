@@ -14,7 +14,7 @@ export default function TagCard(post: Partial<Blog>) {
         <div className="relative w-full ">
           <Link href={getBlogUrl(post)}>
             <Image
-              className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+              className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] border"
               src={
                 post.hero?.results[0]?.fileUrl ||
                 "/content-hub-one-horizontal-color-white-txt.svg"
