@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Fotter";
 import { ThemeProvider } from "next-themes";
+
+import "highlight.js/styles/github-dark.min.css"; // highlight github dark
+
 import "./globals.css";
 
 export const metadata: Metadata = {
