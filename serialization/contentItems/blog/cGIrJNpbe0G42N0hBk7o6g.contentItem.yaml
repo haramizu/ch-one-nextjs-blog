@@ -1,0 +1,210 @@
+﻿id: cGIrJNpbe0G42N0hBk7o6g
+name: ブログ コンテンツを作成する
+fields:
+  title:
+    value: ブログ コンテンツを作成する
+    type: ShortText
+  description:
+    value: 前回はカテゴリのコンテンツを作成しましたが、今回はすでに用意している Blog のコンテンツタイプを利用して、ブログのコンテンツを作成していきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-01T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: create-blog-content
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "コンテンツを作成する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "すでにカテゴリのコンテンツを用意している状況ですので、同様にブログのコンテンツを作成していきます。右上にある Add content のボタンをクリックして、必要なデータを入力していきます。Blog のコンテンツタイプを選択、データを入れた画面は以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=TFVvU8DiGU6urVP2MJC_0Q"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "なお、別のコンテンツタイプを利用したコンテンツから Tag は選択できるようになっているのがわかります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=ephViVcNJkCpu5uyuWoB5A"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Save のボタンをクリックすると、コンテンツが保存されます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "保存をすると右側の Details の項目にさまざまな情報が追加されます。例えば、ID の項目があり、ここにはランダムな文字列を割り当てます。実際に Content Hub ONE のコンテンツ ID として利用できるユニークなキーとなります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "１つだと不便なので、２つほどコンテンツを準備してみました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=9X70sGl1y02bhVdgr7LK8Q"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は Content Hub ONE ですでに定義したコンテンツタイプを利用して、２つのコンテンツを作成しました。この２つのシンプルなコンテンツを利用して、コンテンツの状態やデータのアクセス方法などを紹介していきます。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "参考ページ"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://doc.sitecore.com/ch-one/en/users/content-hub-one/content-authoring.html",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          },
+                          {
+                            "type": "bold"
+                          },
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "text": "Content authoring"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: jaLkWmHEl0Gyass4EODcbw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: TFVvU8DiGU6urVP2MJC_0Q
+    type: Media

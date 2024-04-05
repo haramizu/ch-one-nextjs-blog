@@ -1,0 +1,236 @@
+﻿id: j2ZL_IhlPU2kOcZEKBdFyw
+name: ブログの記事として RichText 以外のデータを表示する
+fields:
+  title:
+    value: ブログの記事として RichText 以外のデータを表示する
+    type: ShortText
+  description:
+    value: ブログの各記事に関して、主なコンテンツ部分となるリッチテキストに関しては次回以降に手続きを決めていくために、リッチテキストのデータ以外を表示するように進めていきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-30T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: update-blog-page
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "コンテンツの表示"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は個別のブログの記事を表示するために、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/blog/[...slug]/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " に対して Rich Text 以外のデータを表示するために、以下の項目を実装していきます。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "ブログのタイトル"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "公開日"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "タグ一覧"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "概要"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "公開日に関しては BlogCard で作成をした関数をそのまま再利用して、以下のように仕上げました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getBlogFromSlug } from \"@/utils/getBlog\";\nimport moment from \"moment\";\nimport Link from \"next/link\";\n\nexport default async function Page({ params }: { params: { slug: string } }) {\n  const post = await getBlogFromSlug(params.slug[3]);\n\n  return (\n    <main>\n      <div className=\"mx-auto text-center mt-4\">\n        <h1 className=\"text-2xl font-bold tracking-tight sm:text-3xl\">\n          {post.title}\n        </h1>\n        <p className=\"mt-6 text-lg leading-8 font-bold\">\n          Published: {showDate(post.publishDate)}\n        </p>\n        <p className=\"my-4\">\n          Tags:\n          {post.tag?.results.map((tag, index) => (\n            <Link href={\"/tags/\" + tag.slug} key={index} className=\"ml-2\">\n              {tag.categoryName}\n            </Link>\n          ))}\n        </p>\n      </div>\n      <article>\n        <div className=\"mx-10 mb-2\">\n          <p className=\"mb-2\">{post.description}</p>\n          <p className=\"mb-2\">Rich Text Area</p>\n        </div>\n      </article>\n    </main>\n  );\n}\n\nfunction showDate(publishedDate: string | undefined) {\n  const yearmonthdate = publishedDate?.slice(0, 10);\n  const showDate = moment(yearmonthdate);\n\n  return (\n    showDate.format(\"YYYY\") +\n    \"/\" +\n    showDate.format(\"MM\") +\n    \"/\" +\n    showDate.format(\"DD\")\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "結果として、以下のようなページが完成します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=0xr1160I4UaIxwMJBfdtbA"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回はリッチテキスト以外の部分をシンプルなデザインで実装をしました。ここまでのコードは以下のブランチで公開をしています。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/haramizu/ch-one-nextjs-blog/tree/step-3",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "https://github.com/haramizu/ch-one-nextjs-blog/tree/step-3"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "次回から、Content に含まれているリッチテキストのデータを利用して、Web のページにコンテンツを表示するようにリッチテキストのコンポーネントを作成していきます。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: 0xr1160I4UaIxwMJBfdtbA
+    type: Media

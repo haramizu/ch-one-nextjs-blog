@@ -1,0 +1,75 @@
+﻿id: kuIlT2XYSk-dnJoCHQjOYA
+name: Next.js のプロジェクトに Storybook を追加する
+fields:
+  title:
+    value: Next.js のプロジェクトに Storybook を追加する
+    type: ShortText
+  description:
+    value: コンポーネントのテストを簡単にすることができる Storybook をプロジェクトに追加します。
+    type: LongText
+  publishDate:
+    value: 2024-03-01T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: install-storybook
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Storybook のインストール"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "インストールは以下の手順"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "bash"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "npx storybook init"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: KVQ7SwHONEu9CnRzF09XgQ
+    type: Media

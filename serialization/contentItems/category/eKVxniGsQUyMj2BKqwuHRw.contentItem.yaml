@@ -1,0 +1,23 @@
+﻿id: eKVxniGsQUyMj2BKqwuHRw
+name: Vercel
+fields:
+  categoryName:
+    value: Vercel
+    type: ShortText
+  slug:
+    value: vercel
+    type: ShortText
+  description:
+    value: Vercel is the Frontend Cloud. Build, scale, and secure a faster, personalized web.
+    type: ShortText
+  languages:
+    value:
+    - id: en
+    - id: ja
+    type: Select
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: acMo6KjUIE2B3wEZgbWHcA
+    type: Media

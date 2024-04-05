@@ -1,0 +1,400 @@
+﻿id: sx9-j7HbS0e53YxLN-xs1g
+name: GraphQL の IDE で API キーを利用してデータを取得する
+fields:
+  title:
+    value: GraphQL の IDE で API キーを利用してデータを取得する
+    type: ShortText
+  description:
+    value: コンテンツに関する情報を取得するために、今回は GraphQL の IDE 上で API キーを設定、クエリを送信してデータを取得していきます。今回は２つのキーを作成して、データの取得に関して確認をしていきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-04T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: graphql-api-keys
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "API キーの作成"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "キーを作成する際には、Settings の画面を開いて、左側のメニューの API Keys を選択してください。今回初めて API キーを作成するため、以下のように何もキーが表示されない状況となっています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=AVHHKAFYekqTQYMrQ5_0yw"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ボタンをクリックすると、以下のように Key の名前、およびタイプの確認が出てきます。まず最初に、Delivery の Type のキーを作成します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=E7ym_CvYXkWgqkkTeHM_rQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Save ボタンをクリックすると API キーが表示されます。なお、このキーに関しては、この画面で表示されている間は取得できますが、一覧から取ることはできません。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=f-bJP9oTDUySTKD7VV6aWA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Delivery のキーと同じ手続きで、もう一つの Preview のキーも取得して、２つのキーを取得した形としておきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=Tjxxaad4WkCGYHd8M4IPqQ"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "API キーを利用してデータを取得する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Content Hub ONE で管理しているコンテンツについて、データを取得するための GraphQL のエンドポイントは以下のページで紹介されています。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://doc.sitecore.com/ch-one/en/developers/content-hub-one/graphql--preview-and-delivery-apis.html",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          },
+                          {
+                            "type": "bold"
+                          },
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "text": "Preview and Delivery APIs"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回はキーを２つ作成しましたが、エンドポイントが Delivery と Preview で異なる形です。まず、Preview API IDE にアクセスします。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=27gEajB2iEeLB2x-4db56g"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "アクセスをしてすぐの画面にはエラーが表示されています。このエラーを回避するために、HTTP HEADERS を開いて、そこにキーを設定する必要があります。キーの記述方法は以下の Json に対して、すでに取得したキーを入れてください（下のサンプルは有効なキーではありません）。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"X-GQL-Token\":\"aEtSNzBsTaEtSNzBMA\"\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "キーを設定すると、以下のように右側の画面からエラーの表示が消えました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=QHaiQpJDY0-rf63-6E7cgA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際に左側の画面に、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://doc.sitecore.com/ch-one/en/developers/content-hub-one/graphql--graphql-query-examples.html",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  },
+                  {
+                    "type": "bold"
+                  },
+                  {
+                    "type": "underline"
+                  }
+                ],
+                "text": "GraphQL query examples"
+              },
+              {
+                "type": "text",
+                "text": " の Query を利用して以下のクエリを作成しました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n  allBlog {\n    total\n    results {\n      title\n      description\n    }\n  }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "結果として、以下のデータを取得することができました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=k2-zBH9REkm6NPhgStWuKA"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n  \"data\": {\n    \"allBlog\": {\n      \"total\": 18,\n      \"results\": [\n        {\n          \"title\": \"Content Hub ONE の管理画面\",\n          \"description\": \"前回は製品の名前、位置付けについて紹介をしました。今回は実際に管理画面に入ってどういう機能があるのかというのを紹介していきます。\"\n        },\n        {\n          \"title\": \"Next.js の Fetch を利用してコンテンツ一覧を取得する\",\n          \"description\": \"Next.js には fetch の機能を利用して、外部のデータを取得して処理をするための仕組みが含まれています。今回はこれを利用して、Blog のタイトルを取得したいと思います。\"\n        },\n        {"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "GraphQL の Preview API Edge を利用する際には、Published および Draft のステータスのコンテンツを取得することができています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "次は Delivery の GraphQL の IDE に切り替えて、HTTP HEADERS に正しい値を設定します。そして Preview に向けて投げた同じクエリを利用して、結果を取得すると以下の Json データが返ってきます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n  \"data\": {\n    \"allBlog\": {\n      \"total\": 9,\n      \"results\": [\n        {\n          \"title\": \"Content Hub ONE の管理画面\",\n          \"description\": \"前回は製品の名前、位置付けについて紹介をしました。今回は実際に管理画面に入ってどういう機能があるのかというのを紹介していきます。\"\n        },\n        {\n          \"title\": \"コンテンツのステータスについて\",\n          \"description\": \"コンテンツを作成したタイミングでは、ステータスは draft - 下書きという形で保存されています。実際に公開をしたり、非公開にする手順はどういうふうにできるでしょうか？今回はこの部分を紹介します。\\n\"\n        },"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=jGQSOQIa0ku6LMZ1ovpECA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "API キーとエンドポイントを切り替えることで、公開済みのコンテンツのみを取得することができました。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際に取得した Json のデータを見ると、下書き、公開済みという形でデータの取得が可能となっていることを確認することができました。次回はコンテンツタイプに対して、１つフィールドを追加して、取得するデータがどのように変わるのか、確認をします。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: jaLkWmHEl0Gyass4EODcbw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: jGQSOQIa0ku6LMZ1ovpECA
+    type: Media

@@ -1,0 +1,48 @@
+﻿id: mqqDVQKaiE-gvmE2tyrxQw
+name: og image を追加する
+fields:
+  title:
+    value: og image を追加する
+    type: ShortText
+  description:
+    value: og image を追加する
+    type: LongText
+  publishDate:
+    value: 2024-05-28T00:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: og-image
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "OG Image を追加する"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value: []
+    type: Media

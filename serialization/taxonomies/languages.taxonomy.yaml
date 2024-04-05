@@ -1,0 +1,11 @@
+﻿id: languages
+name:
+  en-US: Languages
+values:
+- id: en
+  name:
+    en-US: English
+- id: ja
+  name:
+    en-US: Japanese
+properties: 

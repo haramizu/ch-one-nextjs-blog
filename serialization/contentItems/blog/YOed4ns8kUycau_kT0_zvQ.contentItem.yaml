@@ -1,0 +1,535 @@
+﻿id: YOed4ns8kUycau_kT0_zvQ
+name: コンテンツの個別ページを作成する
+fields:
+  title:
+    value: コンテンツの個別ページを作成する
+    type: ShortText
+  description:
+    value: まずは Content Hub ONE からデータを取得して、Blog と Category の一覧を表示することができました。今回は、それぞれのページから各コンテンツを表示するために、Next.js の Dynamic Route を利用して表示していきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-16T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: nextjs-dynamic-route
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Dynamic Route の活用"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CMS から取得したデータを利用した個別のページを作成するには、Next.js の Dynamic Routes の仕組みを利用すると便利です。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "Dynamic Routes"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Blog および Category には全てユニークな ID が割り振られているため、この ID を利用してまずはパスを作成していきます。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログの記事を表示する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず、URL としては /blog/ContentID という形で URL を構成するために、blog のフォルダの下に "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "[slug]"
+              },
+              {
+                "type": "text",
+                "text": " というフォルダを作成します。続いて、その下に page.tsx を作成しますが、コードに関しては上記のサイトにあるサンプルのコードをそのまま採用します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export default function Page({ params }: { params: { slug: string } }) {\n  return <div>My Post: {params.slug}</div>\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでページとしては動作するようになります。ブログ一覧のページ "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/blog/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のコードを以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export default async function Blog() {\n  const posts = await getAllBlog();\n\n  return (\n    <main>\n      <h1>Content Hub ONE - Blog Title list</h1>\n      <ul>\n        {posts.map((post) => (\n          <>\n            <li key={post.id}>\n              <Link href={\"/blog/\" + post.id}>{post.title}</Link>\n            </li>\n          </>\n        ))}\n      </ul>\n    </main>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のコードを利用することで、表示された各トピックは /blog/contentID という URL にリンクされて、クリックをすると該当するページが表示されます。実際にアクセスをすると、以下のように URL で指定された slug が表示されるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=VbObFMPmt0K18X-yg8LlqA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この取得した slug の値を利用して、Blog の記事を取得したいと思います。すでに以下の Query を "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/interfaces/Blog/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルに対して準備していました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export const BlogFromIDQuery = (blogId: string) => {\n  return (\n    `\n    query Blog {\n      blog(id: \"${blogId}\") {\n          ` +\n    BlogQuery +\n    `\n      }\n    }\n    `\n  );\n};"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これを利用する関数を "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/utils/getBlog/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルに追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export async function getBlogFromID(id: string) {\n  const post: BlogResponse = (await fetchGraphQL(\n    BlogFromIDQuery(id)\n  )) as BlogResponse;\n\n  return post.data.blog;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この関数は、"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "id を受け取り"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Query に対して id を利用して実行して"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "結果として blog のデータを返す"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "という動作を実装しているシンプルな形です。この仕組みを利用して、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/blog/[slug]/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のコードを以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getBlogFromID } from \"@/utils/getBlog\";\n\nexport default async function Page({ params }: { params: { slug: string } }) {\n  const post = await getBlogFromID(params.slug);\n  return (\n    <>\n      <h1>Blog Title: {post.title}</h1>\n      <p>PublishDate: {post.publishDate}</p>\n    </>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでブログのタイトルと公開日を表示するようにしました。実行すると、以下のようにブログのタイトルと公開日を表示することができました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=iHqR5AgWzUiynBz8rjijlQ"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "タグの一覧を表示する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログの時と同様の手順で進めていくため、参考のコードだけをまず記載しておきます。まずは GraphQL の定義は "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/interfaces/Category/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルに以下のように作成しています。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export const CategoryFromIDQuery = (categoryId: string) => {\n  return (\n    `\n  query Category {\n    category(id: \"${categoryId}\") {\n        ` +\n    CategoryQuery +\n    `\n    }\n  }\n  `\n  );\n};"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このクエリを利用してデータを取得する関数は "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/utils/getCategory/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルに作成します。コードは以下のとおりです。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export async function getCategoryFromID(id: string) {\n  const tag: CategoryResponse = (await fetchGraphQL(\n    CategoryFromIDQuery(id)\n  )) as CategoryResponse;\n\n  return tag.data.category;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "最後にこの関数を利用して "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/tags/[tag]/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のファイルを以下のように作成します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getCategoryFromID } from \"@/utils/getCategory\";\n\nexport default async function Page({ params }: { params: { tag: string } }) {\n  const tag = await getCategoryFromID(params.tag);\n  return (\n    <>\n      <h1>Category Name: {tag.categoryName}</h1>\n      <p>Description: {tag.description}</p>\n    </>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで表示をする準備ができました。Tag 一覧を表示するページ src/app/tags/page.tsx のコードを以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getAllCategory } from \"@/utils/getCategory\";\nimport Link from \"next/link\";\n\nexport default async function Tags() {\n  const tags = await getAllCategory();\n\n  return (\n    <main>\n      <h1>Content Hub ONE - Tag list</h1>\n      <ul>\n        {tags.map((tag) => (\n          <>\n            <li key={tag.id}>\n              <Link href={\"/tags/\" + tag.id}>{tag.categoryName}</Link>\n            </li>\n          </>\n        ))}\n      </ul>\n    </main>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで完成しました。実行結果は以下のとおりで、カテゴリの名前と概要を表示しています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=QF7VPlWZMU-g0DvNfiyQyQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: QF7VPlWZMU-g0DvNfiyQyQ
+    type: Media

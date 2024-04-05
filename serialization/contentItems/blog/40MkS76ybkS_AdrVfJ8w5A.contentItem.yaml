@@ -1,0 +1,528 @@
+﻿id: 40MkS76ybkS_AdrVfJ8w5A
+name: Next.js の Fetch を利用してコンテンツ一覧を取得する
+fields:
+  title:
+    value: Next.js の Fetch を利用してコンテンツ一覧を取得する
+    type: ShortText
+  description:
+    value: これまで Content Hub ONE のコンテンツタイプの作成、コンテンツの作成、そして GraphQL を利用してデータの確認を進めてきました。今回以降は、Next.js にてデータを取得、開発という感じで進めていきます。まず初回は、Next.js で提供している fetch の機能を利用して、外部のデータを取得して処理をするための仕組みを利用して、Blog のタイトル、Category のタイトルを取得して表示します。
+    type: LongText
+  publishDate:
+    value: 2024-04-12T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: next-js-fetch
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "環境変数を準備する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず最初に Next.js が利用するさまざまな値に関して、.env.local のファイルに定義しておきます。今回は以下のコードを利用して、Delivery キーや Preview キーを設定してください。なお、NEXT_PUBLIC_ENVIRONMENT に関しては Preview を指定したら、Preview の Endpoint を利用するように実装していきます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "# set Preview or other name\nNEXT_PUBLIC_ENVIRONMENT=Preview \n\nNEXT_PUBLIC_CHONE_DELIVERY_ENDPOINT=https://edge.sitecorecloud.io/api/graphql/v1\nNEXT_PUBLIC_CHONE_DELIVERY_KEY=\n\nNEXT_PUBLIC_CHONE_PREVIEW_ENDPOINT=https://content-api.sitecorecloud.io/api/content/v1/preview/graphql\nNEXT_PUBLIC_CHONE_PREVIEW_KEY=\n\nNEXT_PUBLIC_CHONE_INSTANCE_NAME=https://content.sitecorecloud.io/content/\nNEXT_PUBLIC_CHONE_ORGANIZATION="
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "fetchGraphQL を作成する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "プロジェクトで汎用的に利用できる API として利用できるように GraphQL のクエリの値を取得したらデータを返す関数を作成します。実際に作成したコードは以下の URL をクリックすることで、GitHub 上で全コードを見ることができます。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/haramizu/ch-one-nextjs-blog/blob/step-1/src/utils/index.ts",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "src/utils/index.ts"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "動作としては以下のような記述をしています。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "fetchGraphQL には query を文字列として渡す"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "bulletList",
+                    "content": [
+                      {
+                        "type": "listItem",
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "apiKey および endpointUrl の値は .env.local のファイルから読み込んでいます"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "fetch 関数を利用して、上記で指定した endpointUrl に対して、apiKey を利用してクエリを Post します。"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "正しく json のデータを取得できたとき、json のデータを返しています。"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで GraphQL のクエリを利用して fetchGraphQL を利用して Json のデータを取得できるようになります。コードとしては、fetch を利用している際に以下のような呼び出しをしています。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "    return await fetch(endpointUrl, {\n      method: \"POST\",\n      headers: {\n        \"Content-Type\": \"application/json\",\n        \"X-GQL-Token\": apiKey,\n      },\n      body: JSON.stringify({ query }),\n      next: { revalidate: 60 },\n    })"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "GraphQL のエンドポイントに対して最後に "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "next: { revalidate: 60 }"
+              },
+              {
+                "type": "text",
+                "text": " の記述があります。クエリを実行する際に 60 秒ごとに更新されて、キャッシュをするように指定しています。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "全てのブログ記事を取得"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "すでに用意している Query を利用して、ブログ記事一覧を取得する呼び出しを src/utils/getBlog/index.ts として作成をします。今回は、AllBlogQuery のクエリを利用してブログの記事一覧を返す関数とします。以下のコードが参考になります。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { AllBlogQuery, AllBlogResponse, Blog } from \"@/interfaces/Blog\";\nimport { fetchGraphQL } from \"@/utils\";\n\nexport async function getAllBlog() {\n  const results: AllBlogResponse = (await fetchGraphQL(\n    AllBlogQuery\n  )) as AllBlogResponse;\n\n  const contents: Partial<Blog>[] = [];\n\n  results.data.allBlog.results.forEach((post: Partial<Blog>) => {\n    contents.push({\n      id: post.id,\n      name: post.name,\n      title: post.title,\n      description: post.description,\n      publishDate: post.publishDate,\n      slug: post.slug,\n      hero: post.hero,\n      tag: post.tag,\n      content: post.content,\n    });\n  });\n\n  return contents;\n}"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "ブログ記事一覧のページ作成"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "準備が整いました。今回はブログの記事一覧を表示するために、 src/app/blog/page.tsx というファイルを作成しました（ /blog の URL でアクセスできる）。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getAllBlog } from \"@/utils/getBlog\";\n\nexport default async function Blog() {\n  const posts = await getAllBlog();\n\n  return (\n    <main>\n      <h1>Content Hub ONE - Blog Title list</h1>\n      <ul>\n        {posts.map((post) => (\n          <>\n            <li key={post.id}>{post.title}</li>\n          </>\n        ))}\n      </ul>\n    </main>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コードを上から紹介していくと、"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "import で事前に作成した "
+                      },
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "code"
+                          }
+                        ],
+                        "text": "getAllBlog"
+                      },
+                      {
+                        "type": "text",
+                        "text": " の読み込み"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "getAllBlog は AllBlogQuery のクエリを利用して "
+                      },
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "code"
+                          }
+                        ],
+                        "text": "fetchGraphQL"
+                      },
+                      {
+                        "type": "text",
+                        "text": " を実行、 AllBlogResponse として取得"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "AllBlogResponse として返ってきた posts にあるタイトルのみを抜き出して並べる"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "というごく簡単なコードとなっています。結果は以下の通りです。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=Cwf_tcWRyEKewHFkKYw_iw"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "カテゴリ一覧のページ作成"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "同じ手順で、カテゴリを一覧で表示するページを作成します。まずカテゴリ一覧を取得する関数を以下のように作成をします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import {\n  AllCategoryQuery,\n  AllCategoryResponse,\n  Category,\n} from \"@/interfaces/Category\";\nimport { fetchGraphQL } from \"@/utils\";\n\nexport async function getAllCategory() {\n  const tags: AllCategoryResponse = (await fetchGraphQL(\n    AllCategoryQuery\n  )) as AllCategoryResponse;\n\n  const results: Partial<Category>[] = [];\n\n  tags.data.allCategory.results.forEach((post: Partial<Category>) => {\n    results.push({\n      id: post.id,\n      name: post.name,\n      categoryName: post.categoryName,\n      description: post.description,\n      slug: post.slug,\n      hero: post.hero,\n    });\n  });\n\n  return results;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログではカテゴリというよりは tags というイメージですので、src/app/tags/page.tsx というファイルを作成して、以下のように呼び出します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getAllCategory } from \"@/utils/getCategory\";\n\nexport default async function Tags() {\n  const tags = await getAllCategory();\n\n  return (\n    <main>\n      <h1>Content Hub ONE - Tag list</h1>\n      <ul>\n        {tags.map((tag) => (\n          <>\n            <li key={tag.id}>{tag.categoryName}</li>\n          </>\n        ))}\n      </ul>\n    </main>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のコードを実行すると、以下のようにタグ一覧を取得することができました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=9cW63_3-HkO5M1fz_qfUxg"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際に Next.js に対してブログのページ、タグのページを追加して、それぞれのコンテンツの一覧を表示することができました。まだデータを表示しているだけですが、最初の一歩という形になります。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: 9cW63_3-HkO5M1fz_qfUxg
+    type: Media

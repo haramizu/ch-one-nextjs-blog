@@ -1,0 +1,22 @@
+﻿id: 1vV3mQIXYkW9ygEJo6mAhA
+name: Tailwind CSS
+fields:
+  categoryName:
+    value: Tailwind CSS
+    type: ShortText
+  slug:
+    value: tailwindcss
+    type: ShortText
+  description:
+    value: Rapidly build modern websites without ever leaving your HTML
+    type: ShortText
+  languages:
+    value:
+    - id: ja
+    type: Select
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: he5sM6CTLUeWaxsjPiu92Q
+    type: Media

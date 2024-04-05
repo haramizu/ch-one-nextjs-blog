@@ -1,0 +1,309 @@
+﻿id: BC1H5Xew1kmZCFyahppKgA
+name: Content Hub ONE のデータを Postman で取得する
+fields:
+  title:
+    value: Content Hub ONE のデータを Postman で取得する
+    type: ShortText
+  description:
+    value: GraphQL の IDE を利用してデータの取得をしていましたが、Postman を利用してアクセスすることも可能です。今回は、Postman を利用してデータを取得していく手順を紹介します。
+    type: LongText
+  publishDate:
+    value: 2024-04-05T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: graphql-postman
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "Postman の設定"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず最初に、Environment の設定を作成していきます。URL に関しては以下のページで確認をしてください。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://doc.sitecore.com/ch-one/en/developers/content-hub-one/graphql--preview-and-delivery-apis.html",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          },
+                          {
+                            "type": "bold"
+                          },
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "text": "Preview and Delivery APIs"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は endpoint として Preview API Endpoint を、api_key に関しては Previwe API キーを設定します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=lO6KTgfaTEGrvW3xIgQs8A"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "同じように delivery に関しても作成しますが、endpoint および api_key の項目名は変更せず、値のみを変更してください。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=Ld3qecTYA0-Y12CvstLxJg"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "新しいリクエストを作成しますが、ここでは GraphQL の項目を選択します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=LiJZH3P8DkeCW7k0iPaPaA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "環境として Delivery を選択、Enter URL には "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "{{endpoint}}"
+              },
+              {
+                "type": "text",
+                "text": " を設定、Headers には X-GQL-Token に対して "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "{{api_key}}"
+              },
+              {
+                "type": "text",
+                "text": " を設定します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=Y3YmaQ8q5Um9wta2MS4yXA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで準備完了です。endpoint および api_key が正しく設定されていれば、以下のように GraphQL で利用できる情報をサーバーから取得します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=OQhk2aVmOUeoBIbD3EV5PA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際に Query で選択できる項目をチェックしていくと、右側に自動的にクエリ文が作成されていくのがわかります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=-l6sIMROnUW7T7dZEIZxLw"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Query を実行すると、以下のように結果が返ってきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=vT1Xg4zOyU6Xh_KJvtKAeQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実行をすると、GraphQL のスキーマをダウンロードをして、Postman で Query を簡単に作成できるようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "環境を Delivery から Preview に変更するだけで、Published 以外のコンテンツの Json データを取得することもできました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=Ief_NL88D0eqg5ZV1R55Dg"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は Postman を利用して Query を実行して、結果を取得することができました。また、Postman に Schema を連携させることで、クエリを簡単に作成することが可能となりました。これが使えるようになると効率よく作業を進めていけるので、Postman は利用していきましょう。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: true
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: B_1RVPmqs0W7mbP5TzgcCg
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: -l6sIMROnUW7T7dZEIZxLw
+    type: Media

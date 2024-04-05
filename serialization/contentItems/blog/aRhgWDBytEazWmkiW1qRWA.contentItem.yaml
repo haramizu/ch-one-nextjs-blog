@@ -1,0 +1,498 @@
+﻿id: aRhgWDBytEazWmkiW1qRWA
+name: リッチテキストのデータを表示する - その７ CodeBlock の処理
+fields:
+  title:
+    value: リッチテキストのデータを表示する - その７ CodeBlock の処理
+    type: ShortText
+  description:
+    value: サンプルのコードを入れることができる CodeBlock ですが、せっかくなので見た目も綺麗な表示を実装が可能な highlight.js を利用してつつ、またコードをコピーができるように実装していきます。この部分は少しコードが増えるため、別のコンポーネントとして実装していきます。
+    type: LongText
+  publishDate:
+    value: 2024-05-13T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: rich-text-field-part-7-codeblock
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Codeblock について"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コードブロックに関して、Content Hub ONE では以下のような形でサンプルのコードを記述することができます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=tVPEoKxNR06OnfZ2R8G_Hg"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "入力されたコードの部分は、Json では以下のような形でデータを取得することができます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"type\": \"codeBlock\",\n    \"attrs\": {\n        \"language\": \"ts\"\n    },\n    \"content\": [\n        {\n            \"type\": \"text\",\n            \"text\": \"import BlogCard from \\\"@/components/BlogCard\\\";\\nimport { getAllBlog } from \\\"@/utils/getBlog\\\";\\n\\nexport default async function Blog() {\\n  const posts = await getAllBlog();\\n\\n  return (\\n    <main>\\n      <h1 className=\\\"text-3xl bold p-6\\\">Blog List</h1>\\n      <div className=\\\"py-4\\\">\"\n        }\n    ]\n},"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のように、言語、そしてコードの部分が渡される形となりますので、これを利用して表示を変えていきます。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "取得したコードを表示する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記の Json のデータを処理するために、まずは "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/CodeBlock.tsx"
+              },
+              {
+                "type": "text",
+                "text": " というファイルを作成します。このファイルのコードに関しては、まずは以下の設定をします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { Content } from \"@/interfaces/RichText\";\n\nexport default function CodeBlock(element: Content, index: number) {\n  const language = element.attrs.language;\n  const code = element.content[0].text;\n\n  return (\n    <>\n      <p>{language}</p>\n      <pre>\n        <code>{code}</code>\n      </pre>\n    </>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "また src/components/RichText.tsx のファイルで準備していた関数は削除して、以下の１行を追加して上記のコンポーネントを呼び出しするようにします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import CodeBlock from \"@/components/CodeBlock\";"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まずシンプルにコードを表示することができるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=Vc8Cdk3kYkuHaOOlWUZkDQ"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "highlight.js を利用する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回はコードの表示に関して、highlight.js というパッケージを利用します。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://highlightjs.org",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "highlight.js"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このパッケージを利用する際には、以下のコマンドでインストールすることができます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "bash"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "npm install highlight.js"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで準備ができました。まず、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/CodeBlock.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のファイルを以下のように変更をします。まず、RichText コンポーネントから "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "<CodeBlock element={element} index={index} />"
+              },
+              {
+                "type": "text",
+                "text": " という形で呼び出しができるように、Props を定義します。合わせて、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "useEffect"
+              },
+              {
+                "type": "text",
+                "text": " を利用してコードの表示を書き換えることになるため、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "\"use client\";"
+              },
+              {
+                "type": "text",
+                "text": " を１行目に追加している点です。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "\"use client\";\n\nimport hljs from \"highlight.js\";\nimport { Content } from \"@/interfaces/RichText\";\nimport { useEffect } from \"react\";\n\ninterface CodeBlockProps {\n  element: Content;\n  index: number;\n}\n\nexport default function CodeBlock(props: CodeBlockProps) {\n  const language = props.element.attrs.language;\n  const code = props.element.content[0].text;\n\n  useEffect(() => {\n    hljs.highlightAll();\n  }, []);\n\n  return (\n    <>\n      <pre className=\"rounded-lg p-1 bg-gray-900 dark:bg-gray-700\">\n        <p className=\"text-white\">{language}</p>\n\n        <code className={language}>{code}</code>\n      </pre>\n    </>\n  );\n}\n"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/RichText.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のファイルでこのコンポーネントを呼び出している部分を以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "        case \"codeBlock\":\n          return <CodeBlock element={element} index={index} />;"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "最後に見た目の調整として、 Github のテーマを適用するために、レイアウトのファイル src/app/layout.tsx にて以下のテーマをインポートします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import \"highlight.js/styles/github-dark.min.css\"; // highlight github dark"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでひとまず設定ができました。実行すると以下のようにコードが綺麗に表示されるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=zXwXu5XwjE-i8MdaIibOwQ"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "言語一覧の作成"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "最後に、上記のサンプルで言語を取得した時には ts と記載されていますが、パラメーターではなく名前として TypeScript と表示をするために、言語名を取得するための json ファイルを用意しました。このブログを書いている現在の日付で、以下の言語を利用することが可能となっています。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export const CodeLanguages = {\n  plaintext: \"Plain Text\",\n  vbnet: \".NET\",\n  bash: \"Bash\",\n  c: \"C\",\n  coffeescript: \"CoffeeScript\",\n  cpp: \"C++\",\n  csharp: \"C#\",\n  css: \"CSS\",\n  go: \"Go\",\n  graphql: \"GraphQL\",\n  groovy: \"Groovy\",\n  html: \"HTML\",\n  java: \"Java\",\n  js: \"JavaScript\",\n  json: \"JSON\",\n  delphi: \"Pascal\",\n  perl: \"Perl\",\n  php: \"PHP\",\n  python: \"Python\",\n  r: \"R\",\n  ruby: \"Ruby\",\n  rust: \"Rust\",\n  scala: \"Scala\",\n  sql: \"SQL\",\n  ts: \"TypeScript\",\n  xml: \"XML\",\n  yaml: \"YAML\",\n};"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで、CodeBlock で表示する言語の名前の準備ができました。現在の段階での src/components/CodeBlock.tsx のファイルは以下のようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "\"use client\";\n\nimport hljs from \"highlight.js\";\nimport { Content } from \"@/interfaces/RichText\";\nimport { useEffect } from \"react\";\nimport { CodeLanguages } from \"@/constants/languages\";\n\ninterface CodeBlockProps {\n  element: Content;\n  index: number;\n}\n\nexport default function CodeBlock(props: CodeBlockProps) {\n  const language: keyof typeof CodeLanguages = props.element.attrs\n    .language as keyof typeof CodeLanguages;\n  const code = props.element.content[0].text;\n\n  useEffect(() => {\n    hljs.highlightAll();\n  }, []);\n\n  return (\n    <>\n      <pre className=\"rounded-lg p-1 bg-gray-900 dark:bg-gray-700 my-3\">\n        <p className=\"text-white\"> {CodeLanguages[language] || language}</p>\n\n        <code className={language}>{code}</code>\n      </pre>\n    </>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "表示は以下のようになって、何のサンプルか？というのもわかるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=U-EDSaDc8kam8DYcSWUCAg"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Content Hub ONE のリッチテキストフィールドに対して、記載したコードを見やすく設定するかたちでコンポーネントを作成しました。後日、この表示をしているコードからコードをコピーする部分に関して追加の実装をしたいと思いますが、今回は無事表示ができたので一旦コンポーネントは完成とします。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: U-EDSaDc8kam8DYcSWUCAg
+    type: Media

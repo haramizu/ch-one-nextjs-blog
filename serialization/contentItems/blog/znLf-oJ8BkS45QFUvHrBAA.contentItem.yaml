@@ -1,0 +1,180 @@
+﻿id: znLf-oJ8BkS45QFUvHrBAA
+name: リッチテキストのデータを表示する - その６ blockquote
+fields:
+  title:
+    value: リッチテキストのデータを表示する - その６ blockquote などの処理
+    type: ShortText
+  description:
+    value: 今回はまだ実装をしていない blockquote に関して、Rich Text フィールドで表示する部分を操作していきたいと思います。
+    type: LongText
+  publishDate:
+    value: 2024-05-10T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: rich-text-field-part-8-blockquote
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "blockquote の処理"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "重要なキーワード的に表示をする blockquote の部分ですが、サンプルとして以下のコードを準備してみました。"
+              }
+            ]
+          },
+          {
+            "type": "blockquote",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Sitecore Content Hub ONE is Headless CMS"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Sitecore XM Cloud is Hybrid Headless CMS"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記の部分の Json のデータは以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"type\": \"blockquote\",\n    \"content\": [\n        {\n            \"type\": \"paragraph\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"Sitecore Content Hub ONE is Headless CMS\"\n                }\n            ]\n        },\n        {\n            \"type\": \"paragraph\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"Sitecore XM Cloud is Hybrid Headless CMS\"\n                }\n            ]\n        }\n    ]\n},"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際には blockquote の中には paragraph や table などさまざまな要素を配置することができます。このため、今回は以下のように関数を書き換えました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function showBlockquote(element: Content, index: number) {\n  const blockquoteElements = element.content.map((element) => {\n    switch (element.type) {\n      case \"paragraph\":\n        return showParagraph(element, index);\n      case \"blockquote\":\n        return showBlockquote(element, index);\n      case \"table\":\n        return showTable(element, index);\n      case \"bulletList\":\n        return showBulletList(element, index);\n      case \"orderedList\":\n        return showOrderdList(element, index);\n      case \"codeBlock\":\n        return CodeBlock(element, index);\n      case \"codeBlock\":\n        return CodeBlock(element, index);\n      case \"horizontalRule\":\n        return showHorizontalRule();\n      default:\n        return;\n    }\n  });\n\n  return (\n    <figure className=\"my-5 border-l border-indigo-600 pl-9\">\n      <blockquote key={index}>{blockquoteElements}</blockquote>\n    </figure>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "blockquote"
+              },
+              {
+                "type": "text",
+                "text": " が少しだけ見た目が変わって表示されます。以下がサンプルとなります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=3n0dtz_yQk2IDuljS0spcg"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "blockquote に関しては、見た目をもう少しわかりやすく、背景の色を設定したりなどすることで、効果的な使い方ができるようになります。今回はシンプルな実装を紹介した形です。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: 2VdEPNgvQU6i21IOL34pqg
+    type: Media

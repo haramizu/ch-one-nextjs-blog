@@ -1,0 +1,409 @@
+﻿id: n2Ke8x3x102Ov6Jo9gbfvg
+name: リッチテキストのデータを表示する - その８ テーブルの処理
+fields:
+  title:
+    value: リッチテキストのデータを表示する - その８ テーブルの処理
+    type: ShortText
+  description:
+    value: リッチテキストコンポーネントに関して、テーブルを作成することで多くの要素をカバーすることができます。まずはテーブルの動きを確認して、その上で関連する処理を用意していきます。
+    type: LongText
+  publishDate:
+    value: 2024-05-14T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: rich-text-field-part-8-table
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "テーブルのデータを確認"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "シンプルなテーブルのデータに関して、以下のテーブルを用意してみます。"
+              }
+            ]
+          },
+          {
+            "type": "table",
+            "content": [
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableHeader",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Sample"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableHeader",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Sample"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableHeader",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Sample"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Test"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "marks": [
+                              {
+                                "type": "bold"
+                              }
+                            ],
+                            "text": "Test"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Test"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Test"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Test"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Test"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この上のテーブルは、以下のような Json データとなります。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"type\": \"table\",\n    \"content\": [\n        {\n            \"type\": \"tableRow\",\n            \"content\": [\n                {\n                    \"type\": \"tableHeader\",\n                    \"attrs\": {\n                        \"colspan\": 1,\n                        \"rowspan\": 1,\n                        \"colwidth\": null\n                    },\n                    \"content\": [\n                        {\n                            \"type\": \"paragraph\",\n                            \"content\": [\n                                {\n                                    \"type\": \"text\",\n                                    \"text\": \"Sample\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"tableHeader\",\n                    \"attrs\": {\n                        \"colspan\": 1,\n                        \"rowspan\": 1,\n                        \"colwidth\": null\n                    },\n                    \"content\": [\n                        {\n                            \"type\": \"paragraph\",\n                            \"content\": [\n                                {\n                                    \"type\": \"text\",\n                                    \"text\": \"Sample\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"tableHeader\",\n                    \"attrs\": {\n                        \"colspan\": 1,\n                        \"rowspan\": 1,\n                        \"colwidth\": null\n                    },\n                    \"content\": [\n                        {\n                            \"type\": \"paragraph\",\n                            \"content\": [\n                                {\n                                    \"type\": \"text\",\n                                    \"text\": \"Sample\"\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"type\": \"tableRow\",\n            \"content\": [\n                {\n                    \"type\": \"tableCell\",\n                    \"attrs\": {\n                        \"colspan\": 1,\n                        \"rowspan\": 1,\n                        \"colwidth\": null\n                    },\n                    \"content\": [\n                        {\n                            \"type\": \"paragraph\",\n                            \"content\": [\n                                {\n                                    \"type\": \"text\",\n                                    \"text\": \"Test\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"tableCell\",\n                    \"attrs\": {\n                        \"colspan\": 1,\n                        \"rowspan\": 1,\n                        \"colwidth\": null\n                    },\n                    \"content\": [\n                        {\n                            \"type\": \"paragraph\",\n                            \"content\": [\n                                {\n                                    \"type\": \"text\",\n                                    \"marks\": [\n                                        {\n                                            \"type\": \"bold\"\n                                        }\n                                    ],\n                                    \"text\": \"Test\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"tableCell\",\n                    \"attrs\": {\n                        \"colspan\": 1,\n                        \"rowspan\": 1,\n                        \"colwidth\": null\n                    },\n                    \"content\": [\n                        {\n                            \"type\": \"paragraph\",\n                            \"content\": [\n                                {\n                                    \"type\": \"text\",\n                                    \"text\": \"Test\"\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"type\": \"tableRow\",\n            \"content\": [\n                {\n                    \"type\": \"tableCell\",\n                    \"attrs\": {\n                        \"colspan\": 1,\n                        \"rowspan\": 1,\n                        \"colwidth\": null\n                    },\n                    \"content\": [\n                        {\n                            \"type\": \"paragraph\",\n                            \"content\": [\n                                {\n                                    \"type\": \"text\",\n                                    \"text\": \"Test\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"tableCell\",\n                    \"attrs\": {\n                        \"colspan\": 1,\n                        \"rowspan\": 1,\n                        \"colwidth\": null\n                    },\n                    \"content\": [\n                        {\n                            \"type\": \"paragraph\",\n                            \"content\": [\n                                {\n                                    \"type\": \"text\",\n                                    \"text\": \"Test\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"tableCell\",\n                    \"attrs\": {\n                        \"colspan\": 1,\n                        \"rowspan\": 1,\n                        \"colwidth\": null\n                    },\n                    \"content\": [\n                        {\n                            \"type\": \"paragraph\",\n                            \"content\": [\n                                {\n                                    \"type\": \"text\",\n                                    \"text\": \"Test\"\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n},"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "データを参照すると以下のような構成です。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "table の中に tableRaw のデータが３つあります"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "1 つ目の tableRaw の中には tableHeader が並んでいます"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "残りの tableRaw には tableCell が並んでいます"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "それぞれの中は paragraph などが準備されています"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のような処理を随時実行する形で、Web ページにテーブルを表示することができるようになります。今回は Cell に関する属性は実装せずに、シンプルな表のみを表示できるように以下のように作成をしました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function showTable(element: Content, index: number) {\n  const tableElements: JSX.Element[] = [];\n\n  if (element !== undefined) {\n    element.content.forEach((content, key) => {\n      tableElements.push(<tr key={key}>{showTableRaw(content)}</tr>);\n    });\n  }\n\n  return (\n    <div key={index}>\n      <table className=\"my-4 table-auto border border-gray-300\">\n        <tbody>{tableElements}</tbody>\n      </table>\n    </div>\n  );\n}\n\nfunction showTableRaw(element: Content) {\n  const tableRawElements: JSX.Element[] = [];\n\n  if (element !== undefined) {\n    element.content.forEach((content, key) => {\n      if (content.type === \"tableHeader\") {\n        tableRawElements.push(\n          <th key={key} className=\"bg-gray-200 border border-gray-300 p-2\">\n            {showTableCell(content)}\n          </th>\n        );\n      } else {\n        tableRawElements.push(\n          <td key={key} className=\"p-2 border border-gray-300\">\n            {showTableCell(content)}\n          </td>\n        );\n      }\n    });\n  }\n\n  return tableRawElements;\n}\n\nfunction showTableCell(element: Content) {\n  const tableCellElements: JSX.Element[] = [];\n  if (element !== undefined) {\n    element.content.forEach((content, key) => {\n      switch (content.type) {\n        case \"paragraph\":\n          tableCellElements.push(showParagraph(content, key));\n          break;\n        case \"blockquote\":\n          tableCellElements.push(showBlockquote(content, key));\n          break;\n        case \"bulletList\":\n          tableCellElements.push(showBulletList(content, key));\n          break;\n        case \"orderedList\":\n          tableCellElements.push(showOrderdList(content, key));\n          break;\n        case \"horizontalRule\":\n          tableCellElements.push(showHorizontalRule());\n          break;\n        default:\n          break;\n      }\n    });\n  }\n\n  return tableCellElements;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "表の中でも文字の装飾なども利用できるように、コンテンツのタイプに合わせてそれぞれ必要となる処理を追加している形です。実行結果は以下のように、表の表示ができました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=J_UoMPOf1ku1ksQVyMN83A"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "表に関しては属性以外にももう少し作り込みをする要素がありますが、今回はまずは表として表示できるところまで実装をした形です。リッチテキストに関しての処理をここまで実装してきました。色々と改善の余地はあるかもしれませんが、まずは動くようになっているので、次回はこの中の処理で画像、YouTube に関しての処理を追加してみたいと思います。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: 
+    type: Boolean
+  languages:
+    value: []
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: J_UoMPOf1ku1ksQVyMN83A
+    type: Media

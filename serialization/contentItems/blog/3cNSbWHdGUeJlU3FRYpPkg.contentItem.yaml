@@ -1,0 +1,48 @@
+﻿id: 3cNSbWHdGUeJlU3FRYpPkg
+name: Vercel Toolbar への対応 - draftMode への対応
+fields:
+  title:
+    value: Vercel Toolbar への対応 - draftMode への対応
+    type: ShortText
+  description:
+    value: これまで作成をしてきた Next.js のサンプルを、Vercel が提供する Vercel Toolbar を利用して Draft モードに切り替えることができるように改良していきます。
+    type: LongText
+  publishDate:
+    value: 2024-05-16T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: vercel-toolbar-draft-mode
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ここでは Vercel Toolbar 対応のためのモードを紹介する"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: eKVxniGsQUyMj2BKqwuHRw
+    type: Reference
+  hero:
+    value: []
+    type: Media

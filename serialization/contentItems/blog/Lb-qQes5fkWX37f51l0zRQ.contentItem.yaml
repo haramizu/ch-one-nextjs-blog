@@ -1,0 +1,357 @@
+﻿id: Lb-qQes5fkWX37f51l0zRQ
+name: リッチテキストのデータを表示する - その９ コンテンツに合わせたカスタマイズ
+fields:
+  title:
+    value: リッチテキストのデータを表示する - その９ コンテンツに合わせたカスタマイズ
+    type: ShortText
+  description:
+    value: 今回は RichText に記述されているコンテンツに合わせて、表示をカスタマイズする方法を紹介します。今回作成するのは２つ、YouTube の URL が入っていれば YouTube をページに埋め込む、また CHOMEDIA というキーワードの後に ID が含まれている場合は、Content Hub ONE の画像を表示するカスタマイズです。
+    type: LongText
+  publishDate:
+    value: 2024-05-15T00:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: rich-text-field-part-9-customize
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "文字の処理について"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は Rich Text のエリアで、Paragraph において YouTube の URL を記述している場合、また "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "CHOMEDIA="
+              },
+              {
+                "type": "text",
+                "text": " という記述をしている場合、それぞれ YouTube の画像、Content Hub ONE で管理している画像を表示するようなカスタマイズを行います。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "html"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "https://www.youtube.com/watch?v=SMHLJ7kbSPU\n\nCHOMEDIA=MediaID"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このため、まずはこの記述が該当した場合に、それぞれの表示をするための処理を追加します。src/components/RichText.tsx のファイルで showParagraph の変更およびそれぞれの関数を以下のように一度追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function showParagraph(element: Content, index: number) {\n  const paragraphText = textFunction(element.content);\n  if (element.content !== undefined) {\n    const contentText = element.content[0].text;\n    if (contentText.startsWith(\"https://www.youtube.com/\")) {\n      return youtubeFunction(contentText, index);\n    } else if (contentText.startsWith(\"CHOMEDIA=\")) {\n      return mediaFunction(contentText, index);\n    }\n  }\n\n  return (\n    <Fragment key={index}>\n      <p className=\"my-2\">{paragraphText}</p>\n    </Fragment>\n  );\n}\n\nfunction youtubeFunction(youtubeLink: string, index: number) {\n  const videoId = youtubeLink.replace(\"https://www.youtube.com/watch?v=\", \"\");\n\n  return <div>Youtube ID: {videoId}</div>;\n}\n\nfunction mediaFunction(mediaInfo: string, index: number) {\n  const mediaId = mediaInfo.replace(\"CHOMEDIA=\", \"\");\n\n  return <div>Image ID: {mediaId}</div>;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際に以下の２行を処理すると、今の段階では以下のような結果が表示されます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=tDdEF00qDEiep_IBwSlVWw"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "YouTube の動画を埋め込む"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "すでに ID の取得に関しては上記のコードで出来ている形ですので、iFrame で表示できるようにします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function youtubeFunction(youtubeLink: string, index: number) {\n  const videoId = youtubeLink.replace(\"https://www.youtube.com/watch?v=\", \"\");\n\n  return (\n    <div>\n      <iframe\n        width=\"560\"\n        height=\"315\"\n        src={\"https://www.youtube.com/embed/\" + videoId}\n        title=\"YouTube video player\"\n        allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\"\n        allowFullScreen\n      ></iframe>\n    </div>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで YouTube の動画を埋め込むことができました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=q8ECKQSMuEmpdsXvQ9Zp6Q"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "画像を表示する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まずは ID から URL を取得するための処理を追加します。"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/utils/getMedia/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルを作成して、ID を利用してメディアの画像の取得をできるようにします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { MediaFromIDQuery, MediaResponse } from \"@/interfaces/Media\";\nimport { fetchGraphQL } from \"@/utils\";\n\nexport async function getMediaFromID(mediaId: string) {\n  const result: MediaResponse = (await fetchGraphQL(\n    MediaFromIDQuery(mediaId)\n  )) as MediaResponse;\n\n  return result;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて画像を表示するためのコンポーネントを src/components/CHOMedia.tsx のファイルとして作成をして、以下のコードを追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getMediaFromID } from \"@/utils/getMedia\";\nimport Image from \"next/image\";\n\ninterface CHOMediaProps {\n  mediaId: string;\n  index: number;\n}\n\nexport default async function CHOMedia(porps: CHOMediaProps) {\n  const media = await getMediaFromID(porps.mediaId);\n\n  return (\n    <div className=\"flex justify-center my-4\" key={porps.index}>\n      <div className=\"w-4/5 shadow-2xl border border-black\">\n        <Image\n          src={\n            media.data.media.fileUrl ||\n            \"https://sitecorecontenthub.stylelabs.cloud/api/public/content/91c3d57209b042ff9aacfee56125ef0e\"\n          }\n          height={media.data.media.fileHeight}\n          width={media.data.media.fileHeight}\n          alt=\"Image\"\n        />\n      </div>\n    </div>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "最後に "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "showParagraph"
+              },
+              {
+                "type": "text",
+                "text": " の関数での呼び出し方法を以下のように変更します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function showParagraph(element: Content, index: number) {\n  const paragraphText = textFunction(element.content);\n  if (element.content !== undefined) {\n    const contentText = element.content[0].text;\n    if (contentText.startsWith(\"https://www.youtube.com/\")) {\n      return youtubeFunction(contentText, index);\n    } else if (contentText.startsWith(\"CHOMEDIA=\")) {\n      const mediaId = contentText.replace(\"CHOMEDIA=\", \"\");\n\n      return <CHOMedia mediaId={mediaId} index={index} />;\n    }\n  }"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでブログの中に、CHOMEDIA= で ID を指定すると画像が表示されるようになりました。実際の動作確認は以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=QkmTrbJjwEWn3AdmtSTU7w"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は RichText の中のデータをチェックして、URL を書くだけで YouTube のタグが調整されるような表示、また画像に関しては Rich Text に入れることができないため CHOMEDIA というキーワードを利用いて画像を表示できるようにしていきました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ここまでのコードは、以下の URL から取得することができます。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/haramizu/ch-one-nextjs-blog/tree/step-4",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "https://github.com/haramizu/ch-one-nextjs-blog/tree/step-4"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: QkmTrbJjwEWn3AdmtSTU7w
+    type: Media

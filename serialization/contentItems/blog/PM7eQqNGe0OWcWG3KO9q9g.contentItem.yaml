@@ -1,0 +1,375 @@
+﻿id: PM7eQqNGe0OWcWG3KO9q9g
+name: リッチテキストのデータを表示する - その１　Interface の作成
+fields:
+  title:
+    value: リッチテキストのデータを表示する - その１　Interface の作成
+    type: ShortText
+  description:
+    value: Content Hub ONE で定義している Rich Text フィールドに関しては、GraphQL を利用した場合 Json のデータとして取得する形となるため、Web で表示をするためには Json のデータに合わせた処理を追加する必要があります。今回は Json のデータを処理するための Interface を作成していきます。
+    type: LongText
+  publishDate:
+    value: 2024-05-01T00:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: rich-text-field-part-1
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "リッチテキストの構造を確認する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は Rich Text フィールドとして利用している content の中のデータにフォーカスをして確認をしていきます。まず、シンプルに以下のようなクエリでブログの Content のデータを取得します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "query Blog {\n    blog(id: \"contentID\") {\n        content\n    }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際に返ってくるデータは以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"data\": {\n        \"blog\": {\n            \"content\": {\n                \"type\": \"doc\",\n                \"content\": [\n                    {\n                        \"type\": \"heading\",\n                        \"attrs\": {\n                            \"level\": 2\n                        },\n                        \"content\": [\n                            {\n                                \"type\": \"text\",\n                                \"text\": \"コンテンツの表示\"\n                            }\n                        ]\n                    },"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "構造としては以下のような構造になっています。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "トップレベルの type は doc、それに対して content の結果が複数返ってきます"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "このため、Rich Text フィールドとして処理をするのはこの content[] を処理する形となります"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "content には heading や paragraph などのタイプが複数用意されています"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "各タイプに対して、attrs という形で属性が定義されています"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "type の text に対して text のデータが用意されています"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "type が text の際には marks という属性が用意されています"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "bulletList と orderedList には listItem が含まれており、これで一覧を表示するようにしています"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "codeBlock は attrs として言語、また text には改行文字を含めたテキストが含まれています"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "いくつかのコンテンツを参照して、今回は "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/interfaces/RichText/index.ts "
+              },
+              {
+                "type": "text",
+                "text": "のファイルに対して Interface を作成します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export interface RichTextResponse {\n  type: string;\n  content: Content[];\n}\n\nexport interface Content {\n  type: string;\n  attrs: Attribute;\n  content: Content[];\n  marks: Marks[];\n  text: string;\n}\n\nexport interface Attribute {\n  level: number;\n  href: string;\n  target: string;\n  rel: string;\n  colspan: number;\n  rowspan: number;\n  language: string;\n}\n\nexport interface Marks {\n  type: string;\n  attrs: Attribute;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "また、Blog の Interface で用意している content の type を "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "any"
+              },
+              {
+                "type": "text",
+                "text": " から "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "RichTextResponse"
+              },
+              {
+                "type": "text",
+                "text": " に変更をします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export interface Blog {\n  id: string;\n  name: string;\n  title: string;\n  description: string;\n  publishDate: string;\n  slug: string;\n  hero: {\n    total: number;\n    results: Media[];\n  };\n  tag: {\n    total: number;\n    results: Category[];\n  };\n  content: RichTextResponse;\n}"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログページでの動作確認"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際にブログのページにて、Rich Text Area と表示されていたコードを以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "      <article>\n        <div className=\"mx-10 mb-2\">\n          <p className=\"mb-2\">{post.description}</p>\n          <p className=\"mb-2\">{post.content?.content[0].type}</p>\n        </div>\n      </article>"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は content の一番最初の type を表示するだけの簡単な実装です。実際の動作は以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA="
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は、リッチテキストの最初のコンテンツタイプ、heading の表示ができました。それぞれのコンテンツのタイプに合わせて表示をする RichText コンポーネントを作成する準備ができました。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: oGgGY_YAKEWm2DVcGgvPBA
+    type: Media

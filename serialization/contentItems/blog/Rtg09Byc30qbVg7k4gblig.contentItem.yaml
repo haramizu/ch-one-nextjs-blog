@@ -1,0 +1,34 @@
+﻿id: Rtg09Byc30qbVg7k4gblig
+name: ブログの URL で存在しない場合は 404 を表示したい
+fields:
+  title:
+    value: ブログの URL で存在しない場合は 404 を表示したい
+    type: ShortText
+  description:
+    value: ブログの URL で存在しない場合は 404 を表示したい
+    type: LongText
+  publishDate:
+    value: 2024-05-22T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: blog-for-generateMetadata
+    type: ShortText
+  content:
+    value: 
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value: []
+    type: Media
