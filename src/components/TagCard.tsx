@@ -12,7 +12,7 @@ export default function TagCard(tag: Partial<Category>) {
         <div className="relative w-full ">
           <Link href={"/tags/" + tag.id}>
             <Image
-              className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+              className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] border lg:aspect-[3/2]"
               src={
                 tag.hero?.results[0].fileUrl ||
                 "/content-hub-one-horizontal-color-white-txt.svg"

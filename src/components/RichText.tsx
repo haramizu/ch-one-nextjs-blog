@@ -1,9 +1,8 @@
-"use client";
 import { Content, Marks, RichTextResponse } from "@/interfaces/RichText";
 import Link from "next/link";
 import { Fragment } from "react";
 import CodeBlock from "@/components/CodeBlock";
-import Image from "next/image";
+import CHOMedia from "@/components/CHOMedia";
 
 type RichTextProps = {
   richText: RichTextResponse | undefined;
@@ -29,7 +28,7 @@ export default function RichText({ richText }: RichTextProps) {
         case "orderedList":
           return showOrderdList(element, index);
         case "codeBlock":
-          return CodeBlock(element, index);
+          return <CodeBlock element={element} index={index} />;
         case "horizontalRule":
           return showHorizontalRule();
         default:
@@ -117,7 +116,9 @@ function showParagraph(element: Content, index: number) {
     if (contentText.startsWith("https://www.youtube.com/")) {
       return youtubeFunction(contentText, index);
     } else if (contentText.startsWith("CHOMEDIA=")) {
-      return mediaFunction(contentText, index);
+      const mediaId = contentText.replace("CHOMEDIA=", "");
+
+      return <CHOMedia mediaId={mediaId} index={index} />;
     }
   }
 
@@ -231,7 +232,7 @@ function showBlockquote(element: Content, index: number) {
       case "orderedList":
         return showOrderdList(element, index);
       case "codeBlock":
-        return CodeBlock(element, index);
+        return <CodeBlock element={element} index={index} />;
       case "horizontalRule":
         return showHorizontalRule();
       default:
@@ -257,7 +258,7 @@ function showTable(element: Content, index: number) {
 
   return (
     <div key={index}>
-      <table className="my-4 table-auto border border-gray-300">
+      <table className="my-4 table-auto border border-gray-300 ">
         <tbody>{tableElements}</tbody>
       </table>
     </div>
@@ -271,7 +272,10 @@ function showTableRaw(element: Content) {
     element.content.forEach((content, key) => {
       if (content.type === "tableHeader") {
         tableRawElements.push(
-          <th key={key} className="bg-gray-200 border border-gray-300 p-2">
+          <th
+            key={key}
+            className="bg-gray-200 border border-gray-300 p-2 dark:bg-gray-700"
+          >
             {showTableCell(content)}
           </th>
         );
@@ -373,19 +377,6 @@ function youtubeFunction(youtubeLink: string, index: number) {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       ></iframe>
-    </div>
-  );
-}
-
-function mediaFunction(mediaInfo: string, index: number) {
-  const mediaId = mediaInfo.replace("CHOMEDIA=", "");
-  const mediaUrl = "/api/media/" + mediaId;
-
-  return (
-    <div className="flex justify-center my-4" key={index}>
-      <div className="w-4/5 shadow-xl border">
-        <Image src={mediaUrl} alt="Image" width="1024" height="800" />
-      </div>{" "}
     </div>
   );
 }

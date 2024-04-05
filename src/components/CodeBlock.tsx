@@ -5,10 +5,15 @@ import { Content } from "@/interfaces/RichText";
 import { useEffect } from "react";
 import { CodeLanguages } from "@/constants/languages";
 
-export default function CodeBlock(element: Content, index: number) {
-  const language: keyof typeof CodeLanguages = element.attrs
+interface CodeBlockProps {
+  element: Content;
+  index: number;
+}
+
+export default function CodeBlock(props: CodeBlockProps) {
+  const language: keyof typeof CodeLanguages = props.element.attrs
     .language as keyof typeof CodeLanguages;
-  const code = element.content[0].text;
+  const code = props.element.content[0].text;
 
   useEffect(() => {
     hljs.highlightAll();
