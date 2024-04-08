@@ -1,0 +1,388 @@
+﻿id: -R6ib7S8uUiqdlDvBJmccw
+name: Content Hub ONE の管理画面
+fields:
+  title:
+    value: Content Hub ONE の管理画面
+    type: ShortText
+  description:
+    value: 前回は製品の名前、位置付けについて紹介をしました。今回は実際に管理画面に入ってどういう機能があるのかというのを紹介していきます。
+    type: LongText
+  publishDate:
+    value: 2024-03-26T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: management-ui
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "管理画面"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ログインをすると、Welcome 名前！という形でログインしているユーザーの情報が表示されつつ、４つの主な項目が表示されています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=KVQ7SwHONEu9CnRzF09XgQ"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Model content"
+                      },
+                      {
+                        "type": "text",
+                        "text": " コンテンツの構造について設定をするための管理画面に移動します"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Create content"
+                      },
+                      {
+                        "type": "text",
+                        "text": " 作成したコンテンツ形式を利用して、コンテンツ自体を作成していきます"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Upload media items"
+                      },
+                      {
+                        "type": "text",
+                        "text": " 画像ファイルなどをアップロードすることができます"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Get it to the channel"
+                      },
+                      {
+                        "type": "text",
+                        "text": " Next.js などのアプリケーションが Content Hub ONE からデータを取る際に利用する API キーを取得することができます。"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記の項目を１つ１つクリックして、現在の状況を確認していきます。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "コンテンツタイプ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Content model には２つのモデルが用意されており、コンテンツ管理で利用するタイプは Content Types となります。まだ何もコンテンツタイプを作成していないため、+ Add type のボタンが表示されています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=OCHroAeqNEGn-1tZWgQplw"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "もう一つのタイプとして、Taxonomies の項目も用意されています。これはどちらかというと変数の管理などで使うことになりますので、使い方に関しては別途別途紹介したいと考えています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=-5t6VXaijU6ikY-ZryGcHQ"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "コンテンツ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コンテンツに関しても、まだデータがない状況です。また、Content types 自体も用意されていないため、まず最初に Content types を作成する必要がある、という状況です。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=-z6XszwLjk2ML3FhH961HA"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "メディア"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まだ何もファイルをアップロードしていないため、ファイルをアップロードする手順が画面に表示されます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=waQte5E6Aka5l_aObQxwIg"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このブログ掲載時では、Jpeg、PNG、Gif および webp のデータで、70MB 以下のサイズのファイルをアップロードできるようになっています。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "設定"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Settings を開くことで、いくつかの情報を得ることができます。以下の画面はすでに発行済みの API キーがあるため、キーに関して表示されます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=MalftCFVaEO0In258dFjaw"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "キー以外にも OAuth client に関する情報も取得することが可能です。API キーに関してはもう少し先になりますが、作成、利用方法は紹介していく予定です。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は管理画面を一通り眺めた形です。コンテンツを作成するためには、まずはコンテンツ形式を作成する必要があります。次回はコンテンツ形式を作成したいと思います。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: jaLkWmHEl0Gyass4EODcbw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: KVQ7SwHONEu9CnRzF09XgQ
+    type: Media

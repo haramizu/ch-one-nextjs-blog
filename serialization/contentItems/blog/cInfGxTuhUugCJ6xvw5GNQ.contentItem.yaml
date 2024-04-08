@@ -1,0 +1,282 @@
+﻿id: cInfGxTuhUugCJ6xvw5GNQ
+name: コンテンツタイプにフィールドを追加する
+fields:
+  title:
+    value: コンテンツタイプにフィールドを追加する
+    type: ShortText
+  description:
+    value: >
+      すでに作成をしているコンテンツタイプに対して、コンテンツを説明するための画像の項目を追加して、そのデータがどのように変わるのかを確認していきます。
+    type: LongText
+  publishDate:
+    value: 2023-09-22T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: ch-one-add-content-field
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "イメージフィールドの追加"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず最初に、コンテンツタイプの Blog を開いて、フィールドを追加します。今回は画像を設定するため、以下のような形で追加します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "フィールドを追加したあと、すでに作成しているコンテンツを開いてください。追加をしたフィールドに関して、設定項目が追加されています。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "メディアのアップロード"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回、コンテンツのフィールドとしてメディアの選択が可能となりました。そこで、Media のメニューをクリックします。画面は以下のように画像がない状況として表示されます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ボタンをクリックすると、ファイルを指定するダイアログが表示されます。今回は２つの画像をまとめてアップロードしてみました（画像は Unsplash のサイトから無料で使える素材をダウンロードしました）。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "一つの画像をこの画面から publish するために、メニューをクリックして Publish を実行します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "しばらくすると、ステータスが更新されて published になります。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "コンテンツの更新"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コンテンツに対して、今回アップロードをした画像を設定します。設定をした時の画面は以下のようになっています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "保存をすると、Published となっていたコンテンツのステータスが変わり、Changed となりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この状態で、GraphQL の Preview IDE を利用して、追加した画像のデータを取得します。クエリに関しては、blogImage の項目を以下のように追加しました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\nallBlog {\n  total\n    results {\n      name\n      id\n      title\n      description\n      blogImage {\n        results{\n          fileUrl\n        }\n      }  \t\n    }\n  }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この結果は以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n  \"data\": {\n    \"allBlog\": {\n      \"total\": 2,\n      \"results\": [\n        {\n          \"name\": \"First post\",\n          \"id\": \"8J0Q3r0-H02ExS1sj27v8A\",\n          \"title\": \"Welcome to Content Hub ONE Blog\",\n          \"description\": \"This blog article provide Sitecore Content Hub ONE introduction.\",\n          \"blogImage\": {\n            \"results\": [\n              {\n                \"fileUrl\": \"https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/f36ae82c-5f19-40c5-4086-08daadeee1b8/69f7825258194622aad13e47a8916ec4\"\n              }\n            ]\n          }\n        },\n        {\n          \"name\": \"Second post\",\n          \"id\": \"zueShIf2qk6CzN5EL-mAIQ\",\n          \"title\": \"Did you know Headless CMS?\",\n          \"description\": \"Sitecore Content Hub ONE is pure Headless CMS\",\n          \"blogImage\": {\n            \"results\": []\n          }\n        }\n      ]\n    }\n  }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて、Delivery に対して同じクエリを実行します。結果は以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n  \"data\": {\n    \"allBlog\": {\n      \"total\": 1,\n      \"results\": [\n        {\n          \"name\": \"First post\",\n          \"id\": \"8J0Q3r0-H02ExS1sj27v8A\",\n          \"title\": \"Welcome to Content Hub ONE Blog\",\n          \"description\": \"This blog article provide Sitecore Content Hub ONE introduction.\",\n          \"blogImage\": {\n            \"results\": []\n          }\n        }\n      ]\n    }\n  }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "フィールドを追加して編集をした場合、コンテンツは Draft となるため Delivery に対して影響がないことがわかります。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回はコンテンツタイプに対して、後で項目を追加する方法、そして実際に反映されたコンテンツを GraphQL の IDE を通じでどういうデータになっているのかを確認することができました。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: jaLkWmHEl0Gyass4EODcbw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: KVQ7SwHONEu9CnRzF09XgQ
+    type: Media

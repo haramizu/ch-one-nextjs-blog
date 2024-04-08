@@ -1,0 +1,261 @@
+﻿id: GrXXuOcRBECs25AsmL38fA
+name: Vercel にブログを展開する
+fields:
+  title:
+    value: Vercel にブログを展開する
+    type: ShortText
+  description:
+    value: これまでローカルで確認をしていましたが、実際に Vercel に展開をしてコンテンツの表示ができるかどうか、確認をしたいと思います。
+    type: LongText
+  publishDate:
+    value: 2024-04-15T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: deploy-to-vercel
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Vercel に展開する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は GitHub に展開しているコードを Vercel に展開してサイトを参照できるようにしていきます。すでに Vercel と GitHub の連携は完了している前提で進めていきます。なお、Vercel は無料枠があるので検証などであれば無料枠を使うと手軽で便利です。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず Vercel の画面で、プロジェクトを新規作成、利用するリポジトリを指定します。今回は、 ch-one-nextjs-blog を選択します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=W3rEg1WrLUa2XM18VncDKg"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "プロジェクトの設定で、すでにローカルで動かしている .env.local の値をそのままコピペすると、Environment Variables にローカルでの動作環境が反映されるため非常に便利です（今回は Environment に関してはインポートしていません）。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=cPCVtWR9Y0OJergkgbvRVA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで準備が整いました。実行をすると以下のように Build が自動的に走ります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=pi4jKK2Ec02Vdpw6b3PzkA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "しばらく経つとサイトが立ち上がってサムネイルが表示されます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=426ATk08D0yxlPVyvpWDdw"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "プレビュー環境を用意する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は main ブランチを利用して Production を展開した形ですが、続いて Preview の環境を用意していきます。Preview の環境は development ブランチと連携できるようにします。プロジェクトの Settings - Domains をクリックして、ドメインを追加します。今回はシンプルに、vercel.app のドメインを利用して development とわかるようなドメイン名を指定します。設定は以下のようにしました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=lI-XXj65NkG0zfZhPsnWRQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて環境変数として、Preview および Development では Preview のデータを参照させるために、以下の環境変数を追加します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=GLoHrXmfOUWZ-8bq3gKnsA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで設定は完了です。GitHub の development ブランチに対して変更をかけます。今回はシンプルに、layout.tsx のファイルの Meta データの部分を変更します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export const metadata: Metadata = {\n  title: {\n    template: \"%s | Content Hub ONE\",\n    default: \"powered by Content Hub ONE\",\n  },\n  description: \"Powered by Sitecore Content Hub ONE\",\n  icons: {\n    icon: \"https://sitecorecontenthub.stylelabs.cloud/api/public/content/ad13eb9aaebc4d24a3921fff59051fb7\",\n  },\n};"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "GitHub にコードを反映させると、すぐに Vercel で新しく Build が動きます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=-jZwFsnMEkWwlaLj8S2ARQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まだこの記事を書いている状況で Publish を実行していない状況ですが、すでに一覧に表示されているのがわかります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=QdcPc7DCxEqyLBs0Ne_8sg"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は GitHub のリポジトリと Vercel の環境を連携させることで、ローカルで動作していたデータが正しく Web サイトで動くのかどうかを確認することができました。まだ何もデザインが入っていないのは寂しいので、次回は Tailwind CSS を利用してヘッダーとフッターを作成したいと思います。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: eKVxniGsQUyMj2BKqwuHRw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: 426ATk08D0yxlPVyvpWDdw
+    type: Media

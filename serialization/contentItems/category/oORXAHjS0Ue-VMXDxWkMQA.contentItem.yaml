@@ -1,0 +1,23 @@
+﻿id: oORXAHjS0Ue-VMXDxWkMQA
+name: Content Hub ONE CLI
+fields:
+  categoryName:
+    value: Content Hub ONE CLI
+    type: ShortText
+  slug:
+    value: ch-one-cli
+    type: ShortText
+  description:
+    value: 'Content Hub ONE CLI Tool: Streamline Your Content Management'
+    type: ShortText
+  languages:
+    value:
+    - id: ja
+    - id: en
+    type: Select
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: NtWdOB5KIU2hUtfI3NvOdQ
+    type: Media

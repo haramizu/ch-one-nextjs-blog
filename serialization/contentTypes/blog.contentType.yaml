@@ -1,0 +1,94 @@
+﻿id: blog
+name:
+  en-US: Blog
+description:
+  en-US: ''
+fields:
+- type: ShortText
+  id: title
+  name:
+    en-US: Title
+  required: True
+  helpText:
+    en-US: Blog Title
+  reference: 
+  rules:
+    length: 
+- type: LongText
+  id: description
+  name:
+    en-US: Description
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+  rules:
+    length: 
+- type: DateTime
+  id: publishDate
+  name:
+    en-US: Publish Date
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+- type: ShortText
+  id: slug
+  name:
+    en-US: slug
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+  rules:
+    length: 
+- type: RichText
+  id: content
+  name:
+    en-US: Content
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+- type: Media
+  id: hero
+  name:
+    en-US: Hero
+  required: False
+  helpText:
+    en-US: ''
+  reference: 
+  rules:
+    limit: 
+- type: Reference
+  id: tag
+  name:
+    en-US: Tag
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+  rules:
+    limit: 
+    referencetypes:
+      values:
+      - category
+- type: Boolean
+  id: topStory
+  name:
+    en-US: Top Story
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+- type: Select
+  id: languages
+  name:
+    en-US: Languages
+  required: True
+  helpText:
+    en-US: ''
+  reference:
+    id: languages
+    type: Link
+    relatedType: Taxonomy

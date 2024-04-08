@@ -1,0 +1,23 @@
+﻿id: 7NQVbF9gskiIHFSgtac2sw
+name: Next.js
+fields:
+  categoryName:
+    value: Next.js
+    type: ShortText
+  slug:
+    value: nextjs
+    type: ShortText
+  description:
+    value: Building Dynamic Web Applications with Next.js
+    type: ShortText
+  languages:
+    value:
+    - id: en
+    - id: ja
+    type: Select
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: Ho_6PxPx_UGCTpMCKoMekw
+    type: Media

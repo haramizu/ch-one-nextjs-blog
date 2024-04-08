@@ -4,7 +4,7 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function TagCard(post: Partial<Blog>) {
+export default function BlogCard(post: Partial<Blog>) {
   return (
     <>
       <article

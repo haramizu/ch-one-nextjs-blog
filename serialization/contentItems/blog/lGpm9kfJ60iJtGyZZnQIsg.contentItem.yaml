@@ -1,0 +1,340 @@
+﻿id: lGpm9kfJ60iJtGyZZnQIsg
+name: Content Hub ONE で利用するクラスのフィールドやメソッドの定義（ブログ）
+fields:
+  title:
+    value: Content Hub ONE で利用するクラスのフィールドやメソッドの定義（ブログ）
+    type: ShortText
+  description:
+    value: 前回は Content Hub ONE のメディアに関するインターフェイスを作成しました。今回は利用したいブログのコンテンツタイプに対するインターフェイスを作成したいと思います。
+    type: LongText
+  publishDate:
+    value: 2024-04-11T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: nextjs-interfaces-blog
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "ブログのスキーマを確認する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "前回のメディアの時と同じように、対象となるコンテンツの ID を利用してクエリを作成していきます。Postman の画面は以下のような感じです。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=ndP84r1pZkGY9YQf6qk_LQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際に作成をしたクエリで不必要な項目を削除していき、少し並び替えをした結果は以下のとおりです。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "query Blog {\n    blog(id: \"lGpm9kfJ60iJtGyZZnQIsg\") {\n        id\n        name\n        title\n        description\n        publishDate\n        slug\n        topStory\n        content\n        hero {\n            total\n            results {\n                description\n                fileHeight\n                fileId\n                fileName\n                fileSize\n                fileType\n                fileUrl\n                fileWidth\n                id\n                name\n            }\n        }\n        tag {\n            total\n            results {\n                categoryName\n                description\n                id\n                name\n                slug\n            }\n        }\n    }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "結果として取得するデータは以下のようになります。"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "content"
+              },
+              {
+                "type": "text",
+                "text": " には Rich Text のデータを Json 形式で表現したデータが返ってくるため、非常に長い結果が表示されていますので、その部分は省略しました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"data\": {\n        \"blog\": {\n            \"id\": \"ijJOLhMVdESSI4umec5paA\",\n            \"name\": \"What is Content Hub ONE?\",\n            \"title\": \"What is Content Hub ONE?\",\n            \"publishDate\": \"2024-03-25T01:00:00.000Z\",\n            \"description\": \"Sitecore Content Hub ONE is Sitecore's third headless CMS product, but what makes it different? In this article, we will introduce the positioning of the product.\",\n            \"slug\": \"content-hub-one-overview\",\n            \"content\": {\n                \"type\": \"doc\","
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この Json のデータを扱うためのインターフェイスは以下のように設定をします。content には Json のデータが返ってくる形ですが、まずは any としておきます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { Category } from \"@/interfaces/Category\";\nimport { Media } from \"@/interfaces/Media\";\n\nexport interface Blog {\n  id: string;\n  name: string;\n  title: string;\n  description: string;\n  publishDate: string;\n  slug: string;\n  hero: {\n    total: number;\n    results: Media[];\n  };\n  tag: {\n    total: number;\n    results: Category[];\n  };\n  content: any;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記の Blog のインターフェイスに関して、ベースになるものとして定義しました。ブログの記事を利用する際のインターフェイスは以下のようにも定義しておきます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export interface BlogResponse {\n  data: {\n    blog: Partial<Blog>;\n  };\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は、コンテンツフィールドに対して複数の画像を設定することが可能なため、この部分を results で取得して、そのファイルの形式は Media として設定をしています。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "全てのブログ記事のスキーマを確認する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログ記事単体のインターフェイスを作成しましたが、実際にはブログのデータを取得して、そのデータを利用して React でレンダリングしていく処理を追加していきます。クエリは今回は以下のように設定します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "query AllBlog {\n    allBlog {\n        total\n        results {\n            id\n            name\n            title\n            description\n            publishDate\n            slug\n            content\n            topStory\n            hero {\n                total\n                results {\n                    description\n                    fileHeight\n                    fileId\n                    fileName\n                    fileSize\n                    fileType\n                    fileUrl\n                    fileWidth\n                    id\n                    name\n                }\n            }\n            tag {\n                total\n                results {\n                    categoryName\n                    description\n                    id\n                    name\n                    slug\n                }\n            }\n        }\n    }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "結果の json ファイルは以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"data\": {\n        \"allBlog\": {\n            \"total\": 19,\n            \"results\": [\n                {\n                    \"id\": \"-R6ib7S8uUiqdlDvBJmccw\",\n                    \"name\": \"Content Hub ONE の管理画面\",\n                    \"title\": \"Content Hub ONE の管理画面\",\n                    \"description\": \"前回は製品の名前、位置付けについて紹介をしました。今回は実際に管理画面に入ってどういう機能があるのかというのを紹介していきます。\",\n                    \"publishDate\": \"2024-03-26T01:00:00.000Z\",\n                    \"slug\": \"management-ui\",\n                    \"content\": {"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "作成済みのデータを  json として取得できています。これをインターフェイスとして定義するために、今回は以下のコードを用意しました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export interface AllBlogResponse {\n  data: {\n    allBlog: {\n      total: number;\n      results: Partial<Blog>[];\n    };\n  };\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "すでに用意している BlogResponse はブログの記事を取得したときに利用するインターフェイスとし、それを配列として持っている AllBlogResponse という形で設定しておきました。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Json のデータを元にインターフェイスを作成していきましたが、Media や Category のように参照するものから事前に用意をしていくことで、シンプルな interface になりました。ブログの記事では長くなってしまうため、それぞれが利用する Query に関しても定義しておきました。以下で全てのコードを確認することができます。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/haramizu/ch-one-nextjs-blog/blob/step-1/src/interfaces/Blog/index.ts",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "src/interfaces/Blog/index.ts"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ここまで Postman を利用して実行結果を取得、インターフェイスを作成していた形です。次回はこのインターフェイスを利用して、Content Hub ONE に接続してコンテンツを利用したいと思います。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: jaLkWmHEl0Gyass4EODcbw
+    - type: Link
+      relatedType: Content
+      id: B_1RVPmqs0W7mbP5TzgcCg
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: ndP84r1pZkGY9YQf6qk_LQ
+    type: Media

@@ -1,0 +1,215 @@
+﻿id: 4NlTK6UBd0is2NpYiDIz0w
+name: タグ一覧のページをカードを利用して表示する
+fields:
+  title:
+    value: タグ一覧のページをカードを利用して表示する
+    type: ShortText
+  description:
+    value: ブログの記事に関して取り組む前に、シンプルなタグのページから先に仕上げていきます。今回は、タグの一覧のページとなる /tags のページを仕上げていきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-22T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: create-tag-page-with-card
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "タグ一覧のページの変更"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "単に一覧を表示しているだけでしたが、実際にデータを取得しているため、画像なども含めてカードを並べるようなページを一覧ページを作成していきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず最初に、カテゴリの表示順を変更したいと思います。これは GraphQL での呼び出しの部分に関して、AllCategoryQuery にて順番を指定することで変更することができます。今回はカテゴリの名前順で表示します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "  query AllCategory {\n    allCategory(orderBy: CATEGORYNAME_ASC) {\n      total\n      results {"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて Tag を表示する Card を用意します。今回は "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/TagCard.tsx"
+              },
+              {
+                "type": "text",
+                "text": " というファイルを作成して、以下のコードを入れました。すでに Tailwind CSS のスタイルを適用する形で作成しています。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { Category } from \"@/interfaces/Category\";\nimport Image from \"next/image\";\nimport Link from \"next/link\";\n\nexport default function TagCard(tag: Partial<Category>) {\n  return (\n    <>\n      <article\n        key={tag.id}\n        className=\"flex flex-col items-start justify-between \"\n      >\n        <div className=\"relative w-full \">\n          <Link href={\"/tags/\" + tag.id}>\n            <Image\n              className=\"aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]\"\n              src={\n                tag.hero?.results[0].fileUrl ||\n                \"/content-hub-one-horizontal-color-white-txt.svg\"\n              }\n              alt={tag.hero?.results[0].description || \"Image\"}\n              width={tag.hero?.results[0].fileWidth || \"250\"}\n              height={tag.hero?.results[0].fileHeight || \"250\"}\n            />\n          </Link>\n        </div>\n        <div className=\"max-w-xl\">\n          <div className=\"group relative\">\n            <h3 className=\"mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-gray-300 group-hover:text-gray-600\">\n              <Link href={\"/tags/\" + tag.slug}>\n                <span className=\"absolute inset-0\" />\n                {tag.categoryName}\n              </Link>\n            </h3>\n            <p className=\"mt-2 line-clamp-3 text-sm leading-6 text-gray-600 dark:text-gray-400\">\n              {tag.description}\n            </p>\n          </div>\n        </div>\n      </article>\n    </>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "あとはこのカードをタグ一覧のページで呼び出しをします。"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/tags/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のファイルを以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import TagCard from \"@/components/TagCard\";\nimport { getAllCategory } from \"@/utils/getCategory\";\nimport { Fragment } from \"react\";\n\nexport default async function Tags() {\n  const tags = await getAllCategory();\n\n  return (\n    <main>\n      <h1 className=\"text-3xl bold p-6\">Blog Tags</h1>\n      <div className=\"py-4\">\n        <div className=\"mx-auto max-w-7xl px-6 lg:px-8\">\n          <div className=\"mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3\">\n            {tags.map((tag, index) => (\n              <div key={index}>{TagCard(tag)}</div>\n            ))}{\" \"}\n          </div>\n        </div>\n      </div>\n    </main>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで変更完了、となるはずですが Next.js で画像を呼び出すにあたってどの URL も OK する形ではないため、編集をする必要があります。今回は、next.config.mjs のファイルを以下のように変更しました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "/** @type {import('next').NextConfig} */\nconst nextConfig = {\n  images: {\n    remotePatterns: [\n      {\n        protocol: \"https\",\n        hostname: \"mms-delivery.sitecorecloud.io\",\n        port: \"\",\n        pathname: \"/api/media/v2/delivery/**\",\n      },\n    ],\n  },\n};\n\nexport default nextConfig;"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで Content Hub ONE の画像を利用することができるようになりました。実際の実行結果は以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=w3yomHFfGUitPJuRUhaFJA"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は Tag を表示するためのカードを作成し、そのカードを一覧で表示する際にはレスポンシブ対応ができるように Tailwind CSS の仕組みを利用して並べました。このため、ブラウザの横幅によっては 1 つしか並ばない時もあれば、4 つ並ぶこともできるようになっています。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    - type: Link
+      relatedType: Content
+      id: 1vV3mQIXYkW9ygEJo6mAhA
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: w3yomHFfGUitPJuRUhaFJA
+    type: Media

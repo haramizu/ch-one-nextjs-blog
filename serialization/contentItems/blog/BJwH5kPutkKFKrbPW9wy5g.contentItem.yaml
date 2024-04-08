@@ -1,0 +1,344 @@
+﻿id: BJwH5kPutkKFKrbPW9wy5g
+name: ヘッダーとフッターを用意する
+fields:
+  title:
+    value: ヘッダーとフッターを用意する
+    type: ShortText
+  description:
+    value: 今まで作成してきた Next.js のプロジェクトはデータを表示するテストまでとなっていましたが、もう少しブログのイメージを持てるようにヘッダーとフッターを作成したいと思います。
+    type: LongText
+  publishDate:
+    value: 2024-04-17T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: create-header-and-footer
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ファイルを作成する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Next.js の App Router でレイアウトの処理をする部分は layout.tsx を利用して作成をします。このため、ここにヘッダーとフッターを追加することで、すべてのページにヘッダーとフッターを適用することができます。layout.tsx の動作に関しては以下のページで紹介されています。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "Pages and Layouts"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず、Header に関してシンプルなコードのファイルを "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/Header.tsx"
+              },
+              {
+                "type": "text",
+                "text": " と src の直下に components フォルダを作成して用意します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export default function Header() {\n  return (\n    <header>\n      <p>Logo</p>\n    </header>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "同様に Footer のファイルを src/components/Fotter.tsx を作成して、以下のコードを設定します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export default function Footer() {\n  return (\n    <footer>\n      <p>Copyright</p>\n    </footer>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでヘッダーとフッターに関して準備ができました。レイアウトを制御している src/app/layout.tsx で上記のコンポーネントを追加します。Header と Footer を利用することができるように import も追加してください。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import Header from \"@/components/Header\";\nimport Footer from \"@/components/Fotter\";\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <html lang=\"en\">\n      <body>\n        <Header />\n        {children}\n        <Footer />\n      </body>\n    </html>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実行をすると、以下のように "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "<header>"
+              },
+              {
+                "type": "text",
+                "text": " と "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "<footer>"
+              },
+              {
+                "type": "text",
+                "text": " が page.tsx を変更することなく入っていることを確認することができます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=6xMlaAM6ZUyTy0u7c857pw"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "見た目の調整"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のサンプルまでの場合は、まだ単に文字が表示されているだけとなっているので、もう少し見た目を良くするために変更をしていきます。今回のプロジェクトは、最初に Tailwind CSS を有効にしているため、比較的簡単に見た目も調整することができます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まずはヘッダーのファイル "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/Header.tsx"
+              },
+              {
+                "type": "text",
+                "text": " は以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import Link from \"next/link\";\nimport Image from \"next/image\";\n\nexport default function Header() {\n  return (\n    <header className=\"p-4 flex justify-between items-center\">\n      <div className=\"flex-none w-40 mr-8\">\n        <Link href=\"/\">\n          <Image\n            src=\"/content-hub-one-horizontal-color-black-txt.svg\"\n            alt=\"Content Hub ONE\"\n            className=\"h-8\"\n            width={350}\n            height={150}\n          />\n        </Link>\n      </div>\n      <div className=\"grow flex\">\n        <div className=\"space-x-4\">\n          <Link href=\"/blog\">Blog</Link>\n          <Link href=\"/tags\">Tags</Link>\n        </div>\n      </div>\n      <div className=\"flex-none flex-row space-x-4\">\n        <Link\n          href=\"https://github.com/haramizu/ch-one-nextjs-blog\"\n          target=\"_blank\"\n        >\n          GitHub\n        </Link>\n      </div>\n    </header>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて Footer "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/Fotter.tsx"
+              },
+              {
+                "type": "text",
+                "text": " に関しても以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export default function Footer() {\n  return (\n    <footer>\n      <hr className=\"border-gray-600 my-4\" />\n      <div className=\"container mx-auto text-center\">\n        <p>&copy; 2024 Your Website. All rights reserved.</p>\n      </div>\n    </footer>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "結果、以下のような形で表示されるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=Cb9xoKEPJ0moPtpJ0BnXtw"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回はヘッダーとフッターを作成して、ブログサイトとしてそれっぽい形に仕上げてみました。もう少し見た目に関しての部分をブログの記事として追加で書いていきます。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    - type: Link
+      relatedType: Content
+      id: 1vV3mQIXYkW9ygEJo6mAhA
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: Cb9xoKEPJ0moPtpJ0BnXtw
+    type: Media

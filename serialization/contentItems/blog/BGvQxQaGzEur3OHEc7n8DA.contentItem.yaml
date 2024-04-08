@@ -1,0 +1,473 @@
+﻿id: BGvQxQaGzEur3OHEc7n8DA
+name: ダークモードとモードを変更するスイッチャーの追加
+fields:
+  title:
+    value: ダークモードとモードを変更するスイッチャーの追加
+    type: ShortText
+  description:
+    value: Tailwind CSS の標準機能としてダークモードを簡単に採用することができるようになっています。これまで作成してきたプロジェクトに対して、ダークモードを選択できるように、また切り替えができるボタンを配置していきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-19T00:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: dark-mode
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ダークモードとは"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "OS やブラウザなどでダークモードの設定をしている場合、ブラウザでサイトにアクセスをするとダークモードになるように表示を変更することができる機能で、Tailwind CSS では比較的簡単に実装することができます。詳しくは以下のページを参照してください。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://tailwindcss.com/docs/dark-mode",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "Dark Mode"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回はすでに作成しているプロジェクトに対して実装をしていきます。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ダークモードの実装"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "パッケージとして next-themes をインストールします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "bash"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "npm install next-themes"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "tailwind.config.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルに対して dark mode を利用できるように以下の "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "darkMode"
+              },
+              {
+                "type": "text",
+                "text": " の項目を追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import type { Config } from \"tailwindcss\";\n\nconst config: Config = {\n  content: [\n    \"./src/components/**/*.{js,ts,jsx,tsx,mdx}\",\n    \"./src/app/**/*.{js,ts,jsx,tsx,mdx}\",\n  ],\n  theme: {},\n  plugins: [],\n  darkMode: \"class\",\n};\nexport default config;"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて layout.tsx のファイルに関して以下のコードを参考にして更新してください。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { ThemeProvider } from \"next-themes\";\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <html lang=\"ja\" suppressHydrationWarning>\n      <body>\n        <ThemeProvider attribute=\"class\">\n          <Header />\n          {children}\n          <Footer />\n        </Providers>\n      </body>\n    </html>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでダークモードを利用することができるようになります。デフォルトを dark モードにすると以下のように切り替わります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=cghwb87Op0-5_DRwzFup8A"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "切り替えスイッチを追加する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ダークモードおよびライトモードを切り替えるスイッチを用意します。まずは "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/ThemeSwither.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のファイルを作成して、以下のコードを追加します。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/haramizu/ch-one-nextjs-blog/blob/step-2/src/components/ThemeSwither.tsx",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "https://github.com/haramizu/ch-one-nextjs-blog/blob/step-2/src/components/ThemeSwither.tsx"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のファイルはクリックするとダークモードとライトモードを切り替えることができます。続いて、Header に対してこのボタンを配置します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "      <div className=\"flex-none flex-row\">\n        <div className=\"flex space-x-4\">\n          <div className=\"flex-none\">\n            <ThemeSwitcher />\n          </div>\n          <div className=\"flex-none\">\n            <Link\n              href=\"https://github.com/haramizu/ch-one-nextjs-blog\"\n              target=\"_blank\"\n              className=\"text-2xl\"\n            >\n              <FaGithub />\n            </Link>\n          </div>\n        </div>\n      </div>"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで設定が完了しました。右上にボタンが追加されて、ダークモードとライトモードの切り替えができるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "左上のロゴの調整"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ダークモードを追加した際に、左上のロゴに関して黒文字のロゴを利用しているためダークモードではロゴ右側の文字が見えな区なっています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=cghwb87Op0-5_DRwzFup8A"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "白文字のロゴを表示することができるように、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/Header.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のファイルを変更します。モードによって画像を変更することになるため、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "\"use client\";"
+              },
+              {
+                "type": "text",
+                "text": " を追加する必要があります。以下は追加、および更新しているコードになります。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "\"use client\";\n\nimport { useTheme } from \"next-themes\";\n\n        <Link href=\"/\">\n          {theme === \"light\" ? (\n            <Image\n              src=\"/content-hub-one-horizontal-color-black-txt.svg\"\n              alt=\"Content Hub ONE\"\n              className=\"h-8\"\n              width={350}\n              height={150}\n            />\n          ) : (\n            <Image\n              src=\"/content-hub-one-horizontal-color-white-txt.svg\"\n              alt=\"Content Hub ONE\"\n              className=\"h-8\"\n              width={350}\n              height={150}\n            />\n          )}\n        </Link>"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでダークモードの時には白文字のロゴを表示することが可能となりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=xpIrYTf0pUya8js0imNLTA"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は Next.js と Tailwind CSS および next-themes を利用してダークモードを実装しました。利用するスタイルシートのフレームワークに合わせて、ダークモードの入れ方の手順が異なりますので、別の場合はそれぞれのガイドに従って実装してください。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "なお、ここまでの実装コードは以下のリポジトリ、ブランチで確認することができます。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/haramizu/ch-one-nextjs-blog/tree/step-2",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "https://github.com/haramizu/ch-one-nextjs-blog/tree/step-2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    - type: Link
+      relatedType: Content
+      id: 1vV3mQIXYkW9ygEJo6mAhA
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: xpIrYTf0pUya8js0imNLTA
+    type: Media

@@ -1,0 +1,264 @@
+﻿id: 63E-Os_-iEeFon8ZDazC-Q
+name: 各タグのページの Slug を適用する
+fields:
+  title:
+    value: 各タグのページの Slug を適用する
+    type: ShortText
+  description:
+    value: これまでの実装では、URL としては ID を利用しています。URL としてはランダムな文字列になるので、URL だけではどういう内容かわからなくなってしまうため、カテゴリで定義している slug の項目を利用して URL を準備するようにしていきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-19T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: tag-page-using-slug
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "リンクを変更する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まずはタグのトップページ "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/tags/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のリンクを以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "    <main>\n      <h1>Content Hub ONE - Tag list</h1>\n      <ul>\n        {tags.map((tag, index) => (\n          <>\n            <li key={index}>\n              <Link href={\"/tags/\" + tag.slug}>{tag.categoryName}</Link>\n            </li>\n          </>\n        ))}\n      </ul>\n    </main>"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これまで URL としては "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "tag.id"
+              },
+              {
+                "type": "text",
+                "text": " を利用していましたが、これを "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "tag.slug"
+              },
+              {
+                "type": "text",
+                "text": " に変更した形です。この変更に伴い、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/tags/[tag]/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のページで受け取る tag は ID ではなくなるため、slug を利用したクエリと関数を用意する必要があります。GraphQL としては ID で選択する形ではないため、AllCategory で slug が連携するもの、という形でデータを取得します。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=2KVWy-A-90auVmHnxNtdRQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このクエリを実行するために、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/interfaces/Category/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " に対して以下のコードを追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export const CategoryFromSlugQuery = (slug: string) => {\n  return (\n    `\n    query AllCategory {\n      allCategory(where: { slug_eq: \"${slug}\" }) {\n          total\n          results {\n        ` +\n    CategoryQuery +\n    `\n          }\n      }\n    }\n  `\n  );\n};"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のクエリを利用する関数を "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/utils/getCategory/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルに対して追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export async function getCategoryFromSlug(slug: string) {\n  const tags: AllCategoryResponse = (await fetchGraphQL(\n    CategoryFromSlugQuery(slug)\n  )) as AllCategoryResponse;\n\n  return tags.data.allCategory.results[0];\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで準備が整いました。src/app/tags/[tag]/page.tsx のファイルを以下のように更新します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getCategoryFromSlug } from \"@/utils/getCategory\";\n\nexport default async function Page({ params }: { params: { tag: string } }) {\n  const tag = await getCategoryFromSlug(params.tag);\n  return (\n    <>\n      <h1>Category Name: {tag.categoryName}</h1>\n      <p>Description: {tag.description}</p>\n    </>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで slug を利用してタグのページを表示することができました。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "URL に対して ID を利用しないで slug を利用して、該当するカテゴリの情報をもとにページを表示するようにしました。この場合、カテゴリページで用意されている slug に重複がある場合は、最初に検索された項目が表示される形となります。このため、カテゴリのページの slug に関してはユニークに持つようにしていく必要があります。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: 2KVWy-A-90auVmHnxNtdRQ
+    type: Media

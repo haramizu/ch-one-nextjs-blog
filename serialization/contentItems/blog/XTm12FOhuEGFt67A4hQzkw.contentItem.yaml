@@ -1,0 +1,251 @@
+﻿id: XTm12FOhuEGFt67A4hQzkw
+name: Next.js の新しいプロジェクトを作成する
+fields:
+  title:
+    value: Next.js の新しいプロジェクトを作成する
+    type: ShortText
+  description:
+    value: Content Hub ONE から GraphQL を利用してコンテンツの取得をすることができるのを確認してきましたが、今回以降は Next.js のプロジェクトを作成して、GraphQL との連携について確認をしていきます。今回はそのベースとなる Next.js のプロジェクトの作成、起動まで紹介をします。
+    type: LongText
+  publishDate:
+    value: 2024-04-08T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: create-nextjs-project
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "新しいプロジェクトの作成"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は新規に Next.js のプロジェクトを立ち上げていきます。まず最初に、以下のコマンドを実行してください。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "bash"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "npx create-next-app "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "いくつか確認事項が表示されます。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "TypeScript を利用しますか？ Yes"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "ESLint は？ Yes"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Tailwind CSS は？ Yes"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "src ディレクトリを利用するか？ Yes"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "App Router を利用するか？ Yes"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "import alias のカスタマイズは？ No"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=VGvpyjbrn0Wdi8sJUCK43A"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記の設定が終わると、プロジェクトが作成されます。ディレクトリを移動して実行をします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "bash"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "cd ch-one-nextjs-blog\nnpm run dev"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実行するとターミナルに URL が表示されます。ローカルの環境に対して、アクセスをすると以下のように Next.js のアプリケーションが起動していることがわかります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=TUEh8hxKVUGf2owHu03efQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Tailwind CSS を利用することができる Next.js のプロジェクトができました。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は特徴的なコンテンツはありませんが、この新しいプロジェクトにコードを追加していって、ブログとして動くように仕上げていきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: TUEh8hxKVUGf2owHu03efQ
+    type: Media

@@ -1,0 +1,48 @@
+﻿id: 0DO-hwQ8AUuJnjgg7ux-kw
+name: sitemap.xml を追加する
+fields:
+  title:
+    value: sitemap.xml を追加する
+    type: ShortText
+  description:
+    value: sitemap.xml を追加する
+    type: LongText
+  publishDate:
+    value: 2024-05-23T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: sitemap-xml
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログに Sitemap.xml を追加する"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value: []
+    type: Media

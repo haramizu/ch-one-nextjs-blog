@@ -1,0 +1,286 @@
+﻿id: w42-DFig8kySE0txWY3ddA
+name: タグの個別ページを更新する
+fields:
+  title:
+    value: タグの個別ページを更新する
+    type: ShortText
+  description:
+    value: 前回はタグの一覧のページを更新しましたが、タグのページに移動をするとタグが設定されているブログ記事一覧を表示するようにタグの各ページに関して設定を変更していきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-23T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: show-blog-on-tag-page
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "関連するタグの記事の一覧を取得する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "現在のところ、タグのページをクリックすると、該当するカテゴリのタイトル、Description が表示できるようになっています。コードは以下の通りです。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getCategoryFromSlug } from \"@/utils/getCategory\";\n\nexport default async function Page({ params }: { params: { tag: string } }) {\n  const tag = await getCategoryFromSlug(params.tag);\n  return (\n    <>\n      <h1>Category Name: {tag.categoryName}</h1>\n      <p>Description: {tag.description}</p>\n    </>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は、このタグが設定されているブログの記事一覧を取得していきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "どのような GraphQL でデータを取得することができるでしょか？実は、Refferences で設定している項目の場合、その ID が必要となります。例えば、以下のような形です。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=4byXdHbfJ0iOxqAL4UaUfg"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このため、Tag のページでは slug から ID を取得して、その上で該当するブログ一覧を取得する、という手順を踏む必要があります。すでに Slug から Category に関するデータを取得しているので、その ID を利用してクエリを動かします。また、ブログに関しては新着順として作成したいこともあり、その "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "orderBy"
+              },
+              {
+                "type": "text",
+                "text": " に関しても追加しました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "GraphQL のサンプルは以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "query AllBlog {\n    allBlog(\n        orderBy: PUBLISHDATE_DESC\n        where: { tag: { category_ids: \"contentID\" } }\n    ) {\n        total\n        results {\n            id\n            name\n            title\n            publishDate\n            description\n            slug\n            content\n            topStory\n        }\n    }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際に呼び出しをする部分に関しては、 "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/interfaces/Blog/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルに対して以下のクエリを追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export const AllBlogFromTagQuery = (categoryid: string) => {\n  return (\n    `\n    query AllBlog {\n      allBlog(\n          orderBy: PUBLISHDATE_DESC\n          where: { tag: { category_ids: \"${categoryid}\" } }\n      ) {\n          total\n          results {\n              ` +\n    BlogQuery +\n    `\n          }\n      }\n  }\n    `\n  );\n};"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これを利用する関数を、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/utils/getBlog/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " に対して追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export async function getAllBlogFromTag(id: string) {\n  const results: AllBlogResponse = (await fetchGraphQL(\n    AllBlogFromTagQuery(id)\n  )) as AllBlogResponse;\n\n  const contents: Partial<Blog>[] = [];\n\n  results.data.allBlog.results.forEach((post: Partial<Blog>) => {\n    contents.push({\n      id: post.id,\n      name: post.name,\n      title: post.title,\n      description: post.description,\n      publishDate: post.publishDate,\n      slug: post.slug,\n      hero: post.hero,\n      tag: post.tag,\n      content: post.content,\n    });\n  });\n\n  return contents;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで準備ができました。タグのページ "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/tags/[tag]/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " は以下のようにコードを書き換えました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getAllBlogFromTag } from \"@/utils/getBlog\";\nimport { getCategoryFromSlug } from \"@/utils/getCategory\";\n\nexport default async function Page({ params }: { params: { tag: string } }) {\n  const tag = await getCategoryFromSlug(params.tag);\n\n  if (tag.id === undefined) {\n    return <></>;\n  }\n\n  const posts = await getAllBlogFromTag(tag.id);\n\n  return (\n    <div className=\"p-6\">\n      <h1 className=\"text-3xl bold\">Tag: {tag.categoryName}</h1>\n      <p>Description: {tag.description}</p>\n      <hr className=\"my-4\" />\n      <div>\n        <ul>\n          {posts.map((post, index) => (\n            <div key={index}>{post.title}</div>\n          ))}\n        </ul>\n      </div>\n    </div>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際の表示結果は以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=on-jiR2JEE6Dvhvn7ctO2Q"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回はブログの記事でカテゴリを指定している場合に、その該当するブログの一覧を取得する、というところまで作成していきました。ひとまずカテゴリのページはここまでとして、次回からは数回に分けてブログのページに関して追加の処理を作成していきます。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: on-jiR2JEE6Dvhvn7ctO2Q
+    type: Media

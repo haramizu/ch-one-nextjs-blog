@@ -1,0 +1,252 @@
+﻿id: Uk45a5UmKk6oKuwKV7OndA
+name: リッチテキストのデータを表示する - その４ heading の処理
+fields:
+  title:
+    value: リッチテキストのデータを表示する - その４ heading の処理
+    type: ShortText
+  description:
+    value: 前回の paragraph に続いて H1 などのヘッダー部分を用意していきます。この heading でも太字にする、という処理が入ることがあるため、paragraph と同様の手順となります。
+    type: LongText
+  publishDate:
+    value: 2024-05-07T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: rich-text-field-part-4-heading
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ヘッダーの処理を追加"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は heading のタイプに対しての処理を入れていきます。heading の中には attrs の中に level が記載されており、例えば H2 を利用する際には level のところに数字が入っている形です。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まずサンプルのデータを作ってみました。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Heading 1"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Heading 2"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Heading 3"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このデータは Json として以下のように返ってきます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"type\": \"heading\",\n    \"attrs\": {\n        \"level\": 1\n    },\n    \"content\": [\n        {\n            \"type\": \"text\",\n            \"text\": \"Heading 1\"\n        }\n    ]\n},\n{\n    \"type\": \"heading\",\n    \"attrs\": {\n        \"level\": 2\n    },\n    \"content\": [\n        {\n            \"type\": \"text\",\n            \"text\": \"Heading 2\"\n        }\n    ]\n},\n{\n    \"type\": \"heading\",\n    \"attrs\": {\n        \"level\": 3\n    },\n    \"content\": [\n        {\n            \"type\": \"text\",\n            \"text\": \"Heading 3\"\n        }\n    ]\n},"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この部分を処理する関数は、以下のように更新をします。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function showHeading(element: Content, index: number) {\n  const level = element.attrs.level;\n  const formattedText = textFunction(element.content);\n  const headingElements: JSX.Element[] = [];\n\n  switch (level) {\n    case 1:\n      headingElements.push(\n        <h1 key={index} className=\"text-2xl mt-4 font-bold\">\n          {formattedText}\n        </h1>\n      );\n      break;\n    case 2:\n      headingElements.push(\n        <h2 key={index} className=\"text-xl mt-2 font-bold\">\n          {formattedText}\n        </h2>\n      );\n      break;\n    case 3:\n      headingElements.push(\n        <h3 key={index} className=\"text-lg mt-2 font-bold\">\n          {formattedText}\n        </h3>\n      );\n      break;\n    case 4:\n      headingElements.push(\n        <h4 key={index} className=\"text-base mt-2\">\n          {formattedText}\n        </h4>\n      );\n      break;\n    case 5:\n      headingElements.push(\n        <h4 key={index} className=\"text-sm mt-2\">\n          {formattedText}\n        </h4>\n      );\n      break;\n    case 6:\n      headingElements.push(\n        <h4 key={index} className=\"text-sm mt-2\">\n          {formattedText}\n        </h4>\n      );\n      break;\n    default:\n      headingElements.push(\n        <h2 key={index} className=\"text-2xl mt-4 font-bold\">\n          {formattedText}\n        </h2>\n      );\n      break;\n  }\n  return headingElements;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これにより heading に合わせた文字のサイズを表示できるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=7_jFMhap8U-o-UsYm3HH1Q"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ID を追加する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "heading の部分に対して、直接リンクを貼りたいケースがあります。そこで今回は、id を付与してリンクを貼ることができるように調整をします。まずは以下の関数を追加して、id で利用する文字列を heading の文字列と同じに設定します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function sectionFunction(element: Content[]) {\n  let sectionId;\n  if (element !== undefined) {\n    element.forEach((content) => {\n      sectionId = content.text.replace(/\\s+/g, \"-\");\n    });\n  }\n  return sectionId;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて、showHeading の関数の中で id を作成して、<h1> などのタグに対して id を付与します。以下は抜粋です。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function showHeading(element: Content, index: number) {\n\n  const sectionId = sectionFunction(element.content);\n\n  switch (level) {\n    case 1:\n      headingElements.push(\n        <h1 key={index} className=\"text-2xl mt-4 font-bold\" id={sectionId}>\n          {formattedText}\n        </h1>\n      );\n      break;"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでリンクの際にページの中の heading に対して #heading-1 のように設定ができるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は Tailwind CSS の定義を直接コードに書き込んでいますが、これはコードの動きを説明するのにこの書き方がいいかな、と考えたためです。実際にはテーマとして設定をして制御するのが一番いいので、この部分は Tailwind CSS の Tips という形で別のタイミングで紹介したいと考えています。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: 7_jFMhap8U-o-UsYm3HH1Q
+    type: Media

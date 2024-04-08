@@ -1,0 +1,129 @@
+﻿id: pXUsbuUgXkOYKvN5Oda_FQ
+name: カテゴリ コンテンツを作成する
+fields:
+  title:
+    value: カテゴリ コンテンツを作成する
+    type: ShortText
+  description:
+    value: コンテンツタイプの定義は完了しました。それでは早速、コンテンツを作成していきたいところですが、ブログコンテンツがカテゴリコンテンツを参照するように作成をしたので、今回はカテゴリコンテンツを作成します。
+    type: LongText
+  publishDate:
+    value: 2024-03-29T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: create-category-content
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "カテゴリコンテンツの作成"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コンテンツを追加することができる画面に移動します。何も作っていない、クリーンな環境では以下のような画面になります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=-z6XszwLjk2ML3FhH961HA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Add Content のメニューをクリックすると、アイテムの作成画面になります。今回は以下のように設定しました。コンテンツタイプを作成している時に定義をしていなかった Name というフィールドがあります。これは作成をするコンテンツの名前を定義するところで、システム的に利用するものになります。今回はタイトルと同じ内容を入れておきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=mPt5iLdjzECQZBhL7rDqtQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "データを入力したあと、右上に表示される Save のボタンをクリックすると、データが保存されます。今回は、取り急ぎ４つほど作成しておきました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=4l9xwSKMa0GsZ0ufcgNVdA"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "カテゴリとして利用したい要素を全て準備することができました。次回は、このカテゴリを利用するブログコンテンツを作成していきます。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: jaLkWmHEl0Gyass4EODcbw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: 4l9xwSKMa0GsZ0ufcgNVdA
+    type: Media

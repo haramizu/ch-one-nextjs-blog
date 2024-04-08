@@ -1,0 +1,22 @@
+﻿id: B_1RVPmqs0W7mbP5TzgcCg
+name: Postman
+fields:
+  categoryName:
+    value: Postman
+    type: ShortText
+  slug:
+    value: postman
+    type: ShortText
+  description:
+    value: Unleash the Power of API Development with Postman
+    type: ShortText
+  languages:
+    value:
+    - id: ja
+    type: Select
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: sBZYp2ICa0qOKQf67fc_bQ
+    type: Media

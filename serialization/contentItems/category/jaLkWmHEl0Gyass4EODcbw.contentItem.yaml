@@ -1,0 +1,23 @@
+﻿id: jaLkWmHEl0Gyass4EODcbw
+name: Content Hub ONE
+fields:
+  categoryName:
+    value: Content Hub ONE
+    type: ShortText
+  slug:
+    value: content-hub-one
+    type: ShortText
+  description:
+    value: Unleash the Power of Headless CMS with Sitecore Content Hub ONE
+    type: ShortText
+  languages:
+    value:
+    - id: en
+    - id: ja
+    type: Select
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: KVQ7SwHONEu9CnRzF09XgQ
+    type: Media

@@ -1,0 +1,388 @@
+﻿id: oMdjrNdO8kOkZQpBRdt8pQ
+name: Content Hub ONE で利用するクラスのフィールドやメソッドの定義（カテゴリ）
+fields:
+  title:
+    value: Content Hub ONE で利用するクラスのフィールドやメソッドの定義（カテゴリ）
+    type: ShortText
+  description:
+    value: 前回はメディアのインターフェイスを作成しましたが、今回はカテゴリのインターフェイスを作成していきます。ブログはメディア以外にもカテゴリのデータを参照しているため、ブログよりも先にカテゴリを作っていきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-10T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: nextjs-interfaces-category
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "全てのブログ記事のスキーマを確認する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Media に関しては個別のデータが取れる程度でよかったのですが、カテゴリのデータの取得には２つのパターンが考えられます。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "カテゴリに関する情報を取得する"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "カテゴリの一覧を取得する"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このシナリオに合わせて、まずは Postman でクエリを作成していきます。必要なのはカテゴリに関する情報ということで、以下のようにクエリを作成しました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "query AllCategory {\n    allCategory {\n        total\n        results {\n            id\n            name\n            categoryName\n            description\n            slug\n            hero {\n                total\n                results {\n                    description\n                    fileHeight\n                    fileId\n                    fileName\n                    fileSize\n                    fileType\n                    fileUrl\n                    fileWidth\n                    id\n                    name\n                }\n            }\n        }\n    }\n}\n"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この記事を書いている段階でのカテゴリのデータは以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=jGdK3FRoa0uWszvkGn24mg"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "結果として、5 件のデータを取得することができています。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"data\": {\n        \"allCategory\": {\n            \"total\": 5,\n            \"results\": [\n                {\n                    \"id\": \"02dhouI_QUSPVR6uxJKo0Q\",\n                    \"name\": \"GraphQL\",\n                    \"categoryName\": \"GraphQL\",\n                    \"description\": \"About GraphQL and Postman\",\n                    \"slug\": \"graphql\",\n                    \"hero\": {\n                        \"total\": 1,\n                        \"results\": [\n                            {\n                                \"description\": \"\",\n                                \"fileHeight\": 948,"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この結果を受けて、interface を作成していきます。ファイルは、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/interfaces/Category/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " を作成していきます。Category の Interface は以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export interface Category {\n  id: string;\n  name: string;\n  categoryName: string;\n  description: string;\n  slug: string;\n  hero: {\n    total: number;\n    results: Media[];\n  };\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記の hero のメディアを指定しているところに関しては "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "Media[]"
+              },
+              {
+                "type": "text",
+                "text": " を指定しています。これを有効にするために、以下の１行を記載しておきましょう。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { Media } from \"@/interfaces/Media\";"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いてカテゴリーの一覧を取得したあとに扱うことができる Interface を以下のように作成しておきます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export interface AllCategoryResponse {\n  data: {\n    allCategory: {\n      total: number;\n      results: Partial<Category>[];\n    };\n  };\n}"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "カテゴリデータの確認"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "最後に Category 単体のデータを取得する時のクエリを実行して、結果を参照しながら作成していきます。まずは、ID を入れて以下のように実行します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "query Category {\n    category(id: \"categoryId\") {\n        id\n        name\n        slug\n        categoryName\n        description\n        hero {\n            total\n            results {\n                description\n                fileHeight\n                fileId\n                fileName\n                fileSize\n                fileType\n                fileUrl\n                fileWidth\n                id\n                name\n            }\n        }\n    }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "結果として、以下の Json のデータを取得できています。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"data\": {\n        \"category\": {\n            \"id\": \"jaLkWmHEl0Gyass4EODcbw\",\n            \"name\": \"Content Hub ONE\",\n            \"slug\": \"content-hub-one\",\n            \"categoryName\": \"Content Hub ONE\",\n            \"description\": \"Article about Sitecore Content Hub ONE\",\n            \"hero\": {\n                \"total\": 1,\n                \"results\": [\n                    {\n                        \"description\": \"\",\n                        \"fileHeight\": 1958,\n                        \"fileId\": \"c16229836bc74708af0b5e5d12d9a62d\",\n                        \"fileName\": null,\n                        \"fileSize\": 1388580,"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このデータを元に、以下の Interface を用意します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export interface CategoryResponse {\n  data: {\n    category: Partial<Category>;\n  };\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで Interface に関して一通り準備ができました。Media の時に作成したように、同じファイルに GraphQL の呼び出しに関しても記載しておきます。詳細は、以下のリンクから確認をしてください。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/haramizu/ch-one-nextjs-blog/blob/step-1/src/interfaces/Category/index.ts",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "src/interfaces/Category/index.ts"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "メディアと異なり、カテゴリは自分で作成したコンテンツタイプとなりますので、Interface は作りたいコンテンツのタイプによって異なる形となります。次回は最後に、Media も Category も利用している Blog の定義を作成していきます。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    - type: Link
+      relatedType: Content
+      id: B_1RVPmqs0W7mbP5TzgcCg
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: jGdK3FRoa0uWszvkGn24mg
+    type: Media
