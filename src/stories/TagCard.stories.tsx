@@ -4,7 +4,7 @@ import { Category } from "@/interfaces/Category";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Blog/TagCard",
+  title: "Card/Category",
   component: TagCard,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
@@ -14,9 +14,12 @@ const meta = {
   tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
-    categoryName: { control: "text" },
-    description: { control: "text" },
-    slug: { contol: "text" },
+    categoryName: { control: "text", description: "Enter name of Category" },
+    description: {
+      control: "text",
+      description: "Enter description of Category",
+    },
+    slug: { contol: "text", description: "Input slug for category page" },
     hero: {
       control: {
         type: "object",

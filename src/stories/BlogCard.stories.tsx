@@ -4,7 +4,7 @@ import { Blog } from "@/interfaces/Blog";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Blog/BlogCard",
+  title: "Card/Blog",
   component: BlogCard,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
@@ -16,11 +16,14 @@ const meta = {
   argTypes: {
     title: {
       control: "text",
-      Subtitle: "コンポーネントのタイトルを入力してください。",
+      description: "Enter the title of your blog",
     },
-    description: { control: "text" },
-    publishDate: { control: "date" }, // Published Date
-    slug: { contol: "text" },
+    description: {
+      control: "text",
+      description: "Enter description of your blog",
+    },
+    publishDate: { control: "date", description: "Select published date" }, // Published Date
+    slug: { contol: "text", description: "Input slug for blog URL" },
     hero: {
       control: {
         type: "object",
