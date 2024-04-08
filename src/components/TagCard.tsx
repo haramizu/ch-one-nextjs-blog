@@ -2,6 +2,9 @@ import { Category } from "@/interfaces/Category";
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * Tag Card for tagged list
+ */
 export default function TagCard(tag: Partial<Category>) {
   return (
     <>

@@ -4,6 +4,9 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * Blog Card for tagged list
+ */
 export default function BlogCard(post: Partial<Blog>) {
   return (
     <>
