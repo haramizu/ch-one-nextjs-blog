@@ -1,0 +1,196 @@
+﻿id: A9ypJh_Nh06Tasw9CeJgjg
+name: リッチテキストのデータを表示する - その５ リストの処理
+fields:
+  title:
+    value: リッチテキストのデータを表示する - その５ リストの処理
+    type: ShortText
+  description:
+    value: 今回は bulletList と orderedList のサンプルデータを作成して、表示ができるようにしていきます。基本的には呼び出しのポイントが異なり、リストを表示する部分の処理は共通のため、この２つは今回まとめて紹介をする形です。
+    type: LongText
+  publishDate:
+    value: 2024-05-08T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: rich-text-field-part-5-list
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Json のデータを確認する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まずはリストの処理に関して Json のデータを確認していきます。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "コンテンツ"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "コンテンツ"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "bulletList",
+                    "content": [
+                      {
+                        "type": "listItem",
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "コンテンツ"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のデータはどのような結果になるでしょうか？以下が Json のデータになります。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"type\": \"bulletList\",\n    \"content\": [\n        {\n            \"type\": \"listItem\",\n            \"content\": [\n                {\n                    \"type\": \"paragraph\",\n                    \"content\": [\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"コンテンツ\"\n                        }\n                    ]\n                }\n            ]\n        },\n        {\n            \"type\": \"listItem\",\n            \"content\": [\n                {\n                    \"type\": \"paragraph\",\n                    \"content\": [\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"コンテンツ\"\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"bulletList\",\n                    \"content\": [\n                        {\n                            \"type\": \"listItem\",\n                            \"content\": [\n                                {\n                                    \"type\": \"paragraph\",\n                                    \"content\": [\n                                        {\n                                            \"type\": \"text\",\n                                            \"text\": \"コンテンツ\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このデータを処理するために、既存の２つの関数に対してリストを表示する関数を定義します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function showBulletList(element: Content, index: number) {\n  const listItems = itemListFunction(element.content);\n\n  return (\n    <ul key={index} className=\"list-disc list-inside ml-4\">\n      {listItems}\n    </ul>\n  );\n}\n\nfunction showOrderdList(element: Content, index: number) {\n  const listItems = itemListFunction(element.content);\n\n  return (\n    <ol key={index} className=\"list-decimal list-inside ml-4\">\n      {listItems}\n    </ol>\n  );\n}\n\nfunction itemListFunction(element: Content[]) {\n  const textElements: JSX.Element[] = [];\n\n  if (element !== undefined) {\n    element.forEach((item, key) => {\n      item.content.forEach((content, key) => {\n        if (content.type === \"bulletList\") {\n          textElements.push(showBulletList(content, key));\n        } else if (content.type === \"orderedList\") {\n          textElements.push(showOrderdList(content, key));\n        } else {\n          textElements.push(<li key={key}>{textFunction(content.content)}</li>);\n        }\n      });\n    });\n  }\n  return textElements;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のデータをもとに、リストを以下のように表示することができました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=6kxGUa6i-ku64CWkCZATLA"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は一覧の表示をしつつも、一覧の中にも一覧を並べることがあるため、この部分を再度呼び出して表示する、という形で実装をしていきました。次回はもう少しややこしい、テーブルの処理に手をつけていきます。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: 6kxGUa6i-ku64CWkCZATLA
+    type: Media

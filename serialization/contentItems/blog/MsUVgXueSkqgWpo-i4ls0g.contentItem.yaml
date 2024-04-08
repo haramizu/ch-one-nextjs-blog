@@ -1,0 +1,284 @@
+﻿id: MsUVgXueSkqgWpo-i4ls0g
+name: Content Hub ONE で利用するクラスのフィールドやメソッドの定義（メディア）
+fields:
+  title:
+    value: Content Hub ONE で利用するクラスのフィールドやメソッドの定義（メディア）
+    type: ShortText
+  description:
+    value: >
+      Next.js で Content Hub ONE のデータを取得するにあたり、事前に Typescript で利用するインターフェイスを先に実装していきます。作業としては Postman を利用してクエリを確認していきながら、Interface を作成していきます。初回は Media に関するインターフェイスの作成です。
+    type: LongText
+  publishDate:
+    value: 2024-04-09T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: nextjs-interfaces-media
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "メディアのスキーマを確認する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "以前の記事で Postman と連携をした際に、Postman が Content Hub ONE のスキーマを読み込んでツールで見やすくなっています。以下のような画面です。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=OQhk2aVmOUeoBIbD3EV5PA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "例えば Media をクリックすると以下のように画面が切り替わります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=1KKsldZbEUaDVPoGUC6GoQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際にアップロード済みの Media の ID を設定をしてクエリを実行すると、以下のような形で結果を取得しています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=SyK1rkUeGEOxwbp46heAkQ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "システムが持っているデータも取ることができますが、今回はメディアファイルに関する情報を取得したいだけですので以下のようにクエリを作成します。順番は少し変更をしました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "query Media {\n    media(id: \"media-id-sample\") {\n        id\n        name\n        description\n        fileId\n        fileUrl\n        fileName\n        fileSize\n        fileType\n        fileHeight\n        fileWidth\n    }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "取得する結果は以下の通りです。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "json"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"data\": {\n        \"media\": {\n            \"id\": \"media-id-sample\",\n            \"name\": \"graphql-postman-05.png\",\n            \"description\": \"\",\n            \"fileId\": \"12a134a537e043708ef0ffb977bdfcf9\",\n            \"fileUrl\": \"https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/f36ae82c-5f19-40c5-4086-08daadeee1b8/12a134a537e043708ef0ffb977bdfcf9\",\n            \"fileName\": null,\n            \"fileSize\": 134931,\n            \"fileType\": \"image/png\",\n            \"fileHeight\": 948,\n            \"fileWidth\": 1682\n        }\n    }\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この結果を利用して、interface を作成していきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ファイルとして、まずは src/interfaces/Media/index.ts に新しいファイルを作成します。この interfaes のフォルダの下に、TypeScript で利用する interface と Query をまとめていきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記の結果となる Json の定義を以下のように入れていきます。Media の各項目を定義した interface と結果として取得する MediaResponse の interface を定義した形です。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export interface Media {\n  id: string;\n  name: string;\n  description: string;\n  fileId: string;\n  fileUrl: string;\n  fileName: string;\n  fileSize: number;\n  fileType: string;\n  fileHeight: number;\n  fileWidth: number;\n}\n\nexport interface MediaResponse {\n  data: {\n    media: Partial<Media>;\n  };\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて Query で呼び出す部分で ID を利用して取得するための Query を以下のように作成しておきます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export const MediaQuery = `\nid\nname\ndescription\nfileId\nfileName\nfileHeight\nfileWidth\nfileSize\nfileType\nfileUrl\n`;\n\nexport const MediaFromIDQuery = (mediaId: string) => {\n  return `\n  query Media {\n    media(id: \"${mediaId}\") {\n        ` + MediaQuery + `\n    }\n  }\n  `;\n};"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Media に関してはシステムで持っているスキーマになるので基本的には拡張することはできません。そして、Media を利用する部分としては Blog の記事のコンテンツタイプのフィールドとして定義しています。使い方はおいおいご紹介していきます。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は実際に Next.js での連携実装をする前準備の１つ、Media のインターフェイスを作成しました。次回は、Blog のインターフェイスを作成します。上記のコードは以下の URL で確認することができます。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/haramizu/ch-one-nextjs-blog/blob/step-1/src/interfaces/Media/index.ts",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "src/interfaces/Media/index.ts"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    - type: Link
+      relatedType: Content
+      id: B_1RVPmqs0W7mbP5TzgcCg
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: SyK1rkUeGEOxwbp46heAkQ
+    type: Media

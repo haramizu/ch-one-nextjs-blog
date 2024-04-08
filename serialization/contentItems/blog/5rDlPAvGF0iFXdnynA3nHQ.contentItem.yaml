@@ -1,0 +1,246 @@
+﻿id: 5rDlPAvGF0iFXdnynA3nHQ
+name: コンテンツのステータスについて
+fields:
+  title:
+    value: コンテンツのステータスについて
+    type: ShortText
+  description:
+    value: >
+      コンテンツを作成したタイミングでは、ステータスは draft - 下書きという形で保存されています。実際に公開をしたり、非公開にする手順はどういうふうにできるでしょうか？今回はこの部分を紹介します。
+    type: LongText
+  publishDate:
+    value: 2024-04-02T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: about-content-status
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "ステータスに関して"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コンテンツを作成した時に、特に何もしない場合は draft - 下書きとして保存されます。このため、右上には次のアクションとして Publish のボタンが配置されます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=A5BwWCC9C0CFjOU2NZEf5A"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コンテンツに関して Publish を実行すると Published のステータスに変更されます。公開済みのコンテンツに関しては、Unpublish を実行することで Draft に戻りますが、編集をしただけであれば Changed のステータスに変わります。ヘルプで提供されている以下の画像がステータス変更の流れです。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=BYltEREAD0yLfJ6FSG4tfw"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "コンテンツを公開する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回は１つ目のコンテンツとしてカテゴリの項目を公開していきます。公開をする際には、コンテンツを開くと右上に Publish のボタンが表示されているため、これをクリックして公開します。しばらくするとステータスは Published に更新されます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=81QQ0qpWPES15jJEBtat5A"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コンテンツの公開を停止する場合は、公開中のコンテンツを選択して、右上のメニューの項目に Unpublish の項目があるため、これをクリックすると Draft に戻ります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=bybIpBf5X0eZuugUXN-ijA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コンテンツ一覧では、以下の画面のようにステータスを確認することができます。また、フィルタを利用して、Published のみ、Draft のみという形で表示することも可能です。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=y6CJJ_7fT0iRgJRWWkQw5g"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "コンテンツのステータスに関して、Draft 、Publish のコンテンツが１つづつ準備することができました。次回はすでに Content Hub ONE に保存しているデータを手元で管理することができる Content Hub ONE CLI について紹介をします。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "参考サイト"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://doc.sitecore.com/ch-one/en/users/content-hub-one/content-delivery.html",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          },
+                          {
+                            "type": "bold"
+                          },
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "text": "Content delivery"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: jaLkWmHEl0Gyass4EODcbw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: A5BwWCC9C0CFjOU2NZEf5A
+    type: Media

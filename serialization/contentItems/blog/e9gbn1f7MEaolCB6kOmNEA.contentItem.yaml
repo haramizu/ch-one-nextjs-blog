@@ -1,0 +1,34 @@
+﻿id: e9gbn1f7MEaolCB6kOmNEA
+name: タグのページに Pagenation を追加する
+fields:
+  title:
+    value: タグのページに Pagenation を追加する
+    type: ShortText
+  description:
+    value: タグのページに Pagenation を追加する
+    type: LongText
+  publishDate:
+    value: 2024-05-21T00:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: pagenation-tag
+    type: ShortText
+  content:
+    value: 
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value: []
+    type: Media

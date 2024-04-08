@@ -1,0 +1,205 @@
+﻿id: J6mZafnTgk6fkUaGoX_EUw
+name: ブログカードの日付とタグの調整
+fields:
+  title:
+    value: ブログカードの日付とタグの調整
+    type: ShortText
+  description:
+    value: 現在利用しているブログカードにおいて、日付は値をそのまま表示しており、またタグに関しては取得したデータではなく固定で現在はテンポラリで実装していました。この２つに関して、変更していきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-26T00:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: update-blog-card-date-and-tags
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "日付の調整"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "前回 URL を作成する際に追加をした react-moment を利用して日付の表示に関して変更をしていきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず、src/components/BlogCard.tsx のファイルに以下の関数を追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export function showDate(publishedDate: string | undefined) {\n  const yearmonthdate = publishedDate?.slice(0, 10);\n  const showDate = moment(yearmonthdate);\n\n  return (\n    showDate.format(\"YYYY\") +\n    \"/\" +\n    showDate.format(\"MM\") +\n    \"/\" +\n    showDate.format(\"DD\")\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで日付のデータのフォーマットの処理ができました。日付を表示するところでこの関数を呼び出すことで、以下のように日付が正しく表示されるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=Gq4wCN3uPUuW6EY9DSo4_g"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "タグのデータを取得する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "各ブログの記事の情報を取得する際に、Category のデータを取得しているため、このデータを利用してタグをクリックすると該当するタグのページに移動するようにしていきます。手っ取り早くデータが取得できるのかどうか、すでに Tag として固定で記載しているとこのコードを "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "{post.tag?.results[0].categoryName}"
+              },
+              {
+                "type": "text",
+                "text": " に変更するとどうなるでしょうか？結果は以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=rcEnOMA1b0S9-Sw01f9TIg"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "実際にはここに複数のタグが設定されている形となりますので、それらのタグを表示するように以下のようにタグの部分を書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "            {post.tag?.results.map((tag, index) => (\n              <Link\n                href={\"/tags/\" + tag.slug}\n                className=\"relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100\"\n                key={index}\n              >\n                {tag.categoryName}\n              </Link>\n            ))}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "結果、複数のタグが設定されていればそれぞれのタグに対してリンクが設定されました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA="
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログカードで日付とタグに関しての部分を追加で書き換えました。これにより、ブログがどういうカテゴリの記事になっているのかを素早く確認ができるようになり、また関連するトピックを見つけやすくすることができました。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: ISeyRhbyDk6EzGuCDrubBQ
+    type: Media

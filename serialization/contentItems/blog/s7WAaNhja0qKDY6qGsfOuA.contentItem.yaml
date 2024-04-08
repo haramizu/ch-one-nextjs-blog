@@ -1,0 +1,48 @@
+﻿id: s7WAaNhja0qKDY6qGsfOuA
+name: Meta データに関して整理をする
+fields:
+  title:
+    value: Meta データに関して整理をする
+    type: ShortText
+  description:
+    value: Meta データに関して整理をする
+    type: LongText
+  publishDate:
+    value: 2024-05-27T00:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: meta-data
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "メタデータに関しての取り組み"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value: []
+    type: Media

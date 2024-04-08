@@ -1,0 +1,61 @@
+﻿id: category
+name:
+  en-US: Category
+description:
+  en-US: ''
+fields:
+- type: ShortText
+  id: categoryName
+  name:
+    en-US: Category Name
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+  rules:
+    length: 
+- type: ShortText
+  id: slug
+  name:
+    en-US: Slug
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+  rules:
+    length:
+      min: 3
+      max: 15
+- type: ShortText
+  id: description
+  name:
+    en-US: Description
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+  rules:
+    length: 
+- type: Media
+  id: hero
+  name:
+    en-US: Hero
+  required: True
+  helpText:
+    en-US: ''
+  reference: 
+  rules:
+    limit:
+      min: 
+      max: 1
+- type: Select
+  id: languages
+  name:
+    en-US: Languages
+  required: True
+  helpText:
+    en-US: ''
+  reference:
+    id: languages
+    type: Link
+    relatedType: Taxonomy

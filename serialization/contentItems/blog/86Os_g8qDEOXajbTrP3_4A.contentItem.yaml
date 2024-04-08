@@ -1,0 +1,796 @@
+﻿id: 86Os_g8qDEOXajbTrP3_4A
+name: Content Hub ONE とは？
+fields:
+  title:
+    value: Content Hub ONE とは？
+    type: ShortText
+  description:
+    value: Sitecore が提供するヘッドレス CMS の製品として Sitecore Content Hub ONE があります。Sitecore が提供する CMS に関しては 3 つ目の製品となりますが、何が違うのでしょうか？今回は、製品の位置付けについて紹介をします。
+    type: LongText
+  publishDate:
+    value: 2024-03-25T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: content-hub-one-overview
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "サイトコアが提供する CMS 製品"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Sitecore Experience Manager"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "サイトコアはもともとコンテンツ管理の仕組みを提供する会社として事業を開始して、もうすぐ 24 年、その間業界のトップを常に走り続けている形です。最新版のコンテンツ管理の製品としては Sitecore Experience Manager という製品があり、これが従来の Sitecore が提供している製品となります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "開発方法としては従来の ASP.NET を利用したサイト構築だけでなく、2018年からはヘッドレスで利用することができるモジュールも提供、現在はどちらの開発方法も対応可能となっています。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "XM Cloud"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Sitecore Experience Manager （略して Sitecore XM ）の CMS 部分を SaaS 版として提供開始している製品が XM Cloud になります。Web サイトの開発方法としては、すでに勢いがついているヘッドレスでの実装が可能となっており、Next.js 、React、Vue などの SDK も提供しています。また、Experience Manager でも提供していたモジュール管理の仕組みのヘッドレス版を Headless SXA という形でも提供しており、開発効率とコンテンツ制作の効率化を支えるベースとなるフレームワークも用意しています。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "Content Hub ONE"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "新しく追加されたコンテンツ管理の製品として Content Hub ONE があります。すでにりリースをしていましたが、コンテンツ管理に関して多言語での管理が可能となったこともあり、日本市場でも十分販売できるスペックとなってきたためブログで紹介をする形です。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この製品はどちらかというと簡易 CMS として利用していただくことを想定しており、項目を入力するとページが作成されるという形で、管理画面自体もみたまま編集ではなく、フォームに入力をしてページを作っていくという形になります。柔軟性という点では従来の製品よりも不足していますが、例えばすでに CMS で大規模サイトで導入している際に、２つ目の CMS として導入する（ブログサイト）、ヘッドレス CMS に切り替えていく際の最初の CMS として導入することが想定されています。もちろん、大規模 CMS の仕組みが不要な規模の Web サイトでも利用できるように、上記の２つの製品に比べると安価に抑えることができます。"
+              }
+            ]
+          },
+          {
+            "type": "table",
+            "content": [
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableHeader",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableHeader",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Experience Manager"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableHeader",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "XM Cloud"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableHeader",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Content Hub ONE"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "提供方法"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "ライセンス"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "SaaS"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "SaaS"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "開発手法"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "ハイブリッド"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "ヘッドレス"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "ヘッドレス"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "マネージドクラウド"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "あり"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "なし（SaaS）"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "なし（SaaS）"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "みたまま編集"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "あり"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "あり"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "なし"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "サンプルや SDK"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "現在、サイトコアが提供しているサンプルは以下のものがあります。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/Sitecore/Sitecore.Demo.CHONE",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          },
+                          {
+                            "type": "bold"
+                          },
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "text": "Sitecore.Demo.CHONE"
+                      },
+                      {
+                        "type": "text",
+                        "text": " - Sitecore が提供するデモになります"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/Sitecore/content-hub-one-nextjs-starterkit",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          },
+                          {
+                            "type": "bold"
+                          },
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "text": "Content Hub ONE - Next.js Starter Kit"
+                      },
+                      {
+                        "type": "text",
+                        "text": " - Next.js と Content Hub ONE を連携しているスターターキット"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/Sitecore/contenthubone-examples",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          },
+                          {
+                            "type": "bold"
+                          },
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "text": "Content Hub ONE Examples"
+                      },
+                      {
+                        "type": "text",
+                        "text": " - Astro、Next.js、Svelte、Vue のサンプルが含まれています。"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://doc.sitecore.com/ch-one/en/developers/content-hub-one/content-hub-one-sdk.html",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          },
+                          {
+                            "type": "bold"
+                          },
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "text": "Content Hub ONE SDK"
+                      },
+                      {
+                        "type": "text",
+                        "text": " - .net および JavaScript で利用可能な SDK に関しての情報"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "開発をする際に便利な CLI も提供しています。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://github.com/Sitecore/content-hub-one-cli",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          },
+                          {
+                            "type": "bold"
+                          },
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "text": "Content Hub ONE CLI"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "このブログは、Content Hub ONE をヘッドレス CMS として採用しつつ、実際にこのブログを作るための手順を紹介していくブログサイトとして公開をしました。随時コンテンツの追加、そして機能を追加していきますが、それらに関しての手順は全てブログのコンテンツになっています。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: true
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: jaLkWmHEl0Gyass4EODcbw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: NtWdOB5KIU2hUtfI3NvOdQ
+    type: Media

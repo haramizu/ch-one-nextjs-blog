@@ -1,0 +1,213 @@
+﻿id: mNhKJCzdF0KXo9ZBk7rWSw
+name: サイトのアイコンを利用できるようにする
+fields:
+  title:
+    value: サイトのアイコンを利用できるようにする
+    type: ShortText
+  description:
+    value: 前回、ヘッダーの部分で GitHub へのリンクを追加していましたが、この部分はアイコンとかを利用することでより直感的な UI にすることができます。汎用的なアイコンを利用するためのライブラリがあるため、今回はアイコンをプロジェクトに追加します。
+    type: LongText
+  publishDate:
+    value: 2024-04-18T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: react-icons
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "React Icons"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回、ブログで採用するのは React Icons を利用したいと思います。インストールの手順およびアイコンの検索に関しては公式サイトに記載されています。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://react-icons.github.io/react-icons/",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "React Icons"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "サイトはブログ掲載時点では以下のような形となっています。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=TYYvWtRDKku4w5rCwDEOHg"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "パッケージのインストールは、プロジェクトを作成する時に以下のようにしてください。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "bash"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "npm install react-icons --save"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで利用できるようになります。アイコンを探す際には、上記のページで確認をするとわかりやすいです。実際に Github で検索をして、利用したいアイコンをクリックすると以下のようになります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=wjUJmgBA60i5hyXi2iQ-Lw"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "前回の記事からすると、ヘッダーの部分に関して以下のように書き換えます。import でアイコンを追加、GitHub の文字のところをアイコンにしています。アイコンのサイズを変更するために、Link の className も変更しています。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { FaGithub } from \"react-icons/fa\";\n\n      <div className=\"flex-none flex-row\">\n        <Link\n          href=\"https://github.com/haramizu/ch-one-nextjs-blog\"\n          target=\"_blank\"\n          className=\"text-2xl\"\n        >\n          <FaGithub />\n        </Link>"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "設定した結果、右側に置いていた GitHub の文字列をアイコンにすることができました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=mNhKJCzdF0KXo9ZBk7rWSw"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "こういったアイコンライブラリは色々とあります。今回は React Icons を利用しましたが、サイトで統一感をしっかりしていくためには、どのライブラリが良いかなどは検討していく必要があります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: TYYvWtRDKku4w5rCwDEOHg
+    type: Media

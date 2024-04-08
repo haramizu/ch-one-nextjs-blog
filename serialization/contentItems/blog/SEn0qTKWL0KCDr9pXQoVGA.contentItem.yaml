@@ -1,0 +1,161 @@
+﻿id: SEn0qTKWL0KCDr9pXQoVGA
+name: リッチテキストのデータを表示する - その２　RichText コンポーネント
+fields:
+  title:
+    value: リッチテキストのデータを表示する - その２　RichText コンポーネント
+    type: ShortText
+  description:
+    value: 前回は Rich Text の中で持っている Json のデータを確認しながら、interface を作成しました。今回は、type に合わせて結果を表示する RichText コンポーネントに関してベースの部分まで作成をしていきます。
+    type: LongText
+  publishDate:
+    value: 2024-05-02T00:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: rich-text-field-part-2
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "RichText コンポーネントの作成"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "リッチテキストのデータを受け取って、そのトップレベルのコンテンツに関して各タイプに合わせて処理ができるように、以下のような形で RichText コンポーネントを "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/RichText.tsx"
+              },
+              {
+                "type": "text",
+                "text": " に作成します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { Content, RichTextResponse } from \"@/interfaces/RichText\";\n\ntype RichTextProps = {\n  richText: RichTextResponse | undefined;\n};\n\nexport default function RichText({ richText }: RichTextProps) {\n  if (richText === undefined || richText.type !== \"doc\") {\n    return \"Error\";\n  } else {\n    const contentList = richText.content;\n    const elements = contentList.map((element, index) => {\n      switch (element.type) {\n        case \"heading\":\n          return showHeading(element, index);\n        case \"paragraph\":\n          return showParagraph(element, index);\n        case \"blockquote\":\n          return showBlockquote(element, index);\n        case \"table\":\n          return showTable(element, index);\n        case \"bulletList\":\n          return showBulletList(element, index);\n        case \"orderedList\":\n          return showOrderdList(element, index);\n        case \"codeBlock\":\n          return CodeBlock(element, index);\n        case \"horizontalRule\":\n          return showHorizontalRule();\n        default:\n          return;\n      }\n    });\n    return elements;\n  }\n}\n\nfunction showHeading(element: Content, index: number) {\n  return <div key={index}>showHeading</div>;\n}\n\nfunction showParagraph(element: Content, index: number) {\n  return <div key={index}>showParagraph</div>;\n}\n\nfunction showBlockquote(element: Content, index: number) {\n  return <div key={index}>showBlockquote</div>;\n}\n\nfunction showTable(element: Content, index: number) {\n  return <div key={index}>showTable</div>;\n}\n\nfunction showBulletList(element: Content, index: number) {\n  return <div key={index}>showBulletList</div>;\n}\n\nfunction showOrderdList(element: Content, index: number) {\n  return <div key={index}>showOrderdList</div>;\n}\n\nfunction CodeBlock(element: Content, index: number) {\n  return <div key={index}>CodeBlock</div>;\n}\n\nfunction showHorizontalRule() {\n  return <hr />;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて、リッチテキストコンポーネントに対してデータ渡す形で作成をするために、 "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/blog/[...slug]/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のファイルの処理を以下のように書き換えました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "      <article>\n        <div className=\"mx-10 mb-2\">\n          <p className=\"mb-2\">{post.description}</p>\n          <RichText key={post.id} richText={post.content} />\n        </div>\n      </article>"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "この実装結果としては、Json のデータで持っているトップレベルの Content のタイプに合わせて各関数が呼び出されているのがわかります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=ck3_0i4zkkurnj3Q6--MKQ"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回はリッチテキストコンポーネントを作成し、コンテンツのタイプに合わせて関数を呼び出すところまで実装をしました。次回以降は各関数の処理を作成していくことで、Rich Text フィールドに保存をしているデータをブログのページに表示していくようにします。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: ck3_0i4zkkurnj3Q6--MKQ
+    type: Media

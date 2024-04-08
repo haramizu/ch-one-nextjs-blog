@@ -1,0 +1,50 @@
+﻿id: CLbpI9bg7E-IapUaTfC_7w
+name: Blog ページの Pagination を実装する
+fields:
+  title:
+    value: Blog ページの Pagination を実装する
+    type: ShortText
+  description:
+    value: 実は GraphQL で問い合わせをした場合、標準では 10 件のコンテンツのみが取得できる形となっているため、Blog のページには新着 10 本しか掲載されていない状況でした。今回は増えてきた Blog のコンテンツを一覧で表示するにいもコンテンツの量が多いため、Pagination を作成していきます。
+    type: LongText
+  publishDate:
+    value: 2024-05-20T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: blog-pagination
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ページネーションに関して"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: 
+    type: Boolean
+  languages:
+    value: []
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: jaLkWmHEl0Gyass4EODcbw
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value: []
+    type: Media

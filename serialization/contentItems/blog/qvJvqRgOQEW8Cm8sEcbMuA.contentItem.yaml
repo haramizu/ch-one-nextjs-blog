@@ -1,0 +1,246 @@
+﻿id: qvJvqRgOQEW8Cm8sEcbMuA
+name: リッチテキストのデータを表示する - その３ paragraph の処理
+fields:
+  title:
+    value: リッチテキストのデータを表示する - その３ paragraph の処理
+    type: ShortText
+  description:
+    value: Rich Text フィールドの Json のデータとして、一番最初に Paragraph の処理を進めていきます。この記事が終わった頃には他の項目に対するコツも掴めるようになると思います。
+    type: LongText
+  publishDate:
+    value: 2024-05-02T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: rich-text-field-part-3-paragraph
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "テキストの処理"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず最初に "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "Paragraph"
+              },
+              {
+                "type": "text",
+                "text": " に記載される"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "データ"
+              },
+              {
+                "type": "text",
+                "text": "、サンプルとしてこの部分の "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "Paragraph"
+              },
+              {
+                "type": "text",
+                "text": " を見てみましょう。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\n    \"type\": \"paragraph\",\n    \"content\": [\n        {\n            \"type\": \"text\",\n            \"text\": \"まず最初に \"\n        },\n        {\n            \"type\": \"text\",\n            \"marks\": [\n                {\n                    \"type\": \"bold\"\n                }\n            ],\n            \"text\": \"Paragraph\"\n        },\n        {\n            \"type\": \"text\",\n            \"text\": \" に記載される\"\n        },\n        {\n            \"type\": \"text\",\n            \"marks\": [\n                {\n                    \"type\": \"italic\"\n                }\n            ],\n            \"text\": \"データ\"\n        },\n        {\n            \"type\": \"text\",\n            \"text\": \"、サンプルとしてこの部分の \"\n        },\n        {\n            \"type\": \"text\",\n            \"marks\": [\n                {\n                    \"type\": \"code\"\n                }\n            ],\n            \"text\": \"Paragraph\"\n        },\n        {\n            \"type\": \"text\",\n            \"text\": \" を見てみましょう。\"\n        }\n    ]\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のサンプルを見るとわかりますが、太字、イタリックなどは marks の中にある type に合わせて文字を表示しており、その文字は type の text の中で記載されています。Content[] のデータを渡して marks の処理は今回は気にせずにテキストのみ出す関数を作成します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function showParagraph(element: Content, index: number) {\n  const paragraphText = textFunction(element.content);\n\n  return (\n    <Fragment key={index}>\n      <p className=\"my-2\">{paragraphText}</p>\n    </Fragment>\n  );\n}\n\nfunction textFunction(element: Content[]) {\n  const textElements: JSX.Element[] = [];\n  if (element !== undefined) {\n    element.forEach((content, index) => {\n      textElements.push(<Fragment key={index}>{content.text}</Fragment>);\n    });\n  }\n  return textElements;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "上記のように書き換えたあと、実行するときちんと paragraph の text が処理されていることがわかります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=YAir6Ahqj06aHONbvNycWQ"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "marks の処理"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて mark が入っている場合は、太字などの処理を入れるための関数を追加します。なお、marks には太字、イタリックなど同じテキストに対して複数回処理が入ることがあるため、少し冗長ですが以下のような処理を準備しました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function marksFunction(marks: Marks[], text: string) {\n  let marksElements: JSX.Element | undefined;\n  marks.forEach((mark, markIndex) => {\n    if (markIndex === 0) {\n      switch (mark.type) {\n        case \"link\":\n          marksElements = (\n            <Link\n              key=\"markIndex\"\n              href={mark.attrs.href}\n              target={mark.attrs.target}\n            >\n              {text}\n            </Link>\n          );\n          break;\n        case \"bold\":\n          marksElements = <strong key=\"markIndex\">{text}</strong>;\n          break;\n        case \"italic\":\n          marksElements = <em key=\"markIndex\">{text}</em>;\n          break;\n        case \"underline\":\n          marksElements = <u key=\"markIndex\">{text}</u>;\n          break;\n        case \"strike\":\n          marksElements = <s key=\"markIndex\">{text}</s>;\n          break;\n        case \"code\":\n          marksElements = <code key=\"markIndex\">{text}</code>;\n          break;\n        default:\n          marksElements = <>{text}</>;\n      }\n    } else {\n      switch (mark.type) {\n        case \"link\":\n          marksElements = (\n            <Link\n              key=\"markIndex\"\n              href={mark.attrs.href}\n              target={mark.attrs.target}\n            >\n              {marksElements}\n            </Link>\n          );\n          break;\n        case \"bold\":\n          marksElements = <strong key=\"markIndex\">{marksElements}</strong>;\n          break;\n        case \"italic\":\n          marksElements = <em key=\"markIndex\">{marksElements}</em>;\n          break;\n        case \"underline\":\n          marksElements = <u key=\"markIndex\">{marksElements}</u>;\n          break;\n        case \"strike\":\n          marksElements = <s key=\"markIndex\">{marksElements}</s>;\n          break;\n        case \"code\":\n          marksElements = <code key=\"markIndex\">{marksElements}</code>;\n          break;\n        default:\n          marksElements = <>{marksElements}</>;\n      }\n    }\n  });\n\n  return marksElements;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "あとは marks の属性を持っている場合には、この関数を呼び出すように textFunction 関数を以下のように変更します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "function textFunction(element: Content[]) {\n  const textElements: JSX.Element[] = [];\n  if (element !== undefined) {\n    element.forEach((content, index) => {\n      if (content.marks !== undefined) {\n        textElements.push(\n          <Fragment key={index}>\n            {marksFunction(content.marks, content.text)}\n          </Fragment>\n        );\n      } else {\n        textElements.push(<Fragment key={index}>{content.text}</Fragment>);\n      }\n    });\n  }\n  return textElements;\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで太字、イタリック、code などを入れていた部分がきちんと表示されるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=El55IvClzkODEk83vhvQUg"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで基本的な paragraph のデータを表示することができるようになりました。このテキストの処理は他のタグでもテキスト処理として共通で動くように作っている形ですので、再利用していくことが多いです。"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: El55IvClzkODEk83vhvQUg
+    type: Media

@@ -1,0 +1,408 @@
+﻿id: v3bQlQUy0UynJSMLEonq4A
+name: ブログの URL を YYYY MM DD slug を利用して構成する
+fields:
+  title:
+    value: ブログの URL を YYYY MM DD slug を利用して構成する
+    type: ShortText
+  description:
+    value: ブログの URL に関して、ID をこれまで利用していましたが、slug を利用していきたいと思います。この際、URL で公開日がわかるように URL としては /blog/YYYY/MM/DD/slug という構成に変更をしていきます。
+    type: LongText
+  publishDate:
+    value: 2024-04-25T00:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: create-blog-url
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Dynamic Routes の活用"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これまで Next.js の Dynamic Routes の仕組みを利用して [slug] というフォルダを利用して、コンテンツの ID を URL を利用する形にしていました。Next.js の Dynamic Routes には複数の値を渡して URL を構成する仕組みとして、Catch all segments という仕組みがあります。"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes#catch-all-segments",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer nofollow",
+                              "class": null
+                            }
+                          }
+                        ],
+                        "text": "Catch all segments"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これを利用する際には、 "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "[...slug]"
+              },
+              {
+                "type": "text",
+                "text": " というフォルダ名を設定して、この slug に対して "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "{ slug: ['a', 'b', 'c'] }"
+              },
+              {
+                "type": "text",
+                "text": " という値を渡すことで、 /a/b/c という URL にすることが可能です。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "URL を生成する関数"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず最初に、日付と Slug を利用してブログの URL を生成する関数を作成します。現在の日付のデータを加工して作成するようにします。今回は、react-moment のパッケージを利用するため、まずはプロジェクトに追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "bash"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "npm install react-moment"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いてブログの URL の処理をする関数を "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/utils/getBlog/url.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルを作成してコードを記述していきます。今回は以下のように記述しています。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { Blog } from \"@/interfaces/Blog\";\nimport moment from \"moment\";\n\nexport function getBlogUrl(post: Partial<Blog>) {\n  const yearmonthdate = post.publishDate?.slice(0, 10);\n  const blogUrlDate = moment(yearmonthdate);\n\n  return (\n    \"/blog/\" +\n    blogUrlDate.format(\"YYYY\") +\n    \"/\" +\n    blogUrlDate.format(\"MM\") +\n    \"/\" +\n    blogUrlDate.format(\"DD\") +\n    \"/\" +\n    post.slug\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これにより、Blog のデータを渡した際に URL が文字列として返ってくるようになります。URL の記述は、src/components/BlogCard.tsx のコンポーネントで表示するようになっているため、コンポーネントの URL の記述を以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログページの変更"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いてブログのページに関して、パスが "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "[slug]"
+              },
+              {
+                "type": "text",
+                "text": " ではなく "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "[...slug]"
+              },
+              {
+                "type": "text",
+                "text": " に変更をして、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/blog/[...slug]/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のページでコンテンツを表示するようにします。これまで slug には ID が入る形となっていたのでシンプルにクエリを実行していましたが、今回は YYYY/MM/DD/slug の slug を利用してコンテンツを取得する必要があります。そこで以下のように書き換えていきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "まず QraphQL の呼び出しとして slug を利用して結果を取得するように、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/interfaces/Blog/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルに以下のコードを追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export const BlogFromSlugQuery = (slug: string) => {\n  return (\n    `\n  query AllBlog {\n    allBlog( where: { slug_eq: \"${slug}\" }) {\n      total\n        results {` +\n    BlogQuery +\n    `}\n    }\n  } \n  `\n  );\n};"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "続いて上記のクエリを利用する関数を "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/utils/getBlog/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のファイルに追加します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export async function getBlogFromSlug(slug: string) {\n  const tags: AllBlogResponse = (await fetchGraphQL(\n    BlogFromSlugQuery(slug)\n  )) as AllBlogResponse;\n\n  return tags.data.allBlog.results[0];\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これで Blog のデータが取得できるようになります。ブログを表示するページ "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/blog/[...slug]/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のコードを以下のように書き換えます。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { getBlogFromSlug } from \"@/utils/getBlog\";\n\nexport default async function Page({ params }: { params: { slug: string } }) {\n  const post = await getBlogFromSlug(params.slug[3]);\n\n  return (\n    <main>\n      <h1>Blog Title: {post.title}</h1>\n      <p>PublishDate: {post.publishDate}</p>\n    </main>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでブログの一覧ページからクリックをすると、以下のようにブログのページが表示されるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=tUEkZoXjHUWMJFz0_nD-lw"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログの記事に関して、公開日の日付とコンテンツで指定した slug を利用して URL を作成する形としました。単なる ID の URL よりも SEO という点では便利な形となります。今回の実装では slug で検索をした 1 つ目の値をブログの記事として処理をしているため、重複させないように slug の運用をする必要があります。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: tUEkZoXjHUWMJFz0_nD-lw
+    type: Media

@@ -1,0 +1,274 @@
+﻿id: 21rqbWm8t0qiZ0l6Ull5vw
+name: ブログ一覧のページでブログカードを利用して表示する
+fields:
+  title:
+    value: ブログ一覧のページでブログカードを利用して表示する
+    type: ShortText
+  description:
+    value: まず最初にブログの一覧のページで各ブログのトピックのカードを作成して、一覧で表示するようにしていきます。今回のゴールは単なる一覧での表示をカードで表示する形に変更することです。
+    type: LongText
+  publishDate:
+    value: 2024-04-24T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: create-blog-page-with-card
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログ表示順の設定"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これまでブログのトピックを取得するにあたって、GraphQL では orderBy の設定を入れていませんでした。Tag の時はタグの名前順としましたが、今回は公開日の新しいものが表示されるように、以下のように "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/interfaces/Blog/index.ts"
+              },
+              {
+                "type": "text",
+                "text": " のクエリを変更します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "graphql"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "export const AllBlogQuery =\n  `\n  query AllBlog {\n    allBlog(orderBy: PUBLISHDATE_DESC) {\n      total\n        results {\n            ` +\n  BlogQuery +\n  `\n        }\n    }\n}\n`;"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログカードの追加"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "タグの時の一覧と同様に、ブログカードを作成します。今回は "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/components/BlogCard.tsx"
+              },
+              {
+                "type": "text",
+                "text": " というコンポーネントを作成して、以下のようにコードを設定します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import { Blog } from \"@/interfaces/Blog\";\nimport Image from \"next/image\";\nimport Link from \"next/link\";\n\nexport default function TagCard(post: Partial<Blog>) {\n  return (\n    <>\n      <article\n        key={post.id}\n        className=\"flex flex-col items-start justify-between \"\n      >\n        <div className=\"relative w-full \">\n          <Link href={\"/blog/\" + post.id}>\n            <Image\n              className=\"aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]\"\n              src={\n                post.hero?.results[0]?.fileUrl ||\n                \"/content-hub-one-horizontal-color-white-txt.svg\"\n              }\n              alt={post.hero?.results[0]?.description || \"Image\"}\n              width={post.hero?.results[0]?.fileWidth || \"250\"}\n              height={post.hero?.results[0]?.fileHeight || \"250\"}\n            />\n          </Link>\n        </div>\n        <div className=\"max-w-xl\">\n          <div className=\"mt-4 flex items-center gap-x-4 text-xs\">\n            <time\n              dateTime={post.publishDate}\n              className=\"text-gray-500 dark:text-gray-400\"\n            >\n              {post.publishDate}\n            </time>\n            <Link\n              href=\"/tags/\"\n              className=\"relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100\"\n            >\n              Tags\n            </Link>\n          </div>\n          <div className=\"group relative\">\n            <h3 className=\"mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-gray-300 group-hover:text-gray-600\">\n              <Link href={\"/blog/\" + post.id}>\n                <span className=\"absolute inset-0\" />\n                {post.title}\n              </Link>\n            </h3>\n            <p className=\"mt-5 line-clamp-3 text-sm leading-6 text-gray-600 dark:text-gray-400\">\n              {post.description}\n            </p>\n          </div>\n        </div>\n      </article>\n    </>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでカードができました。ブログのタイトル一覧のページ "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/tags/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " での表示で、以下のように更新します。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import BlogCard from \"@/components/BlogCard\";\nimport { getAllBlog } from \"@/utils/getBlog\";\n\nexport default async function Blog() {\n  const posts = await getAllBlog();\n\n  return (\n    <main>\n      <h1 className=\"text-3xl bold p-6\">Blog List</h1>\n      <div className=\"py-4\">\n        <div className=\"mx-auto max-w-7xl px-6 lg:px-8\">\n          <div className=\"mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3\">\n            {posts.map((post, index) => (\n              <div key={index}>{BlogCard(post)}</div>\n            ))}{\" \"}\n          </div>\n        </div>\n      </div>\n    </main>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "これでブログページの一覧で、カードを利用して表示できるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=biZgHI7jr0uULA7Vjf1MUQ"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "タグのページにも適用する"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ブログのカードは、前回作成をした各タグの一覧ページに対しても有効です。そこで、"
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "src/app/tags/[tag]/page.tsx"
+              },
+              {
+                "type": "text",
+                "text": " のファイルのページで BlogCard を利用してページの構成を以下のように変更をしました。"
+              }
+            ]
+          },
+          {
+            "type": "codeBlock",
+            "attrs": {
+              "language": "ts"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "import BlogCard from \"@/components/BlogCard\";\nimport { getAllBlogFromTag } from \"@/utils/getBlog\";\nimport { getCategoryFromSlug } from \"@/utils/getCategory\";\n\nexport default async function Page({ params }: { params: { tag: string } }) {\n  const tag = await getCategoryFromSlug(params.tag);\n\n  if (tag.id === undefined) {\n    return <></>;\n  }\n\n  const posts = await getAllBlogFromTag(tag.id);\n\n  return (\n    <main>\n      <h1 className=\"text-3xl ml-6 bold p-6\">Tag: {tag.categoryName}</h1>\n      <div className=\"py-4\">\n        <div className=\"mx-auto max-w-7xl px-6 lg:px-8\">\n          <div className=\"mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3\">\n            {posts.map((post, index) => (\n              <div key={index}>{BlogCard(post)}</div>\n            ))}{\" \"}\n          </div>\n        </div>\n      </div>\n    </main>\n  );\n}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "結果、以下のように対象となるタグのブログの記事が、すべてカードを利用して表示できるようになりました。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CHOMEDIA=-f8dsc56TE6T4y_XD0l2sA"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "まとめ"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "今回はブログの一覧を表示するためのカードを作成して、ブログのトップで新着の記事を表示するように設定をしました。これでブログの各記事に対するリンクが作成されました。ただ、まだブログに関しては URL に対して slug を利用せず、id を利用しています。次回は slug を利用する形に変更していきます。"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: 7NQVbF9gskiIHFSgtac2sw
+    type: Reference
+  hero:
+    value:
+    - type: Link
+      relatedType: Media
+      id: biZgHI7jr0uULA7Vjf1MUQ
+    type: Media

@@ -1,0 +1,48 @@
+﻿id: ev1jYatc6UazKNVUhMksAg
+name: Vercel Toolbar への対応 - Vercel Edit への対応
+fields:
+  title:
+    value: Vercel Toolbar への対応 - Vercel Edit への対応
+    type: ShortText
+  description:
+    value: 前回は Draft モードに対応するように作成をしましたが、今回は Vercel Toolbar のもう一つの機能、Vercel Edit に対応する方法を確認していきます。
+    type: LongText
+  publishDate:
+    value: 2024-05-17T10:00:00.0000000+09:00
+    type: DateTime
+  slug:
+    value: vercel-toolbar-editing
+    type: ShortText
+  content:
+    value: >-
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Vercel Editing って何？"
+              }
+            ]
+          }
+        ]
+      }
+    type: RichText
+  topStory:
+    value: false
+    type: Boolean
+  languages:
+    value:
+    - id: ja
+    type: Select
+  tag:
+    value:
+    - type: Link
+      relatedType: Content
+      id: eKVxniGsQUyMj2BKqwuHRw
+    type: Reference
+  hero:
+    value: []
+    type: Media
