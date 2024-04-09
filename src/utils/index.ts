@@ -11,7 +11,7 @@ export async function fetchGraphQL(query: string): Promise<unknown> {
   let apiKey = "";
   let endpointUrl = "";
 
-  if (isEnabled == true) {
+  if (isEnabled) {
     apiKey = process.env.NEXT_PUBLIC_CHONE_PREVIEW_KEY ?? "";
     endpointUrl = process.env.NEXT_PUBLIC_CHONE_PREVIEW_ENDPOINT ?? "";
   } else {
