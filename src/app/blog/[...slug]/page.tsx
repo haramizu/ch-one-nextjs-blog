@@ -1,5 +1,6 @@
 import RichText from "@/components/RichText";
 import { getBlogFromSlug } from "@/utils/getBlog";
+import { showTitle } from "@/utils/getBlog/edit";
 import moment from "moment";
 import Link from "next/link";
 
@@ -10,7 +11,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     <main>
       <div className="mx-auto text-center mt-4">
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          {post.title}
+          {showTitle(post)}
         </h1>
         <p className="mt-6 text-lg leading-8 font-bold">
           Published: {showDate(post.publishDate)}
