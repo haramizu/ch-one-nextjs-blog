@@ -2,6 +2,7 @@ import {
   AllBlogFromTagQuery,
   AllBlogQuery,
   AllBlogResponse,
+  AllBlogUrlQuery,
   AllTopStoryQuery,
   Blog,
   BlogCursorQuery,
@@ -119,6 +120,30 @@ export async function getBlogCursor(pageNumber: number) {
 export async function getBlogPagination(endCursor: string) {
   const results: AllBlogResponse = (await easyGraphQL(
     BlogPaginationQuery(endCursor)
+  )) as AllBlogResponse;
+
+  const contents: Partial<Blog>[] = [];
+
+  results.data.allBlog.results.forEach((post: Partial<Blog>) => {
+    contents.push({
+      id: post.id,
+      name: post.name,
+      title: post.title,
+      description: post.description,
+      publishDate: post.publishDate,
+      slug: post.slug,
+      hero: post.hero,
+      tag: post.tag,
+      content: post.content,
+    });
+  });
+
+  return contents;
+}
+
+export async function getAllBlogUrl() {
+  const results: AllBlogResponse = (await easyGraphQL(
+    AllBlogUrlQuery
   )) as AllBlogResponse;
 
   const contents: Partial<Blog>[] = [];

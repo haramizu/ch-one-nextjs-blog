@@ -1,8 +1,17 @@
 import RichText from "@/components/RichText";
-import { getBlogFromSlug } from "@/utils/getBlog";
+import { getAllBlogUrl, getBlogFromSlug } from "@/utils/getBlog";
 import { showTitle } from "@/utils/getBlog/edit";
+import { createBlogUrl } from "@/utils/getBlog/url";
 import moment from "moment";
 import Link from "next/link";
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const posts = await getAllBlogUrl();
+
+  return posts.map((post) => createBlogUrl(post));
+}
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const post = await getBlogFromSlug(params.slug[3]);

@@ -2,7 +2,11 @@ import BlogCard from "@/components/BlogCard";
 import { getAllBlogFromTag } from "@/utils/getBlog";
 import { getCategoryFromSlug } from "@/utils/getCategory";
 
-export default async function Page({ params }: { params: { tag: string } }) {
+export default async function TagBlogListPage({
+  params,
+}: {
+  params: { tag: string };
+}) {
   const tag = await getCategoryFromSlug(params.tag);
 
   if (tag.id === undefined) {
@@ -19,7 +23,7 @@ export default async function Page({ params }: { params: { tag: string } }) {
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {posts.map((post, index) => (
               <div key={index}>{BlogCard(post)}</div>
-            ))}{" "}
+            ))}
           </div>
         </div>
       </div>

@@ -82,6 +82,20 @@ export const AllBlogQuery =
 }
 `;
 
+export const AllBlogUrlQuery =
+  `
+  query AllBlog {
+    allBlog(first: 1000, orderBy: PUBLISHDATE_DESC) {
+      total
+        results {
+            ` +
+  BlogQuery +
+  `
+        }
+    }
+}
+`;
+
 export const BlogFromIDQuery = (blogId: string) => {
   return (
     `
@@ -116,6 +130,7 @@ export const AllBlogFromTagQuery = (categoryid: string) => {
     query AllBlog {
       allBlog(
           orderBy: PUBLISHDATE_DESC
+          first: 12
           where: { tag: { category_ids: "${categoryid}" } }
       ) {
           total
