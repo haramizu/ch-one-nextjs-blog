@@ -15,10 +15,8 @@ export async function generateStaticParams() {
   const pages = Math.ceil(total / BLOG_PAGE_SIZE);
 
   const staticParams = [];
-  if (pages > 1) {
-    for (let i = 1; i <= pages; i++) {
-      staticParams.push({ id: `${i}` });
-    }
+  for (let i = 1; i <= pages; i++) {
+    staticParams.push({ id: `${i}` });
   }
   return staticParams;
 }
@@ -30,12 +28,11 @@ export default async function BlogPagination({
 }) {
   const pageNumber = parseInt(params.id, 10);
 
-  const pageCausor = await getBlogCursor((pageNumber - 1) * BLOG_PAGE_SIZE);
-  const posts = await getBlogPagination(pageCausor);
-
   if (pageNumber == 1) {
     redirect("/blog");
   } else {
+    const pageCausor = await getBlogCursor((pageNumber - 1) * BLOG_PAGE_SIZE);
+    const posts = await getBlogPagination(pageCausor);
     return (
       <main>
         <h1 className="text-3xl bold p-6">Blog List - Page {params.id}</h1>
