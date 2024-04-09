@@ -1,4 +1,5 @@
 import { Blog } from "@/interfaces/Blog";
+import { showTitle } from "@/utils/getBlog/edit";
 import { getBlogUrl } from "@/utils/getBlog/url";
 import moment from "moment";
 import Image from "next/image";
@@ -47,7 +48,7 @@ export default function BlogCard(post: Partial<Blog>) {
             <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-gray-300 group-hover:text-gray-600">
               <Link href={getBlogUrl(post)}>
                 <span className="absolute inset-0" />
-                {post.title}
+                {showTitle(post)}
               </Link>
             </h3>
             <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
