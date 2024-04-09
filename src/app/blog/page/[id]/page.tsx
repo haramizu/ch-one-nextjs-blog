@@ -15,10 +15,11 @@ export async function generateStaticParams() {
   const pages = Math.ceil(total / BLOG_PAGE_SIZE);
 
   const staticParams = [];
-  for (let i = 1; i <= pages; i++) {
-    staticParams.push({ id: `${i}` });
+  if (pages > 1) {
+    for (let i = 1; i <= pages; i++) {
+      staticParams.push({ id: `${i}` });
+    }
   }
-
   return staticParams;
 }
 
