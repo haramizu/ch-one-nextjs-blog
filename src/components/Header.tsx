@@ -5,17 +5,26 @@ import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
 import { ThemeSwitcher } from "./ThemeSwither";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  console.log(theme);
   return (
     <header className="p-4 flex justify-between items-center">
       <div className="flex-none w-40 mr-8">
         <Link href="/">
-          {theme === "light" ? (
+          {theme === "dark" ? (
             <Image
-              src="/content-hub-one-horizontal-color-black-txt.svg"
+              src="/content-hub-one-horizontal-color-white-txt.svg"
               alt="Content Hub ONE"
               className="h-8"
               width={350}
@@ -23,7 +32,7 @@ export default function Header() {
             />
           ) : (
             <Image
-              src="/content-hub-one-horizontal-color-white-txt.svg"
+              src="/content-hub-one-horizontal-color-black-txt.svg"
               alt="Content Hub ONE"
               className="h-8"
               width={350}

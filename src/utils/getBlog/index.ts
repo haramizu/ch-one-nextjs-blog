@@ -2,13 +2,16 @@ import {
   AllBlogFromTagQuery,
   AllBlogQuery,
   AllBlogResponse,
+  AllBlogUrlQuery,
   AllTopStoryQuery,
   Blog,
+  BlogCursorQuery,
   BlogFromIDQuery,
   BlogFromSlugQuery,
+  BlogPaginationQuery,
   BlogResponse,
 } from "@/interfaces/Blog";
-import { fetchGraphQL } from "@/utils";
+import { easyGraphQL, fetchGraphQL } from "@/utils";
 
 export async function getAllBlog() {
   const results: AllBlogResponse = (await fetchGraphQL(
@@ -96,4 +99,68 @@ export async function getBlogFromSlug(slug: string) {
   )) as AllBlogResponse;
 
   return post.data.allBlog.results[0];
+}
+
+export async function getBlogTotal() {
+  const results: AllBlogResponse = (await easyGraphQL(
+    AllBlogQuery
+  )) as AllBlogResponse;
+
+  return results.data.allBlog.total;
+}
+
+export async function getBlogCursor(pageNumber: number) {
+  const results: AllBlogResponse = (await easyGraphQL(
+    BlogCursorQuery(pageNumber)
+  )) as AllBlogResponse;
+
+  return results.data.allBlog.pageInfo.endCursor;
+}
+
+export async function getBlogPagination(endCursor: string) {
+  const results: AllBlogResponse = (await easyGraphQL(
+    BlogPaginationQuery(endCursor)
+  )) as AllBlogResponse;
+
+  const contents: Partial<Blog>[] = [];
+
+  results.data.allBlog.results.forEach((post: Partial<Blog>) => {
+    contents.push({
+      id: post.id,
+      name: post.name,
+      title: post.title,
+      description: post.description,
+      publishDate: post.publishDate,
+      slug: post.slug,
+      hero: post.hero,
+      tag: post.tag,
+      content: post.content,
+    });
+  });
+
+  return contents;
+}
+
+export async function getAllBlogUrl() {
+  const results: AllBlogResponse = (await easyGraphQL(
+    AllBlogUrlQuery
+  )) as AllBlogResponse;
+
+  const contents: Partial<Blog>[] = [];
+
+  results.data.allBlog.results.forEach((post: Partial<Blog>) => {
+    contents.push({
+      id: post.id,
+      name: post.name,
+      title: post.title,
+      description: post.description,
+      publishDate: post.publishDate,
+      slug: post.slug,
+      hero: post.hero,
+      tag: post.tag,
+      content: post.content,
+    });
+  });
+
+  return contents;
 }

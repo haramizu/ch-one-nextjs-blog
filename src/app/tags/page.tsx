@@ -1,6 +1,5 @@
 import TagCard from "@/components/TagCard";
 import { getAllCategory } from "@/utils/getCategory";
-import { Fragment } from "react";
 
 export default async function Tags() {
   const tags = await getAllCategory();

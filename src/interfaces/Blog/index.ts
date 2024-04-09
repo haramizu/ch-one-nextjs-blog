@@ -1,3 +1,4 @@
+import { BLOG_PAGE_SIZE } from "@/constants/build";
 import { Category, CategoryQuery } from "@/interfaces/Category";
 import { Media, MediaQuery } from "@/interfaces/Media";
 import { RichTextResponse } from "@/interfaces/RichText";
@@ -31,6 +32,10 @@ export interface AllBlogResponse {
     allBlog: {
       total: number;
       results: Partial<Blog>[];
+      pageInfo: {
+        endCursor: string;
+        hasNext: boolean;
+      };
     };
   };
 }
@@ -66,7 +71,21 @@ const BlogQuery =
 export const AllBlogQuery =
   `
   query AllBlog {
-    allBlog(orderBy: PUBLISHDATE_DESC) {
+    allBlog(first: ${BLOG_PAGE_SIZE}, orderBy: PUBLISHDATE_DESC) {
+      total
+        results {
+            ` +
+  BlogQuery +
+  `
+        }
+    }
+}
+`;
+
+export const AllBlogUrlQuery =
+  `
+  query AllBlog {
+    allBlog(first: 1000, orderBy: PUBLISHDATE_DESC) {
       total
         results {
             ` +
@@ -111,6 +130,7 @@ export const AllBlogFromTagQuery = (categoryid: string) => {
     query AllBlog {
       allBlog(
           orderBy: PUBLISHDATE_DESC
+          first: 12
           where: { tag: { category_ids: "${categoryid}" } }
       ) {
           total
@@ -136,6 +156,40 @@ export const BlogFromSlugQuery = (slug: string) => {
     `}
     }
   } 
+  `
+  );
+};
+
+export const BlogCursorQuery = (first: number) => {
+  return `
+    query AllBlog {
+      allBlog(first: ${first}, orderBy: PUBLISHDATE_DESC) {
+        total
+        pageInfo {
+          endCursor
+          hasNext
+        }
+      }
+    }
+`;
+};
+
+export const BlogPaginationQuery = (endCursor: string) => {
+  return (
+    `
+    query AllBlog {
+      allBlog(
+          first: ${BLOG_PAGE_SIZE}
+          after: "${endCursor}"
+          orderBy: PUBLISHDATE_DESC
+      ) {
+          total
+          results {` +
+    BlogQuery +
+    `}
+      }
+  }
+  
   `
   );
 };
