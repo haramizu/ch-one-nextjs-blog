@@ -1,13 +1,17 @@
+import { draftMode } from "next/headers";
+
 type GraphQLResponseWithErrors = {
   errors: unknown[];
 };
 
 export async function fetchGraphQL(query: string): Promise<unknown> {
+  const { isEnabled } = draftMode();
+
   const Environment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   let apiKey = "";
   let endpointUrl = "";
 
-  if (Environment === "Preview") {
+  if (isEnabled == true) {
     apiKey = process.env.NEXT_PUBLIC_CHONE_PREVIEW_KEY ?? "";
     endpointUrl = process.env.NEXT_PUBLIC_CHONE_PREVIEW_ENDPOINT ?? "";
   } else {
