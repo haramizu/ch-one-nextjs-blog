@@ -1,9 +1,10 @@
 import BlogCard from "@/components/BlogCard";
-import { getAllBlog } from "@/utils/getBlog";
+import Pagination from "@/components/Pagination";
+import { getAllBlog, getBlogTotal } from "@/utils/getBlog";
 
 export default async function BlogHome() {
   const posts = await getAllBlog();
-
+  const total = await getBlogTotal();
   return (
     <main>
       <h1 className="text-3xl bold p-6">Blog List</h1>
@@ -16,6 +17,7 @@ export default async function BlogHome() {
           </div>
         </div>
       </div>
+      <Pagination totalNumber={total} />
     </main>
   );
 }

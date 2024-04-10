@@ -1,4 +1,5 @@
 import BlogCard from "@/components/BlogCard";
+import Pagination from "@/components/Pagination";
 import { BLOG_PAGE_SIZE } from "@/constants/build";
 import {
   getBlogCursorWithTag,
@@ -62,6 +63,7 @@ export default async function TagPagination({
             </div>
           </div>
         </div>
+        <Pagination totalNumber={10} />
       </main>
     );
   }

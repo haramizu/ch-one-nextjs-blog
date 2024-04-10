@@ -1,4 +1,5 @@
 import BlogCard from "@/components/BlogCard";
+import Pagination from "@/components/Pagination";
 import { BLOG_PAGE_SIZE } from "@/constants/build";
 import {
   getBlogCursor,
@@ -27,6 +28,7 @@ export default async function BlogPagination({
   params: { id: string };
 }) {
   const pageNumber = parseInt(params.id, 10);
+  const total = await getBlogTotal();
 
   if (pageNumber == 1) {
     redirect("/blog");
@@ -45,6 +47,7 @@ export default async function BlogPagination({
             </div>
           </div>
         </div>
+        <Pagination totalNumber={total} />
       </main>
     );
   }
