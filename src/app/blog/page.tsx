@@ -1,7 +1,7 @@
 import BlogCard from "@/components/BlogCard";
 import { getAllBlog } from "@/utils/getBlog";
 
-export default async function Blog() {
+export default async function BlogHome() {
   const posts = await getAllBlog();
 
   return (

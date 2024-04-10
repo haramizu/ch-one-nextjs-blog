@@ -1,7 +1,7 @@
 import TagCard from "@/components/TagCard";
 import { getAllCategory } from "@/utils/getCategory";
 
-export default async function Tags() {
+export default async function TagsHome() {
   const tags = await getAllCategory();
 
   return (

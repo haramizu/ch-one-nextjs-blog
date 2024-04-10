@@ -13,7 +13,11 @@ export async function generateStaticParams() {
   return posts.map((post) => createBlogUrl(post));
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function BlogPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const post = await getBlogFromSlug(params.slug[3]);
 
   return (

@@ -2,11 +2,7 @@ import BlogCard from "@/components/BlogCard";
 import { getAllBlogFromTag } from "@/utils/getBlog";
 import { getCategoryFromSlug } from "@/utils/getCategory";
 
-export default async function TagBlogListPage({
-  params,
-}: {
-  params: { tag: string };
-}) {
+export default async function TagPage({ params }: { params: { tag: string } }) {
   const tag = await getCategoryFromSlug(params.tag);
 
   if (tag.id === undefined) {
