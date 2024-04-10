@@ -6,9 +6,11 @@ import {
   AllTopStoryQuery,
   Blog,
   BlogCursorQuery,
+  BlogCursorWithTagQuery,
   BlogFromIDQuery,
   BlogFromSlugQuery,
   BlogPaginationQuery,
+  BlogPaginationWithTagQuery,
   BlogResponse,
   BlogWithTagTotalQuery,
 } from "@/interfaces/Blog";
@@ -119,7 +121,7 @@ export async function getBlogCursor(pageNumber: number) {
 }
 
 export async function getBlogPagination(endCursor: string) {
-  const results: AllBlogResponse = (await easyGraphQL(
+  const results: AllBlogResponse = (await fetchGraphQL(
     BlogPaginationQuery(endCursor)
   )) as AllBlogResponse;
 
@@ -172,4 +174,39 @@ export async function getBlogWithTagTotal(tagId: string) {
   )) as AllBlogResponse;
 
   return tags.data.allBlog.total;
+}
+
+export async function getBlogCursorWithTag(pageNumber: number, tagId: string) {
+  const results: AllBlogResponse = (await fetchGraphQL(
+    BlogCursorWithTagQuery(pageNumber, tagId)
+  )) as AllBlogResponse;
+
+  return results.data.allBlog.pageInfo.endCursor;
+}
+
+export async function getBlogPaginationWithTag(
+  endCursor: string,
+  tagId: string
+) {
+  const results: AllBlogResponse = (await fetchGraphQL(
+    BlogPaginationWithTagQuery(endCursor, tagId)
+  )) as AllBlogResponse;
+
+  const contents: Partial<Blog>[] = [];
+
+  results.data.allBlog.results.forEach((post: Partial<Blog>) => {
+    contents.push({
+      id: post.id,
+      name: post.name,
+      title: post.title,
+      description: post.description,
+      publishDate: post.publishDate,
+      slug: post.slug,
+      hero: post.hero,
+      tag: post.tag,
+      content: post.content,
+    });
+  });
+
+  return contents;
 }

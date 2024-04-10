@@ -202,3 +202,48 @@ export const BlogWithTagTotalQuery = (tagId: string) => {
       }
     }  `;
 };
+
+export const BlogCursorWithTagQuery = (first: number, tagId: string) => {
+  return `
+    query AllBlog {
+      allBlog(
+        first: ${first}
+        orderBy: PUBLISHDATE_DESC
+        where: { tag: { category_ids: "${tagId}" } }
+    )  {
+        total
+        pageInfo {
+          endCursor
+          hasNext
+        }
+      }
+    }
+`;
+};
+
+export const BlogPaginationWithTagQuery = (
+  endCursor: string,
+  tagId: string
+) => {
+  return (
+    `
+    query AllBlog {
+      allBlog(
+          first: ${BLOG_PAGE_SIZE}
+          orderBy: PUBLISHDATE_DESC
+          where: { tag: { category_ids: "${tagId}" } }
+          after: "${endCursor}"
+      ) {
+          total
+          results {` +
+    BlogQuery +
+    `}
+          pageInfo {
+              endCursor
+              hasNext
+          }
+      }
+  }
+  `
+  );
+};

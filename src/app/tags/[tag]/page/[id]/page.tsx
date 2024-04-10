@@ -1,6 +1,11 @@
+import BlogCard from "@/components/BlogCard";
 import { BLOG_PAGE_SIZE } from "@/constants/build";
-import { getBlogWithTagTotal } from "@/utils/getBlog";
-import { getAllCategoryUrl } from "@/utils/getCategory";
+import {
+  getBlogCursorWithTag,
+  getBlogPaginationWithTag,
+  getBlogWithTagTotal,
+} from "@/utils/getBlog";
+import { getAllCategoryUrl, getCategoryIDFromSlug } from "@/utils/getCategory";
 import { redirect } from "next/navigation";
 
 export const dynamicParams = false;
@@ -18,7 +23,6 @@ export async function generateStaticParams() {
       }
     }
   }
-  console.log(staticParams);
   return staticParams;
 }
 
@@ -32,10 +36,32 @@ export default async function TagPagination({
   if (pageNumber == 1) {
     redirect("/tags/" + params.tag);
   } else {
+    const tagId = await getCategoryIDFromSlug(params.tag);
+
+    if (tagId === undefined) {
+      return <></>;
+    }
+    const pageCausor = await getBlogCursorWithTag(
+      (pageNumber - 1) * BLOG_PAGE_SIZE,
+      tagId
+    );
+
+    const posts = await getBlogPaginationWithTag(pageCausor, tagId);
+
     return (
       <main>
-        <div>tag: {params.tag}</div>
-        <div>id: {params.id}</div>
+        <h1 className="text-3xl bold p-6">
+          {params.tag} List - Page {params.id}
+        </h1>
+        <div className="py-4">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+              {posts.map((post, index) => (
+                <div key={index}>{BlogCard(post)}</div>
+              ))}
+            </div>
+          </div>
+        </div>
       </main>
     );
   }

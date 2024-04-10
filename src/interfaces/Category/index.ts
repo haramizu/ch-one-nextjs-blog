@@ -85,3 +85,16 @@ export const CategoryFromSlugQuery = (slug: string) => {
   `
   );
 };
+
+export const CategoryIDFromSlugQuery = (categorySlug: string) => {
+  return `
+  query AllCategory {
+    allCategory(where: { slug_eq: "${categorySlug}" }) {
+      total
+      results {
+          id
+      }
+  }
+}
+`;
+};

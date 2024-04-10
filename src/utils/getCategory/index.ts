@@ -4,6 +4,7 @@ import {
   Category,
   CategoryFromIDQuery,
   CategoryFromSlugQuery,
+  CategoryIDFromSlugQuery,
   CategoryResponse,
 } from "@/interfaces/Category";
 import { easyGraphQL, fetchGraphQL } from "@/utils";
@@ -64,4 +65,12 @@ export async function getAllCategoryUrl() {
   });
 
   return results;
+}
+
+export async function getCategoryIDFromSlug(slug: string) {
+  const tags: AllCategoryResponse = (await fetchGraphQL(
+    CategoryIDFromSlugQuery(slug)
+  )) as AllCategoryResponse;
+
+  return tags.data.allCategory.results[0].id;
 }

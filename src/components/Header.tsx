@@ -17,7 +17,6 @@ export default function Header() {
 
   if (!mounted) return null;
 
-  console.log(theme);
   return (
     <header className="p-4 flex justify-between items-center">
       <div className="flex-none w-40 mr-8">
