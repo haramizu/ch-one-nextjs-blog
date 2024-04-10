@@ -6,7 +6,7 @@ import {
   CategoryFromSlugQuery,
   CategoryResponse,
 } from "@/interfaces/Category";
-import { fetchGraphQL } from "@/utils";
+import { easyGraphQL, fetchGraphQL } from "@/utils";
 
 export async function getAllCategory() {
   const tags: AllCategoryResponse = (await fetchGraphQL(
@@ -43,4 +43,25 @@ export async function getCategoryFromSlug(slug: string) {
   )) as AllCategoryResponse;
 
   return tags.data.allCategory.results[0];
+}
+
+export async function getAllCategoryUrl() {
+  const tags: AllCategoryResponse = (await easyGraphQL(
+    AllCategoryQuery
+  )) as AllCategoryResponse;
+
+  const results: Partial<Category>[] = [];
+
+  tags.data.allCategory.results.forEach((post: Partial<Category>) => {
+    results.push({
+      id: post.id,
+      name: post.name,
+      categoryName: post.categoryName,
+      description: post.description,
+      slug: post.slug,
+      hero: post.hero,
+    });
+  });
+
+  return results;
 }

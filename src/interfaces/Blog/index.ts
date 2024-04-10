@@ -193,3 +193,12 @@ export const BlogPaginationQuery = (endCursor: string) => {
   `
   );
 };
+
+export const BlogWithTagTotalQuery = (tagId: string) => {
+  return `
+    query AllBlog {
+      allBlog(where: { tag: { category_ids: "${tagId}" } }) {
+          total
+      }
+    }  `;
+};

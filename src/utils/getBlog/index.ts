@@ -10,6 +10,7 @@ import {
   BlogFromSlugQuery,
   BlogPaginationQuery,
   BlogResponse,
+  BlogWithTagTotalQuery,
 } from "@/interfaces/Blog";
 import { easyGraphQL, fetchGraphQL } from "@/utils";
 
@@ -163,4 +164,12 @@ export async function getAllBlogUrl() {
   });
 
   return contents;
+}
+
+export async function getBlogWithTagTotal(tagId: string) {
+  const tags: AllBlogResponse = (await easyGraphQL(
+    BlogWithTagTotalQuery(tagId)
+  )) as AllBlogResponse;
+
+  return tags.data.allBlog.total;
 }

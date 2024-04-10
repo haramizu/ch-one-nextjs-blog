@@ -1,6 +1,16 @@
 import BlogCard from "@/components/BlogCard";
 import { getAllBlogFromTag } from "@/utils/getBlog";
-import { getCategoryFromSlug } from "@/utils/getCategory";
+import { getAllCategoryUrl, getCategoryFromSlug } from "@/utils/getCategory";
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const tags = await getAllCategoryUrl();
+
+  return tags.map((tag) => ({
+    tag: tag.slug,
+  }));
+}
 
 export default async function TagPage({ params }: { params: { tag: string } }) {
   const tag = await getCategoryFromSlug(params.tag);
